@@ -7,6 +7,7 @@ class latex_str_error(Exception):
     pass
 
 def bmatrix2numpy(latex_str)->numpy.array:
+    latex_str = latex_str.strip()
     if latex_str.startswith('\\begin{bmatrix}') and latex_str.endswith('\\end{bmatrix}'):
         latex_str = latex_str.replace('\\begin{bmatrix}','').replace('\\end{bmatrix}','')
         rows = latex_str.split('\\\\')
@@ -31,19 +32,20 @@ def numpy2bmatrix(array)->str:
             s += '\\end{bmatrix}'
     return s
 
-def str2list(list_str,mod_str)->list:
+def str2list(list_str,mod_str = ',')->list:
     list_str = list_str.strip().replace('\n',mod_str)
     return list_str.split(mod_str)
 
-def list2str(list_,mod_str)->str:
+def list2str(list_,mod_str=',')->str:
     result = ''
     for i in range(0,len(list_)):
         if i < len(list_)-1:
             result += (str(list_[i])+mod_str)
         else:
             result += str(list_[i])
-    return result
+    return "[%s]"%result
 
 if __name__ == "__main__":
     lista = [1,2,3,4,5,6]
-    print(list2str(lista,''))
+    print(lista)
+    print(list2str(lista))
