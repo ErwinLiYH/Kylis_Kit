@@ -16,6 +16,9 @@ def load_result(path_name):
         return pickle.load(f)
     
 def store_result(path_name, Aobject):
+    path = os.path.dirname(path_name)
+    if os.path.exists(path)==False:
+        os.makedirs(path)
     with open(path_name, "wb") as f:
         pickle.dump(Aobject, f)
 
