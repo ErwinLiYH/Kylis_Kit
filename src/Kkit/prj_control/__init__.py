@@ -21,15 +21,3 @@ def store_result(path_name, Aobject):
         os.makedirs(path)
     with open(path_name, "wb") as f:
         pickle.dump(Aobject, f)
-
-def print_list(Alist, num_of_columns, separator_in_line=" , ", separator_between_line="\n"):
-    length = len(Alist)
-    for i in range(length):
-        if i%num_of_columns != (num_of_columns-1):
-            if i == (length-1):
-                print(Alist[i], end = separator_between_line)
-            else:
-                print(Alist[i], end = separator_in_line)
-        else:
-            print(Alist[i], end = separator_between_line)
-    print("\nlength: %d"%length)
