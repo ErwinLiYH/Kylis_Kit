@@ -22,7 +22,7 @@ class m3u8_downloader:
     cant_dow = []
     total = 0
     lock = Lock()
-    def __init__(self,m3u8_file_path,temp_file_path='.',mp4_path='./test.mp4',num_of_threads=10):
+    def __init__(self,m3u8_file_path, url_prefix=None,temp_file_path='.',mp4_path='./test.mp4',num_of_threads=10):
         if num_of_threads <= 0:
             raise thread_num_ERROR('the number of threads can\'t smaller than 0')
         self.mp4_path = mp4_path
@@ -37,7 +37,9 @@ please comfirm the temporary folder included the fragment video you need""")
             os.mkdir(self.temp_file_path+'/TS')
             self.has_download_name = []
         with open(self.m3u8_file_path,'r') as m3u8:
-            temp_url = [m3u8_lines.replace('\n','') for m3u8_lines in m3u8.readlines() if m3u8_lines.startswith('http')]
+            temp_url = [m3u8_lines.replace('\n','') for m3u8_lines in m3u8.readlines() if m3u8_lines.startswith('#')==False]
+        if url_prefix != None:
+            temp_url = [url_prefix+i for i in temp_url]
         self.total = len(temp_url)
         self.names = [i.split('/')[-1].split('?')[0] for i in temp_url]
         self.urls = [[] for j in range(0, self.num_of_threads)]
@@ -109,7 +111,6 @@ please comfirm the temporary folder included the fragment video you need""")
             else:
                 with self.lock:
                     jdt.update(1)
-
 if __name__ == "__main__":
     a = m3u8_downloader('/mnt/c/Users/kylis/Downloads/r.m3u8',temp_file_path='.',mp4_path='./1.mp4', num_of_threads=17)
     a.start()
