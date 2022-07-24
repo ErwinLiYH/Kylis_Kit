@@ -39,7 +39,7 @@ please comfirm the temporary folder included the fragment video you need""")
         with open(self.m3u8_file_path,'r') as m3u8:
             temp_url = [m3u8_lines.replace('\n','') for m3u8_lines in m3u8.readlines() if m3u8_lines.startswith('#')==False]
         if url_prefix != None:
-            temp_url = [url_prefix+i for i in temp_url]
+            temp_url = [os.path.join(url_prefix, i) for i in temp_url]
         self.total = len(temp_url)
         self.names = [i.split('/')[-1].split('?')[0] for i in temp_url]
         self.urls = [[] for j in range(0, self.num_of_threads)]
