@@ -15,9 +15,13 @@ def load_result(path_name):
     with open(path_name, "rb") as f:
         return pickle.load(f)
     
-def store_result(path_name, Aobject):
-    path = os.path.dirname(path_name)
-    if os.path.exists(path)==False:
-        os.makedirs(path)
-    with open(path_name, "wb") as f:
+def store_result(path, name, Aobject=None):
+    if Aobject == None:
+        try:
+            print("find \"%s\" in global variable"%name)
+            Aobject = globals()["name"]
+            print("store \"%s\" to %s"%(name, os.path.join(path, name)))
+        except:
+            print("variable \"%s\" does not exist!"%name)
+    with open(os.path.join(path, name), "wb") as f:
         pickle.dump(Aobject, f)

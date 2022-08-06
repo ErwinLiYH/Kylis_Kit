@@ -1,5 +1,7 @@
-def print_list(Alist, num_of_columns, separator_in_line=" , ", separator_between_line="\n", prefix="", verbose=False):
+def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", verbose=True):
     length = len(Alist)
+    if num_of_columns == None:
+        num_of_columns = length
     print(prefix, end="")
     for i in range(length):
         if i%num_of_columns != (num_of_columns-1):
