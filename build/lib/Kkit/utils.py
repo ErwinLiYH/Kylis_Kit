@@ -27,16 +27,6 @@ def conclude_list(Alist):
             result[i] = 1
     return result
 
-def conclude_list2(a_list):
-    no_duplicate = []
-    for i in a_list:
-        if i not in no_duplicate:
-            no_duplicate.append(i)
-    count_list = []
-    for i in no_duplicate:
-        count_list.append(a_list.count(i))
-    return no_duplicate, count_list
-
 def time_string():
     return time.strftime("%Y-%m-%d-%H%M%S", time.localtime())
 
