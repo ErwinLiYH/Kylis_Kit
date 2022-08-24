@@ -53,7 +53,9 @@ def plot_2D(vecs, s=8, labels=None, scatter_color="red", label_color="black", la
     # plt.xlim = XY_range
     # plt.ylim = XY_range
 
-def adjusted_label(X, y, labels, font_color="black", arrow_linestyle="-.", arrow_color="silver", font_size=16, arrow_lw=1):
+def adjusted_label(vecs, labels, font_color="black", arrow_linestyle="-.", arrow_color="silver", font_size=16, arrow_lw=1):
+    X = vecs[:,0]
+    y = vecs[:,1]
     new_texts = [plt.text(x_, y_, text, fontsize=font_size, color=font_color) for x_, y_, text in zip(X, y, labels)]
     num = adjust_text(new_texts, 
         only_move={'text': 'xy', "objects": "xy", "points": "xy"},
