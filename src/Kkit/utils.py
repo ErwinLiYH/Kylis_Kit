@@ -1,6 +1,7 @@
 import time
 import pickle
 import os
+from xmlrpc.client import boolean
 
 def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", verbose=True):
     length = len(Alist)
@@ -80,3 +81,14 @@ def sort_multi_list(*multi_list,by = 1,my_reverse=False):
 def merge_list_to_dic(list1,list2):
     li = zip(list1,list2)
     return {k:v for (k,v) in li}
+
+def list_in_list(list1, list2, X=None):
+    boolean_list = []
+    for i in list1:
+        boolean_list.append(i in list2)
+    if X==None:
+        return boolean_list
+    elif X=="all":
+        return False not in boolean_list
+    elif X=="any":
+        return True in boolean_list
