@@ -37,7 +37,7 @@ def str2color(string, Azure_key, num=5, verbose=False, show=False):
         raise Exception("num must small than 150")
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
     headers = {"Ocp-Apim-Subscription-Key" : Azure_key}
-    headers2 = {"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"}
+    # headers2 = {"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"}
     params  = {"q": string}
     response = requests.get(search_url, headers=headers, params=params)
     response.raise_for_status()
@@ -47,13 +47,14 @@ def str2color(string, Azure_key, num=5, verbose=False, show=False):
     for i in range(num):
         # time.sleep(0.5)
         try:
-            img_data = requests.get(thumbnail_urls[i], headers=headers2)
-            do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))
+            # img_data = requests.get(thumbnail_urls[i], headers=headers2)
+            # do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))
+            do_color = np.array(Haishoku.getDominant(thumbnail_urls[i])
             color_list.append(do_color)
             if verbose:
                 print(i, thumbnail_urls[i], do_color)
         except:
-            pass
+            print("error: %s"%thumbnail_urls[i])
     color_list = np.vstack(color_list)
     rgb_color = np.mean(color_list, axis=0)
     rgb_color = rgb_color.astype("int")
