@@ -49,7 +49,7 @@ def str2color(string, Azure_key, num=5, verbose=False, show=False):
         try:
             # img_data = requests.get(thumbnail_urls[i], headers=headers2)
             # do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))
-            do_color = np.array(Haishoku.getDominant(thumbnail_urls[i])
+            do_color = np.array(Haishoku.getDominant(thumbnail_urls[i]))
             color_list.append(do_color)
             if verbose:
                 print(i, thumbnail_urls[i], do_color)
