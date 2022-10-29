@@ -76,6 +76,11 @@ def sort_multi_list(*multi_list,by = 1,my_reverse=False):
             return x
         else:
             raise Exception("the value of 'by' can only be 0 or 1")
+           
+def find_key_by_value(value, dic):
+    for k,v in dic.items():
+        if v == value:
+            return k
 
 def merge_list_to_dic(list1,list2):
     li = zip(list1,list2)
