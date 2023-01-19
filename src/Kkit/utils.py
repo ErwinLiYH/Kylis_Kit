@@ -45,16 +45,18 @@ def load_result(path_name):
         return pickle.load(f)
     
 def store_result(path_name, Aobject=None):
+    if path_name==None:
+        return
     path = os.path.dirname(path_name)
     file_name = os.path.basename(path_name)
     if type(Aobject) == type(None):
         if Aobject == None:
-            print("find %s in globals"%file_name)
+            print("[Kkit.store_result] try to find %s in globals"%file_name)
             try:
                 Aobject=globals()[file_name]
-                print("found and store %s in globals"%file_name)
+                print("[Kkit.store_result] found and store %s in globals"%file_name)
             except:
-                print("variable %s does not exist"%file_name)
+                print("[Kkit.store_result] variable %s does not exist"%file_name)
     else:
         pass
     if path!="" and path!="./" and os.path.exists(path)==False:

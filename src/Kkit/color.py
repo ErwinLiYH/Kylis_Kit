@@ -32,7 +32,7 @@ def hsv2rgb(color):
     color = int_rgb(color)
     return color
 
-def str2color(string, Azure_key, num=5, verbose=False, show=False):
+def str2color(string, Azure_key, num=5, verbose=False, vi=True):
     if num>150:
         raise Exception("num must small than 150")
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
@@ -63,7 +63,7 @@ def str2color(string, Azure_key, num=5, verbose=False, show=False):
     hsl_color = (hsl_color[0], 1, 0.7)
     modified_rgb = hsv2rgb(hsl_color)
     
-    if show:
+    if vi:
          pass       
 
     return modified_rgb, color_list
