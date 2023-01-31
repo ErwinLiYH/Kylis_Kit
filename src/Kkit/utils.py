@@ -40,25 +40,24 @@ def conclude_list2(a_list):
 def time_string():
     return time.strftime("%Y-%m-%d-%H%M%S", time.localtime())
 
-def load_result(path_name):
-    with open(path_name, "rb") as f:
-        return pickle.load(f)
+def load(path_name, encoding="b", lines=False, removeCL=True):
+    if encoding=="b":
+        with open(path_name, "rb") as f:
+            return pickle.load(f)
+    else:
+        with open(path_name, "r", encoding=encoding) as f:
+            if lines:
+                content = f.readlines()
+                if removeCL:
+                    content = [i.rstrip("\n") for i in content]
+            else:
+                content = f.read()
+            return content
     
-def store_result(path_name, Aobject=None, encoding="b"):
+def store(path_name, Aobject=None, encoding="b"):
     if path_name==None:
         return
     path = os.path.dirname(path_name)
-    file_name = os.path.basename(path_name)
-    if type(Aobject) == type(None):
-        if Aobject == None:
-            print("[Kkit.store_result] try to find %s in globals"%file_name)
-            try:
-                Aobject=globals()[file_name]
-                print("[Kkit.store_result] found and store %s in globals"%file_name)
-            except:
-                print("[Kkit.store_result] variable %s does not exist"%file_name)
-    else:
-        pass
     if path!="" and path!="./" and os.path.exists(path)==False:
         os.makedirs(path)
     if encoding=="b":
@@ -67,6 +66,7 @@ def store_result(path_name, Aobject=None, encoding="b"):
     else:
         with open(path_name, "w", encoding=encoding) as f:
             f.write(Aobject)
+
 def sort_dic_by_value(dic,my_reverse=False):
     return {k: v for k, v in sorted (dic.items(), key=lambda item: item[1], reverse=my_reverse)}
 
