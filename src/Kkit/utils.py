@@ -44,7 +44,7 @@ def load_result(path_name):
     with open(path_name, "rb") as f:
         return pickle.load(f)
     
-def store_result(path_name, Aobject=None):
+def store_result(path_name, Aobject=None, encoding="b"):
     if path_name==None:
         return
     path = os.path.dirname(path_name)
@@ -61,9 +61,12 @@ def store_result(path_name, Aobject=None):
         pass
     if path!="" and path!="./" and os.path.exists(path)==False:
         os.makedirs(path)
-    with open(path_name, "wb") as f:
-        pickle.dump(Aobject, f)
-
+    if encoding=="b":
+        with open(path_name, "wb") as f:
+            pickle.dump(Aobject, f)
+    else:
+        with open(path_name, "w", encoding=encoding) as f:
+            f.write(Aobject)
 def sort_dic_by_value(dic,my_reverse=False):
     return {k: v for k, v in sorted (dic.items(), key=lambda item: item[1], reverse=my_reverse)}
 
