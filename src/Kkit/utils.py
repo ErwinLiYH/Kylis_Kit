@@ -101,3 +101,9 @@ def list_in_list(list1, list2, X=None):
         return False not in boolean_list
     elif X=="any":
         return True in boolean_list
+    
+def klistdir(path, with_prefix=True):
+    if with_prefix:
+        return [os.path.join(path, i) for i in os.listdir(path)]
+    else:
+        return os.listdir(path)
