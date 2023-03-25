@@ -7,14 +7,14 @@ from adjustText import adjust_text
 
 def PCA_2D(vecs):
     if isinstance(vecs, str):
-        vecs = utils.load_result(vecs)
+        vecs = utils.load(vecs)
     pca = PCA(n_components=2,svd_solver='full')
     PCA_res = pca.fit_transform(vecs)
     return PCA_res
 
 def CA_2D(vecs):
     if isinstance(vecs, str):
-        vecs = utils.load_result(vecs)
+        vecs = utils.load(vecs)
     ca = CA(n_components=2, n_iter=100, copy=True, check_input=True, engine='sklearn')
     CA_res = ca.fit_transform(vecs).row_coordinates(vecs)
     return CA_res

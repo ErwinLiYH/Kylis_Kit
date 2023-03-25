@@ -1,0 +1,9 @@
+haishoku
+numpy
+cryptography
+requests
+tqdm
+matplotlib
+prince
+adjustText
+pymysql
