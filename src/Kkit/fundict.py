@@ -11,17 +11,17 @@ class NoneDict(dict):
     def __getitem__(self, key):
         return super(NoneDict, self).get(key, None)
     
-class AbbrDict_content:
-    def __init__(self, true_key, abbr_key, content):
-        self.ture_key = true_key
-        self.abbr_key = abbr_key
-        self.content= content
-    def __str__(self):
-        return "_".join([self.ture_key, self.abbr_key, str(self.content)])
-    def __repr__(self):
-        return "_".join([self.ture_key, self.abbr_key, repr(self.content)])
-    def __getitem__(self, key):
-        return self.content[key]
+# class AbbrDict_content:
+#     def __init__(self, true_key, abbr_key, content):
+#         self.ture_key = true_key
+#         self.abbr_key = abbr_key
+#         self.content= content
+#     def __str__(self):
+#         return "_".join([self.ture_key, self.abbr_key, str(self.content)])
+#     def __repr__(self):
+#         return "_".join([self.ture_key, self.abbr_key, repr(self.content)])
+#     def __getitem__(self, key):
+#         return self.content[key]
 
 class AbbrDict(dict):
     def __init__(self, *args, **kwargs):
@@ -40,8 +40,8 @@ class AbbrDict(dict):
         if len(maybe)==0:
             raise KeyError("can't find key %s"%key)
         elif len(maybe)==1:
-            res = AbbrDict_content(maybe[0], key, super(AbbrDict, self).get(maybe[0], None))
-            return res
+            # res = AbbrDict_content(maybe[0], key, super(AbbrDict, self).get(maybe[0], None))
+            return super(AbbrDict, self).get(maybe[0], None)
         else:
             error_str = "get ambiguity with %s: "%key+" ".join(maybe)
             raise AmbiguityError(error_str)
