@@ -20,6 +20,8 @@ class AbbrDict_content:
         return "_".join([self.ture_key, self.abbr_key, str(self.content)])
     def __repr__(self):
         return "_".join([self.ture_key, self.abbr_key, repr(self.content)])
+    def __getitem__(self, key):
+        return self.content[key]
 
 class AbbrDict(dict):
     def __init__(self, *args, **kwargs):
