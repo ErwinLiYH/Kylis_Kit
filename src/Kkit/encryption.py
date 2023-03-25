@@ -11,11 +11,11 @@ def gen_key(pin):
     return key
 
 def encrypt_string(string, key, encoding="utf-8"):
-    key = gen_key(key)
+    # key = gen_key(key)
     cipher_suite = Fernet(key)
     return cipher_suite.encrypt(string.encode(encoding)).decode(encoding)
 
 def decrypt_string(string, key, encoding="utf-8"):
-    key = gen_key(key)
+    # key = gen_key(key)
     cipher_suite = Fernet(key)
     return cipher_suite.decrypt(string.encode(encoding)).decode(encoding)
