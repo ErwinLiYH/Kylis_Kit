@@ -107,3 +107,19 @@ def klistdir(path, with_prefix=True):
         return [os.path.join(path, i) for i in os.listdir(path)]
     else:
         return os.listdir(path)
+    
+class PathJoin:
+    def __init___(self, base_path):
+        self.base_path = base_path
+    def path(self, path):
+        return os.path.join(self.base_path ,path)
+
+def kstrip(string, key):
+    if len(string)<len(key):
+        return string
+    elif string[0:len(key)] == key:
+        return string[len(key):]
+    elif string[-len(key):] == key:
+        return string[0:-len(key)]
+    else:
+        return string
