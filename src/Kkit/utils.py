@@ -115,11 +115,14 @@ class PathJoin:
         return os.path.join(self.base_path ,path)
 
 def kstrip(string, key):
-    if len(string)<len(key):
-        return string
-    elif string[0:len(key)] == key:
-        return string[len(key):]
-    elif string[-len(key):] == key:
-        return string[0:-len(key)]
-    else:
-        return string
+    s = string
+    if len(s)<len(key):
+        return s
+    if s[0:len(key)] == key:
+        s = s[len(key):]
+    if s[-len(key):] == key:
+        s = s[0:-len(key)]
+    return s
+
+if __name__=="__main__":
+    kstrip("asd-asd","asd")
