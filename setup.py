@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Kkit",
-    version="2.4.0",
+    version="2.5.0",
     author="Erwin Li",
     author_email="erwinli@qq.com",
     description="some personnal kits",
