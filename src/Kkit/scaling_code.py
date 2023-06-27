@@ -14,7 +14,7 @@ def match_string(pattern, string):
         return False
 
 class Line:
-    def __init__(self, pattern: str, *labels:tuple[str,...]):
+    def __init__(self, pattern: str, *labels):
         self.full_pattern = "^"+pattern.replace("$$", data_pattern)+"$"
         self. labels = labels
 
@@ -38,11 +38,12 @@ class Line:
         return {l:d for l,d in zip(self.labels, data)}
 
 class Section:
-    def __init__(self, *Lines: tuple[Line,...]):
+    def __init__(self, *Lines, times):
         self.lines = Lines
+        self.times = times
     
 class Data:
-    def __init__(self, *Sections: tuple[Section,...]):
+    def __init__(self, *Sections):
         self.sections = Sections
     def generate(self, file_path, encoding="utf-8"):
         with open(file_path, "r", encoding=encoding) as f:
@@ -56,12 +57,12 @@ class Data:
                     index+=1
                     for j,k in temp.items():
                         if j in result:
-                            result[j].append(k)
+                            result[j].extend([k]*s.times)
                         else:
-                            result[j] = [k]
+                            result[j] = [k]*s.times
         return pd.DataFrame(result)
     
-def extract_info_cli(data: Data):
+def extract_info_cli(data):
     parser = argparse.ArgumentParser(description="Process some files.")
 
     # Add the arguments
@@ -74,7 +75,7 @@ def extract_info_cli(data: Data):
 
     data.generate(args.input_file, args.encoding).to_csv(args.output_file, index=False, encoding=args.encoding)
 
-def extract_info(data: Data, file_path: str, encoding="utf-8"):
+def extract_info(data, file_path, encoding="utf-8"):
     data.generate(file_path, encoding)
 
 if __name__=="__main__":
