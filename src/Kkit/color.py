@@ -5,6 +5,19 @@ import colorsys
 import io
 
 def hex_to_rgb(value):
+    """
+    Convert a hex color string to an RGB tuple.
+
+    Parameters:
+    ------------
+    value: str
+        hex color string
+
+    Returns:
+    ------------
+    tuple
+        RGB color tuple
+    """
     value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
