@@ -29,16 +29,49 @@ class m3u8_downloader:
     M3u8 downloader.
     """
     temp_file_path = ''
+    """@private"""
     mp4_path = ''
+    """@private"""
     num_of_threads = ''
+    """@private"""
     m3u8_file_path = ''
+    """@private"""
     urls = []
+    """@private"""
     names = []
+    """@private"""
     has_download_name = []
+    """@private"""
     cant_dow = []
+    """@private"""
     total = 0
+    """@private"""
     lock = Lock()
+    """@private"""
     def __init__(self,m3u8_file_path, url_prefix=None,temp_file_path='.',mp4_path='./test.mp4',num_of_threads=10):
+        """
+        Initialize the m3u8 downloader.
+
+        Parameters:
+        ------------
+        m3u8_file_path: str
+            The path of the m3u8 file.
+
+        url_prefix: str
+            The prefix of the url. Default is None.
+            Some m3u8 file has not the full url, so you can add the prefix to the url.
+            For example, the url is '/video/1.ts', and the prefix is 'http://www.example.com'.
+
+        temp_file_path: str
+            The path of the temporary folder (store *.ts files). Default is '.'.
+
+        mp4_path: str
+            The path of the result mp4 file. Default is './test.mp4'.
+
+        num_of_threads: int
+            The number of threads. Default is 10.
+
+        """
         if num_of_threads <= 0:
             raise thread_num_ERROR('the number of threads can\'t smaller than 0')
         self.mp4_path = mp4_path
