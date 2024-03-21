@@ -31,8 +31,10 @@ def encrypt_string(string, key, encoding="utf-8"):
     ------------
     string: str
         A string to be encrypted.
+
     key: bytes
         A key that used to encrypt the string.
+
     encoding: str
         The encoding of the string. Default is 'utf-8'.
 
@@ -52,8 +54,10 @@ def decrypt_string(string, key, encoding="utf-8"):
     ------------
     string: str
         A string to be decrypted.
+
     key: bytes
         A key that used to decrypt the string.
+
     encoding: str
         The encoding of the string. Default is 'utf-8'.
 
