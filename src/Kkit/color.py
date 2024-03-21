@@ -23,29 +23,91 @@ def hex_to_rgb(value):
     return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
 
 def rgb_to_hex(rgb):
+    """
+    Convert an RGB tuple to a hex color string.
+
+    Parameters:
+    ------------
+    rgb: tuple
+        RGB color tuple
+
+    Returns:
+    ------------
+    str
+        hex color string
+    """
     return '#%02x%02x%02x' % rgb
 
-def normalize_rgb_color(color):
+def __normalize_rgb_color(color):
     return tuple([i/255 for i in color])
 
-def denormalize_rgb_color(color):
+def __denormalize_rgb_color(color):
     return tuple([i*255 for i in color])
 
 def rgb2hsv(color):
-    color = normalize_rgb_color(color)
+    """
+    Convert an RGB color to an HSV color.
+
+    Parameters:
+    ------------
+    color: tuple
+        RGB color tuple
+
+    Returns:
+    ------------
+    tuple
+        HSV color tuple
+    """
+    color = __normalize_rgb_color(color)
     color = colorsys.rgb_to_hsv(*color)
     return color
 
-def int_rgb(color):
+def __int_rgb(color):
     return tuple([int(i) for i in color])
 
 def hsv2rgb(color):
+    """
+    Convert an HSV color to an RGB color.
+
+    Parameters:
+    ------------
+    color: tuple
+        HSV color tuple
+
+    Returns:
+    ------------
+    tuple
+        RGB color tuple
+    """
     color = colorsys.hsv_to_rgb(*color)
-    color = denormalize_rgb_color(color)
-    color = int_rgb(color)
+    color = __denormalize_rgb_color(color)
+    color = __int_rgb(color)
     return color
 
 def str2color(string, Azure_key, num=5, verbose=False, vi=True):
+    """
+    Convert a string to a color.
+
+    This function uses the Bing Image Search API to search for images related to the input string, and then extracts the dominant color from the images to generate a color.
+
+    Parameters:
+    ------------
+    string: str
+        input string
+    Azure_key: str
+        Microsoft Azure API key
+    num: int
+        number of images to search
+    verbose: bool
+        print the dominant color of each image
+
+    Returns:
+    ------------
+    tuple
+        RGB color tuple
+    list
+        list of RGB color tuples for each image
+    """
     if num>150:
         raise Exception("num must small than 150")
     search_url = "https://api.bing.microsoft.com/v7.0/images/search"
