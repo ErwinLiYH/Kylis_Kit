@@ -8,11 +8,26 @@ from threading import Lock
 import os
 import shutil
 from tqdm import tqdm
+
+
 class thread_num_ERROR(Exception):
+    """
+    Thread number error.
+    Be raised when the number of threads is eqial to smaller than 0.
+    """
     pass
+
 class mod_ERROR(Exception):
+    """
+    Mod error.
+    Be raised when the mod is not in [0,1,2,3].
+    """
     pass
+
 class m3u8_downloader:
+    """
+    M3u8 downloader.
+    """
     temp_file_path = ''
     mp4_path = ''
     num_of_threads = ''
@@ -49,6 +64,25 @@ please comfirm the temporary folder included the fragment video you need""")
         return
     
     def start(self,mod = 0, time_out = 60):
+        """
+        Start download.
+
+        Parameters:
+        ------------
+        mod: int
+            The mod of the download. Default is 0.
+            0: delete the m3u8 file and the temporary folder.
+            1: delete the m3u8 file.
+            2: delete the temporary folder.
+            3: do nothing.
+
+        time_out: int
+            The time out of the download. Default is 60s.
+
+        Returns:
+        ------------
+        None
+        """
         if mod not in [0,1,2,3]:
             raise mod_ERROR('Only have mod 0 , 1 , 2 or 3')
         with tqdm(total=self.total,bar_format='<<*>> {percentage:3.0f}% {n_fmt}/{total_fmt} [{elapsed}<{remaining}] <<*>> ') as jdt:

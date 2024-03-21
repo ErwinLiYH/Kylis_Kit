@@ -1,3 +1,23 @@
+"""
+This module provides functions to encrypt and decrypt strings simply.
+
+Example:
+
+```python
+from Kkit import encryption
+from cryptography.fernet import Fernet
+
+# there are two ways to generate key:
+key = Fernet.generate_key()           # generate key by Fernet
+key = encryption.gen_key("your pin")  # generate key from a string
+
+string_to_be_encrypted = "string_to_be_encrypted"
+encrypted_string = encryption.encrypt_string(string_to_be_encrypted, key)
+decrypted_string = decryption.encrypt_string(encrypted_string, key)
+# decrypted_string will equal to string_to_be_encrypted
+```
+"""
+
 import hashlib
 import base64
 from cryptography.fernet import Fernet
