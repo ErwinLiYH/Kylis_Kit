@@ -1,8 +1,5 @@
 import setuptools
-from pip._internal.req import parse_requirements
 
-install_reqs = parse_requirements("requirements.txt", session=False)
-reqs = [str(ir.requirement) for ir in install_reqs]
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -27,5 +24,7 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
-    install_requires=reqs
+    extras_require={
+        "color" : ["haishoku", "colorsys", "numpy", "requests"],
+    }
 )
