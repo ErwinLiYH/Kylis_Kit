@@ -161,54 +161,58 @@
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    ------------</span>
 </span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">    string: str</span>
 </span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">        input string</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="sd">    Azure_key: str</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">        Microsoft Azure API key</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="sd">    num: int</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="sd">        number of images to search</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">    verbose: bool</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">        print the dominant color of each image</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="sd">    Azure_key: str</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="sd">        Microsoft Azure API key</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a><span class="sd">    num: int</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="sd">        number of images to search</span>
 </span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">    Returns:</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">    ------------</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="sd">    tuple</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">        RGB color tuple</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    list</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">        list of RGB color tuples for each image</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="k">if</span> <span class="n">num</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">:</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;num must small than 150&quot;</span><span class="p">)</span>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>    <span class="n">search_url</span> <span class="o">=</span> <span class="s2">&quot;https://api.bing.microsoft.com/v7.0/images/search&quot;</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Ocp-Apim-Subscription-Key&quot;</span> <span class="p">:</span> <span class="n">Azure_key</span><span class="p">}</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="c1"># headers2 = {&quot;user-agent&quot;: &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36&quot;}</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="n">params</span>  <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">thumbnail_urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="s2">&quot;thumbnailUrl&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]]</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>        <span class="c1"># time.sleep(0.5)</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>            <span class="c1"># img_data = requests.get(thumbnail_urls[i], headers=headers2)</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>            <span class="c1"># do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>            <span class="n">do_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Haishoku</span><span class="o">.</span><span class="n">getDominant</span><span class="p">(</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>            <span class="n">color_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do_color</span><span class="p">)</span>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">do_color</span><span class="p">)</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>        <span class="k">except</span><span class="p">:</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">color_list</span><span class="p">)</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">color_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">rgb_color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="n">rgb2hsv</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">hsl_color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">modified_rgb</span> <span class="o">=</span> <span class="n">hsv2rgb</span><span class="p">(</span><span class="n">hsl_color</span><span class="p">)</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="k">if</span> <span class="n">vi</span><span class="p">:</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>         <span class="k">pass</span>       
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="k">return</span> <span class="n">modified_rgb</span><span class="p">,</span> <span class="n">color_list</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="sd">    verbose: bool</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">        print the dominant color of each image</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="sd">    Returns:</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="sd">    ------------</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">    tuple</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a><span class="sd">        RGB color tuple</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a><span class="sd">    list</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a><span class="sd">        list of RGB color tuples for each image</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="k">if</span> <span class="n">num</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">:</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;num must small than 150&quot;</span><span class="p">)</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="n">search_url</span> <span class="o">=</span> <span class="s2">&quot;https://api.bing.microsoft.com/v7.0/images/search&quot;</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Ocp-Apim-Subscription-Key&quot;</span> <span class="p">:</span> <span class="n">Azure_key</span><span class="p">}</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="c1"># headers2 = {&quot;user-agent&quot;: &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36&quot;}</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">params</span>  <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="n">thumbnail_urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="s2">&quot;thumbnailUrl&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]]</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>        <span class="c1"># time.sleep(0.5)</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>            <span class="c1"># img_data = requests.get(thumbnail_urls[i], headers=headers2)</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>            <span class="c1"># do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>            <span class="n">do_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Haishoku</span><span class="o">.</span><span class="n">getDominant</span><span class="p">(</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>            <span class="n">color_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do_color</span><span class="p">)</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">do_color</span><span class="p">)</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>        <span class="k">except</span><span class="p">:</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">color_list</span><span class="p">)</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">color_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">rgb_color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="n">rgb2hsv</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">hsl_color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="n">modified_rgb</span> <span class="o">=</span> <span class="n">hsv2rgb</span><span class="p">(</span><span class="n">hsl_color</span><span class="p">)</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="k">if</span> <span class="n">vi</span><span class="p">:</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>         <span class="k">pass</span>       
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="k">return</span> <span class="n">modified_rgb</span><span class="p">,</span> <span class="n">color_list</span>
 </span></pre></div>
 
 
@@ -417,54 +421,58 @@
 </span><span id="str2color-94"><a href="#str2color-94"><span class="linenos"> 94</span></a><span class="sd">    ------------</span>
 </span><span id="str2color-95"><a href="#str2color-95"><span class="linenos"> 95</span></a><span class="sd">    string: str</span>
 </span><span id="str2color-96"><a href="#str2color-96"><span class="linenos"> 96</span></a><span class="sd">        input string</span>
-</span><span id="str2color-97"><a href="#str2color-97"><span class="linenos"> 97</span></a><span class="sd">    Azure_key: str</span>
-</span><span id="str2color-98"><a href="#str2color-98"><span class="linenos"> 98</span></a><span class="sd">        Microsoft Azure API key</span>
-</span><span id="str2color-99"><a href="#str2color-99"><span class="linenos"> 99</span></a><span class="sd">    num: int</span>
-</span><span id="str2color-100"><a href="#str2color-100"><span class="linenos">100</span></a><span class="sd">        number of images to search</span>
-</span><span id="str2color-101"><a href="#str2color-101"><span class="linenos">101</span></a><span class="sd">    verbose: bool</span>
-</span><span id="str2color-102"><a href="#str2color-102"><span class="linenos">102</span></a><span class="sd">        print the dominant color of each image</span>
+</span><span id="str2color-97"><a href="#str2color-97"><span class="linenos"> 97</span></a>
+</span><span id="str2color-98"><a href="#str2color-98"><span class="linenos"> 98</span></a><span class="sd">    Azure_key: str</span>
+</span><span id="str2color-99"><a href="#str2color-99"><span class="linenos"> 99</span></a><span class="sd">        Microsoft Azure API key</span>
+</span><span id="str2color-100"><a href="#str2color-100"><span class="linenos">100</span></a>
+</span><span id="str2color-101"><a href="#str2color-101"><span class="linenos">101</span></a><span class="sd">    num: int</span>
+</span><span id="str2color-102"><a href="#str2color-102"><span class="linenos">102</span></a><span class="sd">        number of images to search</span>
 </span><span id="str2color-103"><a href="#str2color-103"><span class="linenos">103</span></a>
-</span><span id="str2color-104"><a href="#str2color-104"><span class="linenos">104</span></a><span class="sd">    Returns:</span>
-</span><span id="str2color-105"><a href="#str2color-105"><span class="linenos">105</span></a><span class="sd">    ------------</span>
-</span><span id="str2color-106"><a href="#str2color-106"><span class="linenos">106</span></a><span class="sd">    tuple</span>
-</span><span id="str2color-107"><a href="#str2color-107"><span class="linenos">107</span></a><span class="sd">        RGB color tuple</span>
-</span><span id="str2color-108"><a href="#str2color-108"><span class="linenos">108</span></a><span class="sd">    list</span>
-</span><span id="str2color-109"><a href="#str2color-109"><span class="linenos">109</span></a><span class="sd">        list of RGB color tuples for each image</span>
-</span><span id="str2color-110"><a href="#str2color-110"><span class="linenos">110</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="str2color-111"><a href="#str2color-111"><span class="linenos">111</span></a>    <span class="k">if</span> <span class="n">num</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">:</span>
-</span><span id="str2color-112"><a href="#str2color-112"><span class="linenos">112</span></a>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;num must small than 150&quot;</span><span class="p">)</span>
-</span><span id="str2color-113"><a href="#str2color-113"><span class="linenos">113</span></a>    <span class="n">search_url</span> <span class="o">=</span> <span class="s2">&quot;https://api.bing.microsoft.com/v7.0/images/search&quot;</span>
-</span><span id="str2color-114"><a href="#str2color-114"><span class="linenos">114</span></a>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Ocp-Apim-Subscription-Key&quot;</span> <span class="p">:</span> <span class="n">Azure_key</span><span class="p">}</span>
-</span><span id="str2color-115"><a href="#str2color-115"><span class="linenos">115</span></a>    <span class="c1"># headers2 = {&quot;user-agent&quot;: &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36&quot;}</span>
-</span><span id="str2color-116"><a href="#str2color-116"><span class="linenos">116</span></a>    <span class="n">params</span>  <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}</span>
-</span><span id="str2color-117"><a href="#str2color-117"><span class="linenos">117</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
-</span><span id="str2color-118"><a href="#str2color-118"><span class="linenos">118</span></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-</span><span id="str2color-119"><a href="#str2color-119"><span class="linenos">119</span></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span id="str2color-120"><a href="#str2color-120"><span class="linenos">120</span></a>    <span class="n">thumbnail_urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="s2">&quot;thumbnailUrl&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]]</span>
-</span><span id="str2color-121"><a href="#str2color-121"><span class="linenos">121</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="str2color-122"><a href="#str2color-122"><span class="linenos">122</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-</span><span id="str2color-123"><a href="#str2color-123"><span class="linenos">123</span></a>        <span class="c1"># time.sleep(0.5)</span>
-</span><span id="str2color-124"><a href="#str2color-124"><span class="linenos">124</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="str2color-125"><a href="#str2color-125"><span class="linenos">125</span></a>            <span class="c1"># img_data = requests.get(thumbnail_urls[i], headers=headers2)</span>
-</span><span id="str2color-126"><a href="#str2color-126"><span class="linenos">126</span></a>            <span class="c1"># do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))</span>
-</span><span id="str2color-127"><a href="#str2color-127"><span class="linenos">127</span></a>            <span class="n">do_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Haishoku</span><span class="o">.</span><span class="n">getDominant</span><span class="p">(</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-</span><span id="str2color-128"><a href="#str2color-128"><span class="linenos">128</span></a>            <span class="n">color_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do_color</span><span class="p">)</span>
-</span><span id="str2color-129"><a href="#str2color-129"><span class="linenos">129</span></a>            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-</span><span id="str2color-130"><a href="#str2color-130"><span class="linenos">130</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">do_color</span><span class="p">)</span>
-</span><span id="str2color-131"><a href="#str2color-131"><span class="linenos">131</span></a>        <span class="k">except</span><span class="p">:</span>
-</span><span id="str2color-132"><a href="#str2color-132"><span class="linenos">132</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span id="str2color-133"><a href="#str2color-133"><span class="linenos">133</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">color_list</span><span class="p">)</span>
-</span><span id="str2color-134"><a href="#str2color-134"><span class="linenos">134</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">color_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</span><span id="str2color-135"><a href="#str2color-135"><span class="linenos">135</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">rgb_color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
-</span><span id="str2color-136"><a href="#str2color-136"><span class="linenos">136</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
-</span><span id="str2color-137"><a href="#str2color-137"><span class="linenos">137</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="n">rgb2hsv</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
-</span><span id="str2color-138"><a href="#str2color-138"><span class="linenos">138</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">hsl_color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
-</span><span id="str2color-139"><a href="#str2color-139"><span class="linenos">139</span></a>    <span class="n">modified_rgb</span> <span class="o">=</span> <span class="n">hsv2rgb</span><span class="p">(</span><span class="n">hsl_color</span><span class="p">)</span>
-</span><span id="str2color-140"><a href="#str2color-140"><span class="linenos">140</span></a>    
-</span><span id="str2color-141"><a href="#str2color-141"><span class="linenos">141</span></a>    <span class="k">if</span> <span class="n">vi</span><span class="p">:</span>
-</span><span id="str2color-142"><a href="#str2color-142"><span class="linenos">142</span></a>         <span class="k">pass</span>       
-</span><span id="str2color-143"><a href="#str2color-143"><span class="linenos">143</span></a>
-</span><span id="str2color-144"><a href="#str2color-144"><span class="linenos">144</span></a>    <span class="k">return</span> <span class="n">modified_rgb</span><span class="p">,</span> <span class="n">color_list</span>
+</span><span id="str2color-104"><a href="#str2color-104"><span class="linenos">104</span></a><span class="sd">    verbose: bool</span>
+</span><span id="str2color-105"><a href="#str2color-105"><span class="linenos">105</span></a><span class="sd">        print the dominant color of each image</span>
+</span><span id="str2color-106"><a href="#str2color-106"><span class="linenos">106</span></a>
+</span><span id="str2color-107"><a href="#str2color-107"><span class="linenos">107</span></a><span class="sd">    Returns:</span>
+</span><span id="str2color-108"><a href="#str2color-108"><span class="linenos">108</span></a><span class="sd">    ------------</span>
+</span><span id="str2color-109"><a href="#str2color-109"><span class="linenos">109</span></a><span class="sd">    tuple</span>
+</span><span id="str2color-110"><a href="#str2color-110"><span class="linenos">110</span></a><span class="sd">        RGB color tuple</span>
+</span><span id="str2color-111"><a href="#str2color-111"><span class="linenos">111</span></a>
+</span><span id="str2color-112"><a href="#str2color-112"><span class="linenos">112</span></a><span class="sd">    list</span>
+</span><span id="str2color-113"><a href="#str2color-113"><span class="linenos">113</span></a><span class="sd">        list of RGB color tuples for each image</span>
+</span><span id="str2color-114"><a href="#str2color-114"><span class="linenos">114</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="str2color-115"><a href="#str2color-115"><span class="linenos">115</span></a>    <span class="k">if</span> <span class="n">num</span><span class="o">&gt;</span><span class="mi">150</span><span class="p">:</span>
+</span><span id="str2color-116"><a href="#str2color-116"><span class="linenos">116</span></a>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;num must small than 150&quot;</span><span class="p">)</span>
+</span><span id="str2color-117"><a href="#str2color-117"><span class="linenos">117</span></a>    <span class="n">search_url</span> <span class="o">=</span> <span class="s2">&quot;https://api.bing.microsoft.com/v7.0/images/search&quot;</span>
+</span><span id="str2color-118"><a href="#str2color-118"><span class="linenos">118</span></a>    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Ocp-Apim-Subscription-Key&quot;</span> <span class="p">:</span> <span class="n">Azure_key</span><span class="p">}</span>
+</span><span id="str2color-119"><a href="#str2color-119"><span class="linenos">119</span></a>    <span class="c1"># headers2 = {&quot;user-agent&quot;: &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36&quot;}</span>
+</span><span id="str2color-120"><a href="#str2color-120"><span class="linenos">120</span></a>    <span class="n">params</span>  <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span><span class="p">:</span> <span class="n">string</span><span class="p">}</span>
+</span><span id="str2color-121"><a href="#str2color-121"><span class="linenos">121</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">search_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+</span><span id="str2color-122"><a href="#str2color-122"><span class="linenos">122</span></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+</span><span id="str2color-123"><a href="#str2color-123"><span class="linenos">123</span></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="str2color-124"><a href="#str2color-124"><span class="linenos">124</span></a>    <span class="n">thumbnail_urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">img</span><span class="p">[</span><span class="s2">&quot;thumbnailUrl&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">search_results</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]]</span>
+</span><span id="str2color-125"><a href="#str2color-125"><span class="linenos">125</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="str2color-126"><a href="#str2color-126"><span class="linenos">126</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+</span><span id="str2color-127"><a href="#str2color-127"><span class="linenos">127</span></a>        <span class="c1"># time.sleep(0.5)</span>
+</span><span id="str2color-128"><a href="#str2color-128"><span class="linenos">128</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="str2color-129"><a href="#str2color-129"><span class="linenos">129</span></a>            <span class="c1"># img_data = requests.get(thumbnail_urls[i], headers=headers2)</span>
+</span><span id="str2color-130"><a href="#str2color-130"><span class="linenos">130</span></a>            <span class="c1"># do_color = np.array(Haishoku.getDominant(io.BytesIO(img_data.content)))</span>
+</span><span id="str2color-131"><a href="#str2color-131"><span class="linenos">131</span></a>            <span class="n">do_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Haishoku</span><span class="o">.</span><span class="n">getDominant</span><span class="p">(</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</span><span id="str2color-132"><a href="#str2color-132"><span class="linenos">132</span></a>            <span class="n">color_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do_color</span><span class="p">)</span>
+</span><span id="str2color-133"><a href="#str2color-133"><span class="linenos">133</span></a>            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+</span><span id="str2color-134"><a href="#str2color-134"><span class="linenos">134</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">do_color</span><span class="p">)</span>
+</span><span id="str2color-135"><a href="#str2color-135"><span class="linenos">135</span></a>        <span class="k">except</span><span class="p">:</span>
+</span><span id="str2color-136"><a href="#str2color-136"><span class="linenos">136</span></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">thumbnail_urls</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span id="str2color-137"><a href="#str2color-137"><span class="linenos">137</span></a>    <span class="n">color_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">color_list</span><span class="p">)</span>
+</span><span id="str2color-138"><a href="#str2color-138"><span class="linenos">138</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">color_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="str2color-139"><a href="#str2color-139"><span class="linenos">139</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="n">rgb_color</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+</span><span id="str2color-140"><a href="#str2color-140"><span class="linenos">140</span></a>    <span class="n">rgb_color</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
+</span><span id="str2color-141"><a href="#str2color-141"><span class="linenos">141</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="n">rgb2hsv</span><span class="p">(</span><span class="n">rgb_color</span><span class="p">)</span>
+</span><span id="str2color-142"><a href="#str2color-142"><span class="linenos">142</span></a>    <span class="n">hsl_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">hsl_color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+</span><span id="str2color-143"><a href="#str2color-143"><span class="linenos">143</span></a>    <span class="n">modified_rgb</span> <span class="o">=</span> <span class="n">hsv2rgb</span><span class="p">(</span><span class="n">hsl_color</span><span class="p">)</span>
+</span><span id="str2color-144"><a href="#str2color-144"><span class="linenos">144</span></a>    
+</span><span id="str2color-145"><a href="#str2color-145"><span class="linenos">145</span></a>    <span class="k">if</span> <span class="n">vi</span><span class="p">:</span>
+</span><span id="str2color-146"><a href="#str2color-146"><span class="linenos">146</span></a>         <span class="k">pass</span>       
+</span><span id="str2color-147"><a href="#str2color-147"><span class="linenos">147</span></a>
+</span><span id="str2color-148"><a href="#str2color-148"><span class="linenos">148</span></a>    <span class="k">return</span> <span class="n">modified_rgb</span><span class="p">,</span> <span class="n">color_list</span>
 </span></pre></div>
 
 
@@ -475,19 +483,23 @@
 <h2 id="parameters">Parameters:</h2>
 
 <p>string: str
-    input string
-Azure_key: str
-    Microsoft Azure API key
-num: int
-    number of images to search
-verbose: bool
+    input string</p>
+
+<p>Azure_key: str
+    Microsoft Azure API key</p>
+
+<p>num: int
+    number of images to search</p>
+
+<p>verbose: bool
     print the dominant color of each image</p>
 
 <h2 id="returns">Returns:</h2>
 
 <p>tuple
-    RGB color tuple
-list
+    RGB color tuple</p>
+
+<p>list
     list of RGB color tuples for each image</p>
 </div>
 
