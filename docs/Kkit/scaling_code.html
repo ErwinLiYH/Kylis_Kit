@@ -30,6 +30,66 @@
 
             <h2>API Documentation</h2>
                 <ul class="memberlist">
+            <li>
+                    <a class="variable" href="#if_warning">if_warning</a>
+            </li>
+            <li>
+                    <a class="variable" href="#data_pattern">data_pattern</a>
+            </li>
+            <li>
+                    <a class="function" href="#match_string">match_string</a>
+            </li>
+            <li>
+                    <a class="class" href="#Line">Line</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Line.__init__">Line</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Line.full_pattern">full_pattern</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Line.labels">labels</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Line.analyse">analyse</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Section">Section</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Section.__init__">Section</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Section.lines">lines</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Data">Data</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Data.__init__">Data</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Data.sections">sections</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Data.generate">generate</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="function" href="#extract_info_cli">extract_info_cli</a>
+            </li>
+            <li>
+                    <a class="function" href="#extract_info">extract_info</a>
+            </li>
     </ul>
 
 
@@ -146,6 +206,363 @@
 
 
             </section>
+                <section id="if_warning">
+                    <div class="attr variable">
+            <span class="name">if_warning</span>        =
+<span class="default_value">0</span>
+
+        
+    </div>
+    <a class="headerlink" href="#if_warning"></a>
+    
+    
+
+                </section>
+                <section id="data_pattern">
+                    <div class="attr variable">
+            <span class="name">data_pattern</span>        =
+<span class="default_value">&#39; ?(\\d+\\.?\\d*) ?&#39;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#data_pattern"></a>
+    
+    
+
+                </section>
+                <section id="match_string">
+                            <input id="match_string-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">match_string</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">pattern</span>, </span><span class="param"><span class="n">string</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="match_string-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#match_string"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="match_string-11"><a href="#match_string-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">match_string</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+</span><span id="match_string-12"><a href="#match_string-12"><span class="linenos">12</span></a>    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+</span><span id="match_string-13"><a href="#match_string-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="kc">True</span>
+</span><span id="match_string-14"><a href="#match_string-14"><span class="linenos">14</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="match_string-15"><a href="#match_string-15"><span class="linenos">15</span></a>        <span class="k">return</span> <span class="kc">False</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="Line">
+                            <input id="Line-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Line</span>:
+
+                <label class="view-source-button" for="Line-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Line"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Line-17"><a href="#Line-17"><span class="linenos">17</span></a><span class="k">class</span> <span class="nc">Line</span><span class="p">:</span>
+</span><span id="Line-18"><a href="#Line-18"><span class="linenos">18</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line-19"><a href="#Line-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
+</span><span id="Line-20"><a href="#Line-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+</span><span id="Line-21"><a href="#Line-21"><span class="linenos">21</span></a>
+</span><span id="Line-22"><a href="#Line-22"><span class="linenos">22</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
+</span><span id="Line-23"><a href="#Line-23"><span class="linenos">23</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
+</span><span id="Line-24"><a href="#Line-24"><span class="linenos">24</span></a>            <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-25"><a href="#Line-25"><span class="linenos">25</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span><span id="Line-26"><a href="#Line-26"><span class="linenos">26</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Line-27"><a href="#Line-27"><span class="linenos">27</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-28"><a href="#Line-28"><span class="linenos">28</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="Line-29"><a href="#Line-29"><span class="linenos">29</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line-30"><a href="#Line-30"><span class="linenos">30</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-31"><a href="#Line-31"><span class="linenos">31</span></a>
+</span><span id="Line-32"><a href="#Line-32"><span class="linenos">32</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span><span id="Line-33"><a href="#Line-33"><span class="linenos">33</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
+</span><span id="Line-34"><a href="#Line-34"><span class="linenos">34</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line-35"><a href="#Line-35"><span class="linenos">35</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Line-36"><a href="#Line-36"><span class="linenos">36</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line-37"><a href="#Line-37"><span class="linenos">37</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line-38"><a href="#Line-38"><span class="linenos">38</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line-39"><a href="#Line-39"><span class="linenos">39</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Line.__init__" class="classattr">
+                                        <input id="Line.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Line</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="o">*</span><span class="n">labels</span></span>)</span>
+
+                <label class="view-source-button" for="Line.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Line.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Line.__init__-18"><a href="#Line.__init__-18"><span class="linenos">18</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line.__init__-19"><a href="#Line.__init__-19"><span class="linenos">19</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
+</span><span id="Line.__init__-20"><a href="#Line.__init__-20"><span class="linenos">20</span></a>        <span class="bp">self</span><span class="o">.</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Line.full_pattern" class="classattr">
+                                <div class="attr variable">
+            <span class="name">full_pattern</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Line.full_pattern"></a>
+    
+    
+
+                            </div>
+                            <div id="Line.labels" class="classattr">
+                                <div class="attr variable">
+            <span class="name">labels</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Line.labels"></a>
+    
+    
+
+                            </div>
+                            <div id="Line.analyse" class="classattr">
+                                        <input id="Line.analyse-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">analyse</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">string</span>, </span><span class="param"><span class="n">line_number</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Line.analyse-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Line.analyse"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Line.analyse-22"><a href="#Line.analyse-22"><span class="linenos">22</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
+</span><span id="Line.analyse-23"><a href="#Line.analyse-23"><span class="linenos">23</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
+</span><span id="Line.analyse-24"><a href="#Line.analyse-24"><span class="linenos">24</span></a>            <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line.analyse-25"><a href="#Line.analyse-25"><span class="linenos">25</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span><span id="Line.analyse-26"><a href="#Line.analyse-26"><span class="linenos">26</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Line.analyse-27"><a href="#Line.analyse-27"><span class="linenos">27</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line.analyse-28"><a href="#Line.analyse-28"><span class="linenos">28</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="Line.analyse-29"><a href="#Line.analyse-29"><span class="linenos">29</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line.analyse-30"><a href="#Line.analyse-30"><span class="linenos">30</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line.analyse-31"><a href="#Line.analyse-31"><span class="linenos">31</span></a>
+</span><span id="Line.analyse-32"><a href="#Line.analyse-32"><span class="linenos">32</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span><span id="Line.analyse-33"><a href="#Line.analyse-33"><span class="linenos">33</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
+</span><span id="Line.analyse-34"><a href="#Line.analyse-34"><span class="linenos">34</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line.analyse-35"><a href="#Line.analyse-35"><span class="linenos">35</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Line.analyse-36"><a href="#Line.analyse-36"><span class="linenos">36</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line.analyse-37"><a href="#Line.analyse-37"><span class="linenos">37</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line.analyse-38"><a href="#Line.analyse-38"><span class="linenos">38</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line.analyse-39"><a href="#Line.analyse-39"><span class="linenos">39</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                </section>
+                <section id="Section">
+                            <input id="Section-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Section</span>:
+
+                <label class="view-source-button" for="Section-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Section"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Section-41"><a href="#Section-41"><span class="linenos">41</span></a><span class="k">class</span> <span class="nc">Section</span><span class="p">:</span>
+</span><span id="Section-42"><a href="#Section-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
+</span><span id="Section-43"><a href="#Section-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Section.__init__" class="classattr">
+                                        <input id="Section.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Section</span><span class="signature pdoc-code condensed">(<span class="param"><span class="o">*</span><span class="n">Lines</span></span>)</span>
+
+                <label class="view-source-button" for="Section.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Section.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Section.__init__-42"><a href="#Section.__init__-42"><span class="linenos">42</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
+</span><span id="Section.__init__-43"><a href="#Section.__init__-43"><span class="linenos">43</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Section.lines" class="classattr">
+                                <div class="attr variable">
+            <span class="name">lines</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Section.lines"></a>
+    
+    
+
+                            </div>
+                </section>
+                <section id="Data">
+                            <input id="Data-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Data</span>:
+
+                <label class="view-source-button" for="Data-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Data"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Data-45"><a href="#Data-45"><span class="linenos">45</span></a><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
+</span><span id="Data-46"><a href="#Data-46"><span class="linenos">46</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Sections</span><span class="p">):</span>
+</span><span id="Data-47"><a href="#Data-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="n">Sections</span>
+</span><span id="Data-48"><a href="#Data-48"><span class="linenos">48</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="Data-49"><a href="#Data-49"><span class="linenos">49</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="Data-50"><a href="#Data-50"><span class="linenos">50</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+</span><span id="Data-51"><a href="#Data-51"><span class="linenos">51</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="Data-52"><a href="#Data-52"><span class="linenos">52</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+</span><span id="Data-53"><a href="#Data-53"><span class="linenos">53</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Data-54"><a href="#Data-54"><span class="linenos">54</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+</span><span id="Data-55"><a href="#Data-55"><span class="linenos">55</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span><span id="Data-56"><a href="#Data-56"><span class="linenos">56</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
+</span><span id="Data-57"><a href="#Data-57"><span class="linenos">57</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
+</span><span id="Data-58"><a href="#Data-58"><span class="linenos">58</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="Data-59"><a href="#Data-59"><span class="linenos">59</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="Data-60"><a href="#Data-60"><span class="linenos">60</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="Data-61"><a href="#Data-61"><span class="linenos">61</span></a>                        <span class="k">else</span><span class="p">:</span>
+</span><span id="Data-62"><a href="#Data-62"><span class="linenos">62</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span id="Data-63"><a href="#Data-63"><span class="linenos">63</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="Data.__init__" class="classattr">
+                                        <input id="Data.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Data</span><span class="signature pdoc-code condensed">(<span class="param"><span class="o">*</span><span class="n">Sections</span></span>)</span>
+
+                <label class="view-source-button" for="Data.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Data.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Data.__init__-46"><a href="#Data.__init__-46"><span class="linenos">46</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Sections</span><span class="p">):</span>
+</span><span id="Data.__init__-47"><a href="#Data.__init__-47"><span class="linenos">47</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="n">Sections</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Data.sections" class="classattr">
+                                <div class="attr variable">
+            <span class="name">sections</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Data.sections"></a>
+    
+    
+
+                            </div>
+                            <div id="Data.generate" class="classattr">
+                                        <input id="Data.generate-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">generate</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">file_path</span>, </span><span class="param"><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Data.generate-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Data.generate"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Data.generate-48"><a href="#Data.generate-48"><span class="linenos">48</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="Data.generate-49"><a href="#Data.generate-49"><span class="linenos">49</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="Data.generate-50"><a href="#Data.generate-50"><span class="linenos">50</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+</span><span id="Data.generate-51"><a href="#Data.generate-51"><span class="linenos">51</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="Data.generate-52"><a href="#Data.generate-52"><span class="linenos">52</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+</span><span id="Data.generate-53"><a href="#Data.generate-53"><span class="linenos">53</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Data.generate-54"><a href="#Data.generate-54"><span class="linenos">54</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+</span><span id="Data.generate-55"><a href="#Data.generate-55"><span class="linenos">55</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span><span id="Data.generate-56"><a href="#Data.generate-56"><span class="linenos">56</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
+</span><span id="Data.generate-57"><a href="#Data.generate-57"><span class="linenos">57</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
+</span><span id="Data.generate-58"><a href="#Data.generate-58"><span class="linenos">58</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="Data.generate-59"><a href="#Data.generate-59"><span class="linenos">59</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="Data.generate-60"><a href="#Data.generate-60"><span class="linenos">60</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="Data.generate-61"><a href="#Data.generate-61"><span class="linenos">61</span></a>                        <span class="k">else</span><span class="p">:</span>
+</span><span id="Data.generate-62"><a href="#Data.generate-62"><span class="linenos">62</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span id="Data.generate-63"><a href="#Data.generate-63"><span class="linenos">63</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                </section>
+                <section id="extract_info_cli">
+                            <input id="extract_info_cli-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">extract_info_cli</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">data</span><span class="p">:</span> <span class="n"><a href="#Data">Data</a></span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="extract_info_cli-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#extract_info_cli"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info_cli-65"><a href="#extract_info_cli-65"><span class="linenos">65</span></a><span class="k">def</span> <span class="nf">extract_info_cli</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
+</span><span id="extract_info_cli-66"><a href="#extract_info_cli-66"><span class="linenos">66</span></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Process some files.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-67"><a href="#extract_info_cli-67"><span class="linenos">67</span></a>
+</span><span id="extract_info_cli-68"><a href="#extract_info_cli-68"><span class="linenos">68</span></a>    <span class="c1"># Add the arguments</span>
+</span><span id="extract_info_cli-69"><a href="#extract_info_cli-69"><span class="linenos">69</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the input file.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-70"><a href="#extract_info_cli-70"><span class="linenos">70</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the output file.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-71"><a href="#extract_info_cli-71"><span class="linenos">71</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The encoding to use.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-72"><a href="#extract_info_cli-72"><span class="linenos">72</span></a>
+</span><span id="extract_info_cli-73"><a href="#extract_info_cli-73"><span class="linenos">73</span></a>    <span class="c1"># Parse the arguments</span>
+</span><span id="extract_info_cli-74"><a href="#extract_info_cli-74"><span class="linenos">74</span></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+</span><span id="extract_info_cli-75"><a href="#extract_info_cli-75"><span class="linenos">75</span></a>
+</span><span id="extract_info_cli-76"><a href="#extract_info_cli-76"><span class="linenos">76</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="extract_info">
+                            <input id="extract_info-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">extract_info</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">data</span><span class="p">:</span> <span class="n"><a href="#Data">Data</a></span>, </span><span class="param"><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="extract_info-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#extract_info"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info-78"><a href="#extract_info-78"><span class="linenos">78</span></a><span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="extract_info-79"><a href="#extract_info-79"><span class="linenos">79</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
     </main>
 <script>
     function escapeHTML(html) {

@@ -30,6 +30,54 @@
 
             <h2>API Documentation</h2>
                 <ul class="memberlist">
+            <li>
+                    <a class="function" href="#print_list">print_list</a>
+            </li>
+            <li>
+                    <a class="function" href="#conclude_list">conclude_list</a>
+            </li>
+            <li>
+                    <a class="function" href="#conclude_list2">conclude_list2</a>
+            </li>
+            <li>
+                    <a class="function" href="#time_string">time_string</a>
+            </li>
+            <li>
+                    <a class="function" href="#load">load</a>
+            </li>
+            <li>
+                    <a class="function" href="#store">store</a>
+            </li>
+            <li>
+                    <a class="function" href="#sort_dic_by_value">sort_dic_by_value</a>
+            </li>
+            <li>
+                    <a class="function" href="#sort_multi_list">sort_multi_list</a>
+            </li>
+            <li>
+                    <a class="function" href="#find_key_by_value">find_key_by_value</a>
+            </li>
+            <li>
+                    <a class="function" href="#merge_list_to_dic">merge_list_to_dic</a>
+            </li>
+            <li>
+                    <a class="function" href="#list_in_list">list_in_list</a>
+            </li>
+            <li>
+                    <a class="function" href="#klistdir">klistdir</a>
+            </li>
+            <li>
+                    <a class="class" href="#PathJoin">PathJoin</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PathJoin.path">path</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="function" href="#kstrip">kstrip</a>
+            </li>
     </ul>
 
 
@@ -183,6 +231,371 @@
 
 
             </section>
+                <section id="print_list">
+                            <input id="print_list-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">print_list</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">Alist</span>,</span><span class="param">	<span class="n">num_of_columns</span><span class="o">=</span><span class="kc">None</span>,</span><span class="param">	<span class="n">separator_in_line</span><span class="o">=</span><span class="s1">&#39; , &#39;</span>,</span><span class="param">	<span class="n">separator_between_line</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>,</span><span class="param">	<span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span>,</span><span class="param">	<span class="n">verbose</span><span class="o">=</span><span class="kc">True</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="print_list-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#print_list"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="print_list-6"><a href="#print_list-6"><span class="linenos"> 6</span></a><span class="k">def</span> <span class="nf">print_list</span><span class="p">(</span><span class="n">Alist</span><span class="p">,</span> <span class="n">num_of_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">separator_in_line</span><span class="o">=</span><span class="s2">&quot; , &quot;</span><span class="p">,</span> <span class="n">separator_between_line</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="print_list-7"><a href="#print_list-7"><span class="linenos"> 7</span></a>    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Alist</span><span class="p">)</span>
+</span><span id="print_list-8"><a href="#print_list-8"><span class="linenos"> 8</span></a>    <span class="k">if</span> <span class="n">num_of_columns</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="print_list-9"><a href="#print_list-9"><span class="linenos"> 9</span></a>        <span class="n">num_of_columns</span> <span class="o">=</span> <span class="n">length</span>
+</span><span id="print_list-10"><a href="#print_list-10"><span class="linenos">10</span></a>    <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="print_list-11"><a href="#print_list-11"><span class="linenos">11</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+</span><span id="print_list-12"><a href="#print_list-12"><span class="linenos">12</span></a>        <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="n">num_of_columns</span> <span class="o">!=</span> <span class="p">(</span><span class="n">num_of_columns</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span><span id="print_list-13"><a href="#print_list-13"><span class="linenos">13</span></a>            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="p">(</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+</span><span id="print_list-14"><a href="#print_list-14"><span class="linenos">14</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">Alist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">end</span> <span class="o">=</span> <span class="n">separator_between_line</span><span class="p">)</span>
+</span><span id="print_list-15"><a href="#print_list-15"><span class="linenos">15</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="print_list-16"><a href="#print_list-16"><span class="linenos">16</span></a>                <span class="nb">print</span><span class="p">(</span><span class="n">Alist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">end</span> <span class="o">=</span> <span class="n">separator_in_line</span><span class="p">)</span>
+</span><span id="print_list-17"><a href="#print_list-17"><span class="linenos">17</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="print_list-18"><a href="#print_list-18"><span class="linenos">18</span></a>            <span class="nb">print</span><span class="p">(</span><span class="n">Alist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">end</span> <span class="o">=</span> <span class="n">separator_between_line</span><span class="p">)</span>
+</span><span id="print_list-19"><a href="#print_list-19"><span class="linenos">19</span></a>    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+</span><span id="print_list-20"><a href="#print_list-20"><span class="linenos">20</span></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">length: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">length</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="conclude_list">
+                            <input id="conclude_list-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">conclude_list</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">Alist</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="conclude_list-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#conclude_list"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="conclude_list-22"><a href="#conclude_list-22"><span class="linenos">22</span></a><span class="k">def</span> <span class="nf">conclude_list</span><span class="p">(</span><span class="n">Alist</span><span class="p">):</span>
+</span><span id="conclude_list-23"><a href="#conclude_list-23"><span class="linenos">23</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="conclude_list-24"><a href="#conclude_list-24"><span class="linenos">24</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Alist</span><span class="p">:</span>
+</span><span id="conclude_list-25"><a href="#conclude_list-25"><span class="linenos">25</span></a>        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="conclude_list-26"><a href="#conclude_list-26"><span class="linenos">26</span></a>            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="conclude_list-27"><a href="#conclude_list-27"><span class="linenos">27</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="conclude_list-28"><a href="#conclude_list-28"><span class="linenos">28</span></a>            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="conclude_list-29"><a href="#conclude_list-29"><span class="linenos">29</span></a>    <span class="k">return</span> <span class="n">result</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="conclude_list2">
+                            <input id="conclude_list2-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">conclude_list2</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">a_list</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="conclude_list2-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#conclude_list2"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="conclude_list2-31"><a href="#conclude_list2-31"><span class="linenos">31</span></a><span class="k">def</span> <span class="nf">conclude_list2</span><span class="p">(</span><span class="n">a_list</span><span class="p">):</span>
+</span><span id="conclude_list2-32"><a href="#conclude_list2-32"><span class="linenos">32</span></a>    <span class="n">no_duplicate</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="conclude_list2-33"><a href="#conclude_list2-33"><span class="linenos">33</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a_list</span><span class="p">:</span>
+</span><span id="conclude_list2-34"><a href="#conclude_list2-34"><span class="linenos">34</span></a>        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">no_duplicate</span><span class="p">:</span>
+</span><span id="conclude_list2-35"><a href="#conclude_list2-35"><span class="linenos">35</span></a>            <span class="n">no_duplicate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span><span id="conclude_list2-36"><a href="#conclude_list2-36"><span class="linenos">36</span></a>    <span class="n">count_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="conclude_list2-37"><a href="#conclude_list2-37"><span class="linenos">37</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">no_duplicate</span><span class="p">:</span>
+</span><span id="conclude_list2-38"><a href="#conclude_list2-38"><span class="linenos">38</span></a>        <span class="n">count_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_list</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</span><span id="conclude_list2-39"><a href="#conclude_list2-39"><span class="linenos">39</span></a>    <span class="k">return</span> <span class="n">no_duplicate</span><span class="p">,</span> <span class="n">count_list</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="time_string">
+                            <input id="time_string-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">time_string</span><span class="signature pdoc-code condensed">(<span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="time_string-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#time_string"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="time_string-41"><a href="#time_string-41"><span class="linenos">41</span></a><span class="k">def</span> <span class="nf">time_string</span><span class="p">():</span>
+</span><span id="time_string-42"><a href="#time_string-42"><span class="linenos">42</span></a>    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="load">
+                            <input id="load-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">load</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">path_name</span>, </span><span class="param"><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;b&#39;</span>, </span><span class="param"><span class="n">lines</span><span class="o">=</span><span class="kc">False</span>, </span><span class="param"><span class="n">removeCL</span><span class="o">=</span><span class="kc">True</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="load-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#load"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="load-44"><a href="#load-44"><span class="linenos">44</span></a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">removeCL</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="load-45"><a href="#load-45"><span class="linenos">45</span></a>    <span class="k">if</span> <span class="n">encoding</span><span class="o">==</span><span class="s2">&quot;b&quot;</span><span class="p">:</span>
+</span><span id="load-46"><a href="#load-46"><span class="linenos">46</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="load-47"><a href="#load-47"><span class="linenos">47</span></a>            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span><span id="load-48"><a href="#load-48"><span class="linenos">48</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="load-49"><a href="#load-49"><span class="linenos">49</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="load-50"><a href="#load-50"><span class="linenos">50</span></a>            <span class="k">if</span> <span class="n">lines</span><span class="p">:</span>
+</span><span id="load-51"><a href="#load-51"><span class="linenos">51</span></a>                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span><span id="load-52"><a href="#load-52"><span class="linenos">52</span></a>                <span class="k">if</span> <span class="n">removeCL</span><span class="p">:</span>
+</span><span id="load-53"><a href="#load-53"><span class="linenos">53</span></a>                    <span class="n">content</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">content</span><span class="p">]</span>
+</span><span id="load-54"><a href="#load-54"><span class="linenos">54</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="load-55"><a href="#load-55"><span class="linenos">55</span></a>                <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="load-56"><a href="#load-56"><span class="linenos">56</span></a>            <span class="k">return</span> <span class="n">content</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="store">
+                            <input id="store-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">store</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">path_name</span>, </span><span class="param"><span class="n">Aobject</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;b&#39;</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="store-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#store"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="store-58"><a href="#store-58"><span class="linenos">58</span></a><span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="n">Aobject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">):</span>
+</span><span id="store-59"><a href="#store-59"><span class="linenos">59</span></a>    <span class="k">if</span> <span class="n">path_name</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+</span><span id="store-60"><a href="#store-60"><span class="linenos">60</span></a>        <span class="k">return</span>
+</span><span id="store-61"><a href="#store-61"><span class="linenos">61</span></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path_name</span><span class="p">)</span>
+</span><span id="store-62"><a href="#store-62"><span class="linenos">62</span></a>    <span class="k">if</span> <span class="n">path</span><span class="o">!=</span><span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">path</span><span class="o">!=</span><span class="s2">&quot;./&quot;</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+</span><span id="store-63"><a href="#store-63"><span class="linenos">63</span></a>        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span><span id="store-64"><a href="#store-64"><span class="linenos">64</span></a>    <span class="k">if</span> <span class="n">encoding</span><span class="o">==</span><span class="s2">&quot;b&quot;</span><span class="p">:</span>
+</span><span id="store-65"><a href="#store-65"><span class="linenos">65</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="store-66"><a href="#store-66"><span class="linenos">66</span></a>            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">Aobject</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span><span id="store-67"><a href="#store-67"><span class="linenos">67</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="store-68"><a href="#store-68"><span class="linenos">68</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="store-69"><a href="#store-69"><span class="linenos">69</span></a>            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">Aobject</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="sort_dic_by_value">
+                            <input id="sort_dic_by_value-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">sort_dic_by_value</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">dic</span>, </span><span class="param"><span class="n">my_reverse</span><span class="o">=</span><span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="sort_dic_by_value-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#sort_dic_by_value"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="sort_dic_by_value-71"><a href="#sort_dic_by_value-71"><span class="linenos">71</span></a><span class="k">def</span> <span class="nf">sort_dic_by_value</span><span class="p">(</span><span class="n">dic</span><span class="p">,</span><span class="n">my_reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="sort_dic_by_value-72"><a href="#sort_dic_by_value-72"><span class="linenos">72</span></a>    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span> <span class="p">(</span><span class="n">dic</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="n">my_reverse</span><span class="p">)}</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="sort_multi_list">
+                            <input id="sort_multi_list-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">sort_multi_list</span><span class="signature pdoc-code condensed">(<span class="param"><span class="o">*</span><span class="n">multi_list</span>, </span><span class="param"><span class="n">by</span><span class="o">=</span><span class="mi">1</span>, </span><span class="param"><span class="n">my_reverse</span><span class="o">=</span><span class="kc">False</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="sort_multi_list-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#sort_multi_list"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="sort_multi_list-74"><a href="#sort_multi_list-74"><span class="linenos">74</span></a><span class="k">def</span> <span class="nf">sort_multi_list</span><span class="p">(</span><span class="o">*</span><span class="n">multi_list</span><span class="p">,</span><span class="n">by</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">my_reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="sort_multi_list-75"><a href="#sort_multi_list-75"><span class="linenos">75</span></a>    <span class="n">li</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">multi_list</span><span class="p">)</span>
+</span><span id="sort_multi_list-76"><a href="#sort_multi_list-76"><span class="linenos">76</span></a>    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">multi_list</span><span class="p">)</span>
+</span><span id="sort_multi_list-77"><a href="#sort_multi_list-77"><span class="linenos">77</span></a>    <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="sort_multi_list-78"><a href="#sort_multi_list-78"><span class="linenos">78</span></a>        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;please input multiple lists, not just 1&quot;</span><span class="p">)</span>
+</span><span id="sort_multi_list-79"><a href="#sort_multi_list-79"><span class="linenos">79</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="sort_multi_list-80"><a href="#sort_multi_list-80"><span class="linenos">80</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">length</span><span class="p">):</span>
+</span><span id="sort_multi_list-81"><a href="#sort_multi_list-81"><span class="linenos">81</span></a>            <span class="n">x</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="p">[</span><span class="n">by</span><span class="p">],</span><span class="n">reverse</span><span class="o">=</span><span class="n">my_reverse</span><span class="p">)</span>
+</span><span id="sort_multi_list-82"><a href="#sort_multi_list-82"><span class="linenos">82</span></a>            <span class="k">return</span> <span class="n">x</span>
+</span><span id="sort_multi_list-83"><a href="#sort_multi_list-83"><span class="linenos">83</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="sort_multi_list-84"><a href="#sort_multi_list-84"><span class="linenos">84</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;the value of &#39;by&#39; can only be 0 or 1&quot;</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="find_key_by_value">
+                            <input id="find_key_by_value-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">find_key_by_value</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">value</span>, </span><span class="param"><span class="n">dic</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="find_key_by_value-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#find_key_by_value"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="find_key_by_value-86"><a href="#find_key_by_value-86"><span class="linenos">86</span></a><span class="k">def</span> <span class="nf">find_key_by_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">dic</span><span class="p">):</span>
+</span><span id="find_key_by_value-87"><a href="#find_key_by_value-87"><span class="linenos">87</span></a>    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">dic</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="find_key_by_value-88"><a href="#find_key_by_value-88"><span class="linenos">88</span></a>        <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">value</span><span class="p">:</span>
+</span><span id="find_key_by_value-89"><a href="#find_key_by_value-89"><span class="linenos">89</span></a>            <span class="k">return</span> <span class="n">k</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="merge_list_to_dic">
+                            <input id="merge_list_to_dic-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">merge_list_to_dic</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">list1</span>, </span><span class="param"><span class="n">list2</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="merge_list_to_dic-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#merge_list_to_dic"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="merge_list_to_dic-91"><a href="#merge_list_to_dic-91"><span class="linenos">91</span></a><span class="k">def</span> <span class="nf">merge_list_to_dic</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span><span class="n">list2</span><span class="p">):</span>
+</span><span id="merge_list_to_dic-92"><a href="#merge_list_to_dic-92"><span class="linenos">92</span></a>    <span class="n">li</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span><span class="n">list2</span><span class="p">)</span>
+</span><span id="merge_list_to_dic-93"><a href="#merge_list_to_dic-93"><span class="linenos">93</span></a>    <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">li</span><span class="p">}</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="list_in_list">
+                            <input id="list_in_list-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">list_in_list</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">list1</span>, </span><span class="param"><span class="n">list2</span>, </span><span class="param"><span class="n">X</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="list_in_list-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#list_in_list"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="list_in_list-95"><a href="#list_in_list-95"><span class="linenos"> 95</span></a><span class="k">def</span> <span class="nf">list_in_list</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="list_in_list-96"><a href="#list_in_list-96"><span class="linenos"> 96</span></a>    <span class="n">boolean_list</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="list_in_list-97"><a href="#list_in_list-97"><span class="linenos"> 97</span></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
+</span><span id="list_in_list-98"><a href="#list_in_list-98"><span class="linenos"> 98</span></a>        <span class="n">boolean_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">)</span>
+</span><span id="list_in_list-99"><a href="#list_in_list-99"><span class="linenos"> 99</span></a>    <span class="k">if</span> <span class="n">X</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+</span><span id="list_in_list-100"><a href="#list_in_list-100"><span class="linenos">100</span></a>        <span class="k">return</span> <span class="n">boolean_list</span>
+</span><span id="list_in_list-101"><a href="#list_in_list-101"><span class="linenos">101</span></a>    <span class="k">elif</span> <span class="n">X</span><span class="o">==</span><span class="s2">&quot;all&quot;</span><span class="p">:</span>
+</span><span id="list_in_list-102"><a href="#list_in_list-102"><span class="linenos">102</span></a>        <span class="k">return</span> <span class="kc">False</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">boolean_list</span>
+</span><span id="list_in_list-103"><a href="#list_in_list-103"><span class="linenos">103</span></a>    <span class="k">elif</span> <span class="n">X</span><span class="o">==</span><span class="s2">&quot;any&quot;</span><span class="p">:</span>
+</span><span id="list_in_list-104"><a href="#list_in_list-104"><span class="linenos">104</span></a>        <span class="k">return</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">boolean_list</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="klistdir">
+                            <input id="klistdir-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">klistdir</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">path</span>, </span><span class="param"><span class="n">with_prefix</span><span class="o">=</span><span class="kc">True</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="klistdir-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#klistdir"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="klistdir-106"><a href="#klistdir-106"><span class="linenos">106</span></a><span class="k">def</span> <span class="nf">klistdir</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">with_prefix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span><span id="klistdir-107"><a href="#klistdir-107"><span class="linenos">107</span></a>    <span class="k">if</span> <span class="n">with_prefix</span><span class="p">:</span>
+</span><span id="klistdir-108"><a href="#klistdir-108"><span class="linenos">108</span></a>        <span class="k">return</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
+</span><span id="klistdir-109"><a href="#klistdir-109"><span class="linenos">109</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="klistdir-110"><a href="#klistdir-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                </section>
+                <section id="PathJoin">
+                            <input id="PathJoin-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">PathJoin</span>:
+
+                <label class="view-source-button" for="PathJoin-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PathJoin"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PathJoin-112"><a href="#PathJoin-112"><span class="linenos">112</span></a><span class="k">class</span> <span class="nc">PathJoin</span><span class="p">:</span>
+</span><span id="PathJoin-113"><a href="#PathJoin-113"><span class="linenos">113</span></a>    <span class="k">def</span> <span class="nf">__init___</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_path</span><span class="p">):</span>
+</span><span id="PathJoin-114"><a href="#PathJoin-114"><span class="linenos">114</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span> <span class="o">=</span> <span class="n">base_path</span>
+</span><span id="PathJoin-115"><a href="#PathJoin-115"><span class="linenos">115</span></a>    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+</span><span id="PathJoin-116"><a href="#PathJoin-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span> <span class="p">,</span><span class="n">path</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            <div id="PathJoin.path" class="classattr">
+                                        <input id="PathJoin.path-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">path</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">path</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="PathJoin.path-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PathJoin.path"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PathJoin.path-115"><a href="#PathJoin.path-115"><span class="linenos">115</span></a>    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+</span><span id="PathJoin.path-116"><a href="#PathJoin.path-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_path</span> <span class="p">,</span><span class="n">path</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                </section>
+                <section id="kstrip">
+                            <input id="kstrip-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">kstrip</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">string</span>, </span><span class="param"><span class="n">key</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="kstrip-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#kstrip"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="kstrip-118"><a href="#kstrip-118"><span class="linenos">118</span></a><span class="k">def</span> <span class="nf">kstrip</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+</span><span id="kstrip-119"><a href="#kstrip-119"><span class="linenos">119</span></a>    <span class="n">s</span> <span class="o">=</span> <span class="n">string</span>
+</span><span id="kstrip-120"><a href="#kstrip-120"><span class="linenos">120</span></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+</span><span id="kstrip-121"><a href="#kstrip-121"><span class="linenos">121</span></a>        <span class="k">return</span> <span class="n">s</span>
+</span><span id="kstrip-122"><a href="#kstrip-122"><span class="linenos">122</span></a>    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+</span><span id="kstrip-123"><a href="#kstrip-123"><span class="linenos">123</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">):]</span>
+</span><span id="kstrip-124"><a href="#kstrip-124"><span class="linenos">124</span></a>    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">):]</span> <span class="o">==</span> <span class="n">key</span><span class="p">:</span>
+</span><span id="kstrip-125"><a href="#kstrip-125"><span class="linenos">125</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span>
+</span><span id="kstrip-126"><a href="#kstrip-126"><span class="linenos">126</span></a>    <span class="k">return</span> <span class="n">s</span>
+</span></pre></div>
+
+
+    
+
+                </section>
     </main>
 <script>
     function escapeHTML(html) {
