@@ -1,7 +1,21 @@
 class AmbiguityError(Exception):
+    """
+    Exception raised for ambiguity error.
+    """
     pass
 
 class NoneDict(dict):
+    """
+    A dict that returns None for missing keys.
+
+    Example:
+
+    ```python
+    from Kkit import fundict
+    a = fundict.NoneDict({"a":1, "b":2})
+    a["c"] # None
+    ```
+    """
     def __init__(self, *args, **kwargs):
         super(NoneDict, self).__init__(*args, **kwargs)
         for key, value in self.items():
@@ -10,20 +24,25 @@ class NoneDict(dict):
 
     def __getitem__(self, key):
         return super(NoneDict, self).get(key, None)
-    
-# class AbbrDict_content:
-#     def __init__(self, true_key, abbr_key, content):
-#         self.ture_key = true_key
-#         self.abbr_key = abbr_key
-#         self.content= content
-#     def __str__(self):
-#         return "_".join([self.ture_key, self.abbr_key, str(self.content)])
-#     def __repr__(self):
-#         return "_".join([self.ture_key, self.abbr_key, repr(self.content)])
-#     def __getitem__(self, key):
-#         return self.content[key]
+
 
 class AbbrDict(dict):
+    """
+    A dict that returns the value of the key that starts with the input key.
+
+    Example:
+
+    ```python
+    from Kkit import fundict
+    a = fundict.AbbrDict({"abxx":1, "acxx":2, "adxx":{"bcxx": 10, "bdxx":20}})
+    a["a"]        # raise AmbiguityError
+    a["ab"]       # 1
+    a["ac"]       # 2
+    a["ad"]["bc"] # 10
+    a["ad"]["bd"] # 20
+    a["c"]        # raise KeyError
+    ```
+    """
     def __init__(self, *args, **kwargs):
         super(AbbrDict, self).__init__(*args, **kwargs)
         for key, value in self.items():
