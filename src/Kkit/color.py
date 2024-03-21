@@ -2,7 +2,6 @@ import requests
 from haishoku.haishoku import Haishoku
 import numpy as np
 import colorsys
-import io
 
 def hex_to_rgb(value):
     """
