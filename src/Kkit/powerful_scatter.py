@@ -1,3 +1,5 @@
+"""@private"""
+
 from . import utils
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker

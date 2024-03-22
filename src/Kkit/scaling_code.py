@@ -64,10 +64,12 @@ import warnings
 
 
 if_warning = 0
+"""@private"""
 data_pattern = r" ?(\d+\.?\d*) ?"
+"""@private"""
 
 def match_string(pattern, string):
-    """@hidden"""
+    """@private"""
     if re.match(pattern, string):
         return True
     else:
@@ -85,20 +87,19 @@ class Line:
 
         *labels: str
             The labels of the data, namely the column name of this data in table.
-
             For example, the pattern is "number of threads: $$", the label can be "number of threads".
-
             Can be multiple labels. Like "number of threads: $$, execution time: $$", the labels can be "number of threads" and "execution time".
-
             ```python
             Line("number of threads: $$, execution time: $$", "number of threads", "execution time")
             ```
         """
         self.full_pattern = "^"+pattern.replace("$$", data_pattern)+"$"
-        self. labels = labels
+        """@private"""
+        self.labels = labels
+        """@private"""
 
     def analyse(self, string, line_number):
-        """@hidden"""
+        """@private"""
         if self.labels==tuple():
             return {}
         if match_string(self.full_pattern, string) == False:
@@ -145,6 +146,7 @@ class Data:
         """
         self.sections = Sections
     def generate(self, file_path, encoding="utf-8"):
+        """@private"""
         with open(file_path, "r", encoding=encoding) as f:
             lines = [i.rstrip("\n") for i in f.readlines() if i.rstrip("\n")!=""]
         result = {}
