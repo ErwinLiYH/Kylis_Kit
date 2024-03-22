@@ -1,3 +1,62 @@
+"""
+This module is used to recursively traverse a file and extract the data according to the pattern loop.
+
+It is allways used to extract the data from the code scalability testing result.
+
+For example, the result file is:
+
+```txt
+number of threads: 1
+execution time: 0.10s
+number of threads: 2
+execution time: 0.21s
+number of threads: 3
+execution time: 0.31s
+```
+
+The pattern loop is:
+
+```
+number of threads: $$
+execution time: $$
+```
+
+Data extractor can be built as:
+    
+```python
+#test.py
+from Kkit.scaling_code import Data, Section, Line, extract_info_cli
+
+d = Data(
+    Section(
+        Line("number of threads: $$", "N_threads"),
+        Line("execution time: $$", "execution_time")
+    )
+)
+
+extract_info_cli(d)
+```
+
+Then run the extractor:
+
+```python
+# use --help to see the help information
+python test.py --help
+
+# run the command
+python test.py scalability_result.txt -o test.csv
+```
+
+The result will be saved in the test.csv file as a table:
+
+```csv
+N_threads,execution_time
+1,0.10
+2,0.21
+3,0.31
+```
+"""
+
 import re
 import pandas as pd
 import argparse
@@ -8,6 +67,7 @@ if_warning = 0
 data_pattern = r" ?(\d+\.?\d*) ?"
 
 def match_string(pattern, string):
+    """@hidden"""
     if re.match(pattern, string):
         return True
     else:
@@ -15,10 +75,30 @@ def match_string(pattern, string):
 
 class Line:
     def __init__(self, pattern: str, *labels):
+        """
+        Initialize the Line object.
+
+        Parameters:
+        ------------
+        pattern: str
+            The pattern of the line. The pattern should be like "number of threads: $$", where "$$" is the data place.
+
+        *labels: str
+            The labels of the data, namely the column name of this data in table.
+
+            For example, the pattern is "number of threads: $$", the label can be "number of threads".
+
+            Can be multiple labels. Like "number of threads: $$, execution time: $$", the labels can be "number of threads" and "execution time".
+
+            ```python
+            Line("number of threads: $$, execution time: $$", "number of threads", "execution time")
+            ```
+        """
         self.full_pattern = "^"+pattern.replace("$$", data_pattern)+"$"
         self. labels = labels
 
     def analyse(self, string, line_number):
+        """@hidden"""
         if self.labels==tuple():
             return {}
         if match_string(self.full_pattern, string) == False:
@@ -39,10 +119,30 @@ class Line:
 
 class Section:
     def __init__(self, *Lines):
+        """
+        Initialize the Section object.
+
+        A Section object can contain multiple Line objects.
+
+        Parameters:
+        ------------
+        *Lines: Line
+            The Line objects in this section.
+        """
         self.lines = Lines
     
 class Data:
     def __init__(self, *Sections):
+        """
+        Initialize the Data object.
+
+        A Data object can contain multiple Section objects.
+
+        Parameters:
+        ------------
+        *Sections: Section
+            The Section objects in this data.
+        """
         self.sections = Sections
     def generate(self, file_path, encoding="utf-8"):
         with open(file_path, "r", encoding=encoding) as f:
@@ -62,6 +162,18 @@ class Data:
         return pd.DataFrame(result)
     
 def extract_info_cli(data: Data):
+    """
+    Initialize the command line interface for the data extractor.
+
+    Parameters:
+    ------------
+    data: Data
+        The Data object to extract the data.
+
+    Returns:
+    ------------
+    None
+    """
     parser = argparse.ArgumentParser(description="Process some files.")
 
     # Add the arguments
@@ -75,7 +187,28 @@ def extract_info_cli(data: Data):
     data.generate(args.input_file, args.encoding).to_csv(args.output_file, index=False, encoding=args.encoding)
 
 def extract_info(data: Data, file_path: str, encoding="utf-8"):
-    data.generate(file_path, encoding)
+    """
+    Extract the data from the file.
+
+    Recommend to use the `extract_info_cli` function, becauseof the flexibility.
+
+    Parameters:
+    ------------
+    data: Data
+        The Data object to extract the data.
+
+    file_path: str
+        The path of the file.
+
+    encoding: str
+        The encoding of the file. Default is "utf-8".
+
+    Returns:
+    ------------
+    pd.DataFrame
+        The data extracted from the file.
+    """
+    return data.generate(file_path, encoding)
 
 if __name__=="__main__":
     d = Data(
