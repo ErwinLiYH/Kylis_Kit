@@ -124,5 +124,28 @@ def kstrip(string, key):
         s = s[0:-len(key)]
     return s
 
+def retry(retry_times=3):
+    """
+    Retry decorator: retry the function for retry_times times if exception occurs
+
+    Example:
+    ```python
+    @retry(retry_times=3)
+    def test():
+        print("test")
+        raise Exception("test")
+    ```
+    """
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for i in range(retry_times):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if i == retry_times-1:
+                        raise e
+        return wrapper
+    return decorator
+
 if __name__=="__main__":
     kstrip("asd-asd","asd")
