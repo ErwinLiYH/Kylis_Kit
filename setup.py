@@ -27,5 +27,7 @@ setuptools.setup(
     extras_require={
         "color" : ["haishoku", "colorsys", "numpy", "requests"],
         "encryption" : ["cryptography"],
+        "mder" : ["requests", "tqdm"],
+        "scaling" : ["pandas"],
     }
 )
