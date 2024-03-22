@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="Kkit",
-    version="2.6.1",
+    version="2.6.2",
     author="Erwin Li",
     author_email="erwinli@qq.com",
     description="some personnal kits",
