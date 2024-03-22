@@ -29,5 +29,6 @@ setuptools.setup(
         "encryption" : ["cryptography"],
         "mder" : ["requests", "tqdm"],
         "scaling" : ["pandas"],
+        "str2latex" : ["numpy"],
     }
 )
