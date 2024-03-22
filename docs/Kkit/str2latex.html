@@ -65,9 +65,9 @@
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="kn">from</span> <span class="nn">Kkit</span> <span class="kn">import</span> <span class="n">str2latex</span>
 
-<span class="n">bmatrix</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="se">\b</span><span class="s1">egin</span><span class="si">{bmatrix}</span>
-<span class="s1">1 &amp; 2 &amp; 3 </span><span class="se">\\</span>
+<span class="n">bmatrix</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">\begin</span><span class="si">{bmatrix}</span>
+<span class="s1">1 &amp; 2 &amp; 3 \\</span>
 <span class="s1">4 &amp; 5 &amp; 6</span>
 <span class="s1">\end</span><span class="si">{bmatrix}</span>
 <span class="s1">&#39;&#39;&#39;</span>
@@ -102,11 +102,11 @@
 </span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="sd">```python</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="sd">from Kkit import str2latex</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">bmatrix = &#39;&#39;&#39;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">bmatrix = r&#39;&#39;&#39;</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">\\begin{bmatrix}</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="sd">1 &amp; 2 &amp; 3 \\\\</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">4 &amp; 5 &amp; 6</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">\\end{bmatrix}</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">\end{bmatrix}</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">&#39;&#39;&#39;</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="sd">array = str2latex.bmatrix2numpy(bmatrix)</span>
