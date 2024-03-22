@@ -124,9 +124,17 @@ def kstrip(string, key):
         s = s[0:-len(key)]
     return s
 
-def retry(retry_times=3):
+def retry(retry_times=3, verbose=False):
     """
     Retry decorator: retry the function for retry_times times if exception occurs
+
+    Parameters:
+    --------------
+    retry_times: int
+        the number of times to retry the function
+
+    verbose: bool
+        whether to print the retry information
 
     Example:
     ```python
@@ -142,6 +150,8 @@ def retry(retry_times=3):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
+                    if verbose:
+                        print(f"function {func.__name__} failed, retrying {i+1}/{retry_times}")
                     if i == retry_times-1:
                         raise e
         return wrapper
