@@ -6,11 +6,11 @@ Example:
 ```python
 from Kkit import str2latex
 
-bmatrix = '''
+bmatrix = r'''
 \\begin{bmatrix}
 1 & 2 & 3 \\\\
 4 & 5 & 6
-\\end{bmatrix}
+\end{bmatrix}
 '''
 
 array = str2latex.bmatrix2numpy(bmatrix)

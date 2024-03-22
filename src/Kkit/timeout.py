@@ -1,3 +1,16 @@
+"""
+This module is used to run a command by `subprocess.run` with timeout and retry times.
+
+Example:
+
+```python
+from Kkit import timeout
+result = timeout.run_command_with_timeout(["sleep", "10"], timeout=1, retry_times=3)
+#or
+result = timeout.run_shell_with_timeout("sleep 10", timeout=1, retry_times=3)
+```
+"""
+
 import subprocess
 
 

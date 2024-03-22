@@ -1,5 +1,5 @@
 """
-This is a multithreading m3u8 download module
+This is a multithreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.
 
 Example:
 
