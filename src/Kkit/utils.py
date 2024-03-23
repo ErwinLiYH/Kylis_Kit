@@ -1,6 +1,7 @@
 import time
 import pickle
 import os
+from logging import Logger
 
 def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", verbose=True):
     length = len(Alist)
@@ -124,7 +125,7 @@ def kstrip(string, key):
         s = s[0:-len(key)]
     return s
 
-def retry(retry_times=3, verbose=False):
+def retry(retry_times=3, verbose=False, record=False):
     """
     Retry decorator: retry the function for retry_times times if exception occurs
 
@@ -135,6 +136,9 @@ def retry(retry_times=3, verbose=False):
 
     verbose: bool
         whether to print the retry information
+
+    record: bool or Logger
+        whether to record the retry information, if True, raise the exception, if Logger, record the exception in log, if False, do nothing.
 
     Example:
     ```python
@@ -153,7 +157,10 @@ def retry(retry_times=3, verbose=False):
                     if verbose:
                         print(f"function {func.__name__} failed, retrying {i+1}/{retry_times}")
                     if i == retry_times-1:
-                        raise e
+                        if isinstance(record, Logger):
+                            record.exception(f"function {func.__name__} failed after {retry_times} retries")
+                        elif record:
+                            raise e
         return wrapper
     return decorator
 
