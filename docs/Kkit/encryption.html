@@ -107,13 +107,13 @@
 </span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    Generate a key that used in encryption and decryption from a string pin.</span>
 </span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    ------------</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    pin: str</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    Parameters</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    ----------</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    pin : str</span>
 </span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">        A string pin to generate a key.</span>
 </span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    Returns:</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    ------------</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    Returns</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    -------</span>
 </span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">    bytes</span>
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">        A key that can be used in encryption and decryption.</span>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -128,47 +128,43 @@
 </span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">    Encrypt a string with a key.</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">    ------------</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    string: str</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">    Parameters</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">    ----------</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    string : str</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">        A string to be encrypted.</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    key: bytes</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">        A key that used to encrypt the string.</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    encoding: str</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    Returns:</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">    ------------</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">    str</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">        The encrypted string.</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="k">def</span> <span class="nf">decrypt_string</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">    Decrypt a string with a key.</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="sd">    ------------</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">    string: str</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="sd">        A string to be decrypted.</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">    key: bytes</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="sd">        A key that used to decrypt the string.</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a><span class="sd">    encoding: str</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>
-</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="sd">    Returns:</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a><span class="sd">    ------------</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a><span class="sd">    str</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a><span class="sd">        The decrypted string.</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    key : bytes</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">        A key that used to encrypt the string.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    encoding : str</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    Returns</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">    -------</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    str</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">        The encrypted string.</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="k">def</span> <span class="nf">decrypt_string</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="sd">    Decrypt a string with a key.</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">    Parameters</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="sd">    ----------</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">    string: str</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="sd">        A string to be decrypted.</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">    key: bytes</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a><span class="sd">        A key that used to decrypt the string.</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a><span class="sd">    encoding: str</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="sd">    Returns</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a><span class="sd">    -------</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a><span class="sd">    str</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a><span class="sd">        The decrypted string.</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -188,13 +184,13 @@
 </span><span id="gen_key-27"><a href="#gen_key-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="gen_key-28"><a href="#gen_key-28"><span class="linenos">28</span></a><span class="sd">    Generate a key that used in encryption and decryption from a string pin.</span>
 </span><span id="gen_key-29"><a href="#gen_key-29"><span class="linenos">29</span></a>
-</span><span id="gen_key-30"><a href="#gen_key-30"><span class="linenos">30</span></a><span class="sd">    Parameters:</span>
-</span><span id="gen_key-31"><a href="#gen_key-31"><span class="linenos">31</span></a><span class="sd">    ------------</span>
-</span><span id="gen_key-32"><a href="#gen_key-32"><span class="linenos">32</span></a><span class="sd">    pin: str</span>
+</span><span id="gen_key-30"><a href="#gen_key-30"><span class="linenos">30</span></a><span class="sd">    Parameters</span>
+</span><span id="gen_key-31"><a href="#gen_key-31"><span class="linenos">31</span></a><span class="sd">    ----------</span>
+</span><span id="gen_key-32"><a href="#gen_key-32"><span class="linenos">32</span></a><span class="sd">    pin : str</span>
 </span><span id="gen_key-33"><a href="#gen_key-33"><span class="linenos">33</span></a><span class="sd">        A string pin to generate a key.</span>
 </span><span id="gen_key-34"><a href="#gen_key-34"><span class="linenos">34</span></a>
-</span><span id="gen_key-35"><a href="#gen_key-35"><span class="linenos">35</span></a><span class="sd">    Returns:</span>
-</span><span id="gen_key-36"><a href="#gen_key-36"><span class="linenos">36</span></a><span class="sd">    ------------</span>
+</span><span id="gen_key-35"><a href="#gen_key-35"><span class="linenos">35</span></a><span class="sd">    Returns</span>
+</span><span id="gen_key-36"><a href="#gen_key-36"><span class="linenos">36</span></a><span class="sd">    -------</span>
 </span><span id="gen_key-37"><a href="#gen_key-37"><span class="linenos">37</span></a><span class="sd">    bytes</span>
 </span><span id="gen_key-38"><a href="#gen_key-38"><span class="linenos">38</span></a><span class="sd">        A key that can be used in encryption and decryption.</span>
 </span><span id="gen_key-39"><a href="#gen_key-39"><span class="linenos">39</span></a><span class="sd">    &quot;&quot;&quot;</span>
@@ -209,15 +205,18 @@
 
             <div class="docstring"><p>Generate a key that used in encryption and decryption from a string pin.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>pin: str
-    A string pin to generate a key.</p>
+<ul>
+<li><strong>pin</strong> (str):
+A string pin to generate a key.</li>
+</ul>
 
-<h2 id="returns">Returns:</h2>
+<h6 id="returns">Returns</h6>
 
-<p>bytes
-    A key that can be used in encryption and decryption.</p>
+<ul>
+<li><strong>bytes</strong>: A key that can be used in encryption and decryption.</li>
+</ul>
 </div>
 
 
@@ -237,44 +236,43 @@
 </span><span id="encrypt_string-48"><a href="#encrypt_string-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="encrypt_string-49"><a href="#encrypt_string-49"><span class="linenos">49</span></a><span class="sd">    Encrypt a string with a key.</span>
 </span><span id="encrypt_string-50"><a href="#encrypt_string-50"><span class="linenos">50</span></a>
-</span><span id="encrypt_string-51"><a href="#encrypt_string-51"><span class="linenos">51</span></a><span class="sd">    Parameters:</span>
-</span><span id="encrypt_string-52"><a href="#encrypt_string-52"><span class="linenos">52</span></a><span class="sd">    ------------</span>
-</span><span id="encrypt_string-53"><a href="#encrypt_string-53"><span class="linenos">53</span></a><span class="sd">    string: str</span>
+</span><span id="encrypt_string-51"><a href="#encrypt_string-51"><span class="linenos">51</span></a><span class="sd">    Parameters</span>
+</span><span id="encrypt_string-52"><a href="#encrypt_string-52"><span class="linenos">52</span></a><span class="sd">    ----------</span>
+</span><span id="encrypt_string-53"><a href="#encrypt_string-53"><span class="linenos">53</span></a><span class="sd">    string : str</span>
 </span><span id="encrypt_string-54"><a href="#encrypt_string-54"><span class="linenos">54</span></a><span class="sd">        A string to be encrypted.</span>
-</span><span id="encrypt_string-55"><a href="#encrypt_string-55"><span class="linenos">55</span></a>
-</span><span id="encrypt_string-56"><a href="#encrypt_string-56"><span class="linenos">56</span></a><span class="sd">    key: bytes</span>
-</span><span id="encrypt_string-57"><a href="#encrypt_string-57"><span class="linenos">57</span></a><span class="sd">        A key that used to encrypt the string.</span>
-</span><span id="encrypt_string-58"><a href="#encrypt_string-58"><span class="linenos">58</span></a>
-</span><span id="encrypt_string-59"><a href="#encrypt_string-59"><span class="linenos">59</span></a><span class="sd">    encoding: str</span>
-</span><span id="encrypt_string-60"><a href="#encrypt_string-60"><span class="linenos">60</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
-</span><span id="encrypt_string-61"><a href="#encrypt_string-61"><span class="linenos">61</span></a>
-</span><span id="encrypt_string-62"><a href="#encrypt_string-62"><span class="linenos">62</span></a><span class="sd">    Returns:</span>
-</span><span id="encrypt_string-63"><a href="#encrypt_string-63"><span class="linenos">63</span></a><span class="sd">    ------------</span>
-</span><span id="encrypt_string-64"><a href="#encrypt_string-64"><span class="linenos">64</span></a><span class="sd">    str</span>
-</span><span id="encrypt_string-65"><a href="#encrypt_string-65"><span class="linenos">65</span></a><span class="sd">        The encrypted string.</span>
-</span><span id="encrypt_string-66"><a href="#encrypt_string-66"><span class="linenos">66</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="encrypt_string-67"><a href="#encrypt_string-67"><span class="linenos">67</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="encrypt_string-68"><a href="#encrypt_string-68"><span class="linenos">68</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="encrypt_string-55"><a href="#encrypt_string-55"><span class="linenos">55</span></a><span class="sd">    key : bytes</span>
+</span><span id="encrypt_string-56"><a href="#encrypt_string-56"><span class="linenos">56</span></a><span class="sd">        A key that used to encrypt the string.</span>
+</span><span id="encrypt_string-57"><a href="#encrypt_string-57"><span class="linenos">57</span></a><span class="sd">    encoding : str</span>
+</span><span id="encrypt_string-58"><a href="#encrypt_string-58"><span class="linenos">58</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
+</span><span id="encrypt_string-59"><a href="#encrypt_string-59"><span class="linenos">59</span></a>
+</span><span id="encrypt_string-60"><a href="#encrypt_string-60"><span class="linenos">60</span></a><span class="sd">    Returns</span>
+</span><span id="encrypt_string-61"><a href="#encrypt_string-61"><span class="linenos">61</span></a><span class="sd">    -------</span>
+</span><span id="encrypt_string-62"><a href="#encrypt_string-62"><span class="linenos">62</span></a><span class="sd">    str</span>
+</span><span id="encrypt_string-63"><a href="#encrypt_string-63"><span class="linenos">63</span></a><span class="sd">        The encrypted string.</span>
+</span><span id="encrypt_string-64"><a href="#encrypt_string-64"><span class="linenos">64</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="encrypt_string-65"><a href="#encrypt_string-65"><span class="linenos">65</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="encrypt_string-66"><a href="#encrypt_string-66"><span class="linenos">66</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Encrypt a string with a key.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>string: str
-    A string to be encrypted.</p>
+<ul>
+<li><strong>string</strong> (str):
+A string to be encrypted.</li>
+<li><strong>key</strong> (bytes):
+A key that used to encrypt the string.</li>
+<li><strong>encoding</strong> (str):
+The encoding of the string. Default is 'utf-8'.</li>
+</ul>
 
-<p>key: bytes
-    A key that used to encrypt the string.</p>
+<h6 id="returns">Returns</h6>
 
-<p>encoding: str
-    The encoding of the string. Default is 'utf-8'.</p>
-
-<h2 id="returns">Returns:</h2>
-
-<p>str
-    The encrypted string.</p>
+<ul>
+<li><strong>str</strong>: The encrypted string.</li>
+</ul>
 </div>
 
 
@@ -290,48 +288,47 @@
 
     </div>
     <a class="headerlink" href="#decrypt_string"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="decrypt_string-70"><a href="#decrypt_string-70"><span class="linenos">70</span></a><span class="k">def</span> <span class="nf">decrypt_string</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="decrypt_string-71"><a href="#decrypt_string-71"><span class="linenos">71</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="decrypt_string-72"><a href="#decrypt_string-72"><span class="linenos">72</span></a><span class="sd">    Decrypt a string with a key.</span>
-</span><span id="decrypt_string-73"><a href="#decrypt_string-73"><span class="linenos">73</span></a>
-</span><span id="decrypt_string-74"><a href="#decrypt_string-74"><span class="linenos">74</span></a><span class="sd">    Parameters:</span>
-</span><span id="decrypt_string-75"><a href="#decrypt_string-75"><span class="linenos">75</span></a><span class="sd">    ------------</span>
-</span><span id="decrypt_string-76"><a href="#decrypt_string-76"><span class="linenos">76</span></a><span class="sd">    string: str</span>
-</span><span id="decrypt_string-77"><a href="#decrypt_string-77"><span class="linenos">77</span></a><span class="sd">        A string to be decrypted.</span>
-</span><span id="decrypt_string-78"><a href="#decrypt_string-78"><span class="linenos">78</span></a>
-</span><span id="decrypt_string-79"><a href="#decrypt_string-79"><span class="linenos">79</span></a><span class="sd">    key: bytes</span>
-</span><span id="decrypt_string-80"><a href="#decrypt_string-80"><span class="linenos">80</span></a><span class="sd">        A key that used to decrypt the string.</span>
-</span><span id="decrypt_string-81"><a href="#decrypt_string-81"><span class="linenos">81</span></a>
-</span><span id="decrypt_string-82"><a href="#decrypt_string-82"><span class="linenos">82</span></a><span class="sd">    encoding: str</span>
-</span><span id="decrypt_string-83"><a href="#decrypt_string-83"><span class="linenos">83</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
-</span><span id="decrypt_string-84"><a href="#decrypt_string-84"><span class="linenos">84</span></a>
-</span><span id="decrypt_string-85"><a href="#decrypt_string-85"><span class="linenos">85</span></a><span class="sd">    Returns:</span>
-</span><span id="decrypt_string-86"><a href="#decrypt_string-86"><span class="linenos">86</span></a><span class="sd">    ------------</span>
-</span><span id="decrypt_string-87"><a href="#decrypt_string-87"><span class="linenos">87</span></a><span class="sd">    str</span>
-</span><span id="decrypt_string-88"><a href="#decrypt_string-88"><span class="linenos">88</span></a><span class="sd">        The decrypted string.</span>
-</span><span id="decrypt_string-89"><a href="#decrypt_string-89"><span class="linenos">89</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="decrypt_string-90"><a href="#decrypt_string-90"><span class="linenos">90</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="decrypt_string-91"><a href="#decrypt_string-91"><span class="linenos">91</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="decrypt_string-68"><a href="#decrypt_string-68"><span class="linenos">68</span></a><span class="k">def</span> <span class="nf">decrypt_string</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="decrypt_string-69"><a href="#decrypt_string-69"><span class="linenos">69</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="decrypt_string-70"><a href="#decrypt_string-70"><span class="linenos">70</span></a><span class="sd">    Decrypt a string with a key.</span>
+</span><span id="decrypt_string-71"><a href="#decrypt_string-71"><span class="linenos">71</span></a>
+</span><span id="decrypt_string-72"><a href="#decrypt_string-72"><span class="linenos">72</span></a><span class="sd">    Parameters</span>
+</span><span id="decrypt_string-73"><a href="#decrypt_string-73"><span class="linenos">73</span></a><span class="sd">    ----------</span>
+</span><span id="decrypt_string-74"><a href="#decrypt_string-74"><span class="linenos">74</span></a><span class="sd">    string: str</span>
+</span><span id="decrypt_string-75"><a href="#decrypt_string-75"><span class="linenos">75</span></a><span class="sd">        A string to be decrypted.</span>
+</span><span id="decrypt_string-76"><a href="#decrypt_string-76"><span class="linenos">76</span></a><span class="sd">    key: bytes</span>
+</span><span id="decrypt_string-77"><a href="#decrypt_string-77"><span class="linenos">77</span></a><span class="sd">        A key that used to decrypt the string.</span>
+</span><span id="decrypt_string-78"><a href="#decrypt_string-78"><span class="linenos">78</span></a><span class="sd">    encoding: str</span>
+</span><span id="decrypt_string-79"><a href="#decrypt_string-79"><span class="linenos">79</span></a><span class="sd">        The encoding of the string. Default is &#39;utf-8&#39;.</span>
+</span><span id="decrypt_string-80"><a href="#decrypt_string-80"><span class="linenos">80</span></a>
+</span><span id="decrypt_string-81"><a href="#decrypt_string-81"><span class="linenos">81</span></a><span class="sd">    Returns</span>
+</span><span id="decrypt_string-82"><a href="#decrypt_string-82"><span class="linenos">82</span></a><span class="sd">    -------</span>
+</span><span id="decrypt_string-83"><a href="#decrypt_string-83"><span class="linenos">83</span></a><span class="sd">    str</span>
+</span><span id="decrypt_string-84"><a href="#decrypt_string-84"><span class="linenos">84</span></a><span class="sd">        The decrypted string.</span>
+</span><span id="decrypt_string-85"><a href="#decrypt_string-85"><span class="linenos">85</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="decrypt_string-86"><a href="#decrypt_string-86"><span class="linenos">86</span></a>    <span class="n">cipher_suite</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="decrypt_string-87"><a href="#decrypt_string-87"><span class="linenos">87</span></a>    <span class="k">return</span> <span class="n">cipher_suite</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Decrypt a string with a key.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>string: str
-    A string to be decrypted.</p>
+<ul>
+<li><strong>string</strong> (str):
+A string to be decrypted.</li>
+<li><strong>key</strong> (bytes):
+A key that used to decrypt the string.</li>
+<li><strong>encoding</strong> (str):
+The encoding of the string. Default is 'utf-8'.</li>
+</ul>
 
-<p>key: bytes
-    A key that used to decrypt the string.</p>
+<h6 id="returns">Returns</h6>
 
-<p>encoding: str
-    The encoding of the string. Default is 'utf-8'.</p>
-
-<h2 id="returns">Returns:</h2>
-
-<p>str
-    The decrypted string.</p>
+<ul>
+<li><strong>str</strong>: The decrypted string.</li>
+</ul>
 </div>
 
 

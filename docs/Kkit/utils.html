@@ -233,45 +233,44 @@
 </span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">    Retry decorator: retry the function for retry_times times if exception occurs</span>
 </span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">    --------------</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="sd">    retry_times: int</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">    Parameters</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="sd">    ----------</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="sd">    retry_times : int</span>
 </span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">        the number of times to retry the function</span>
-</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>
-</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a><span class="sd">    raise_exception: bool | logging.Logger</span>
-</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a><span class="sd">        whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</span>
-</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>
-</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a><span class="sd">    record_retry: bool | logging.Logger</span>
-</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a><span class="sd">        whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</span>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">    Example:</span>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">    ```python</span>
-</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="sd">    @retry(retry_times=3)</span>
-</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="sd">    def test():</span>
-</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="sd">        print(&quot;test&quot;)</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">        raise Exception(&quot;test&quot;)</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">    ```</span>
-</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retry_times</span><span class="p">):</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>                <span class="k">try</span><span class="p">:</span>
-</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record_retry</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
-</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>                        <span class="n">record_retry</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>                    <span class="k">elif</span> <span class="n">record_retry</span><span class="p">:</span>
-</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">retry_times</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raise_exception</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>                            <span class="n">raise_exception</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed after </span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2"> retries&quot;</span><span class="p">)</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>                        <span class="k">elif</span> <span class="n">raise_exception</span><span class="p">:</span>
-</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>                            <span class="k">raise</span> <span class="n">e</span>
-</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>        <span class="k">return</span> <span class="n">wrapper</span>
-</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>    <span class="k">return</span> <span class="n">decorator</span>
-</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>    <span class="n">kstrip</span><span class="p">(</span><span class="s2">&quot;asd-asd&quot;</span><span class="p">,</span><span class="s2">&quot;asd&quot;</span><span class="p">)</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="sd">    raise_exception : bool or logging.Logger</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a><span class="sd">        whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a><span class="sd">    record_retry : bool or logging.Logger</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a><span class="sd">        whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a><span class="sd">    Examples</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="sd">    --------</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">    ```python</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">    @retry(retry_times=3)</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="sd">    def test():</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="sd">        print(&quot;test&quot;)</span>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a><span class="sd">        raise Exception(&quot;test&quot;)</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="sd">    ```</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retry_times</span><span class="p">):</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>                <span class="k">try</span><span class="p">:</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record_retry</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>                        <span class="n">record_retry</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>                    <span class="k">elif</span> <span class="n">record_retry</span><span class="p">:</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">retry_times</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raise_exception</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
+</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>                            <span class="n">raise_exception</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed after </span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2"> retries&quot;</span><span class="p">)</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>                        <span class="k">elif</span> <span class="n">raise_exception</span><span class="p">:</span>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>                            <span class="k">raise</span> <span class="n">e</span>
+</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>        <span class="k">return</span> <span class="n">wrapper</span>
+</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    <span class="k">return</span> <span class="n">decorator</span>
+</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a>
+</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>    <span class="n">kstrip</span><span class="p">(</span><span class="s2">&quot;asd-asd&quot;</span><span class="p">,</span><span class="s2">&quot;asd&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -656,59 +655,58 @@
 </span><span id="retry-130"><a href="#retry-130"><span class="linenos">130</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="retry-131"><a href="#retry-131"><span class="linenos">131</span></a><span class="sd">    Retry decorator: retry the function for retry_times times if exception occurs</span>
 </span><span id="retry-132"><a href="#retry-132"><span class="linenos">132</span></a>
-</span><span id="retry-133"><a href="#retry-133"><span class="linenos">133</span></a><span class="sd">    Parameters:</span>
-</span><span id="retry-134"><a href="#retry-134"><span class="linenos">134</span></a><span class="sd">    --------------</span>
-</span><span id="retry-135"><a href="#retry-135"><span class="linenos">135</span></a><span class="sd">    retry_times: int</span>
+</span><span id="retry-133"><a href="#retry-133"><span class="linenos">133</span></a><span class="sd">    Parameters</span>
+</span><span id="retry-134"><a href="#retry-134"><span class="linenos">134</span></a><span class="sd">    ----------</span>
+</span><span id="retry-135"><a href="#retry-135"><span class="linenos">135</span></a><span class="sd">    retry_times : int</span>
 </span><span id="retry-136"><a href="#retry-136"><span class="linenos">136</span></a><span class="sd">        the number of times to retry the function</span>
-</span><span id="retry-137"><a href="#retry-137"><span class="linenos">137</span></a>
-</span><span id="retry-138"><a href="#retry-138"><span class="linenos">138</span></a><span class="sd">    raise_exception: bool | logging.Logger</span>
-</span><span id="retry-139"><a href="#retry-139"><span class="linenos">139</span></a><span class="sd">        whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</span>
-</span><span id="retry-140"><a href="#retry-140"><span class="linenos">140</span></a>
-</span><span id="retry-141"><a href="#retry-141"><span class="linenos">141</span></a><span class="sd">    record_retry: bool | logging.Logger</span>
-</span><span id="retry-142"><a href="#retry-142"><span class="linenos">142</span></a><span class="sd">        whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</span>
-</span><span id="retry-143"><a href="#retry-143"><span class="linenos">143</span></a>
-</span><span id="retry-144"><a href="#retry-144"><span class="linenos">144</span></a><span class="sd">    Example:</span>
-</span><span id="retry-145"><a href="#retry-145"><span class="linenos">145</span></a><span class="sd">    ```python</span>
-</span><span id="retry-146"><a href="#retry-146"><span class="linenos">146</span></a><span class="sd">    @retry(retry_times=3)</span>
-</span><span id="retry-147"><a href="#retry-147"><span class="linenos">147</span></a><span class="sd">    def test():</span>
-</span><span id="retry-148"><a href="#retry-148"><span class="linenos">148</span></a><span class="sd">        print(&quot;test&quot;)</span>
-</span><span id="retry-149"><a href="#retry-149"><span class="linenos">149</span></a><span class="sd">        raise Exception(&quot;test&quot;)</span>
-</span><span id="retry-150"><a href="#retry-150"><span class="linenos">150</span></a><span class="sd">    ```</span>
-</span><span id="retry-151"><a href="#retry-151"><span class="linenos">151</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="retry-152"><a href="#retry-152"><span class="linenos">152</span></a>    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-</span><span id="retry-153"><a href="#retry-153"><span class="linenos">153</span></a>        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="retry-154"><a href="#retry-154"><span class="linenos">154</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retry_times</span><span class="p">):</span>
-</span><span id="retry-155"><a href="#retry-155"><span class="linenos">155</span></a>                <span class="k">try</span><span class="p">:</span>
-</span><span id="retry-156"><a href="#retry-156"><span class="linenos">156</span></a>                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="retry-157"><a href="#retry-157"><span class="linenos">157</span></a>                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="retry-158"><a href="#retry-158"><span class="linenos">158</span></a>                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record_retry</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
-</span><span id="retry-159"><a href="#retry-159"><span class="linenos">159</span></a>                        <span class="n">record_retry</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="retry-160"><a href="#retry-160"><span class="linenos">160</span></a>                    <span class="k">elif</span> <span class="n">record_retry</span><span class="p">:</span>
-</span><span id="retry-161"><a href="#retry-161"><span class="linenos">161</span></a>                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="retry-162"><a href="#retry-162"><span class="linenos">162</span></a>                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">retry_times</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-</span><span id="retry-163"><a href="#retry-163"><span class="linenos">163</span></a>                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raise_exception</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
-</span><span id="retry-164"><a href="#retry-164"><span class="linenos">164</span></a>                            <span class="n">raise_exception</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed after </span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2"> retries&quot;</span><span class="p">)</span>
-</span><span id="retry-165"><a href="#retry-165"><span class="linenos">165</span></a>                        <span class="k">elif</span> <span class="n">raise_exception</span><span class="p">:</span>
-</span><span id="retry-166"><a href="#retry-166"><span class="linenos">166</span></a>                            <span class="k">raise</span> <span class="n">e</span>
-</span><span id="retry-167"><a href="#retry-167"><span class="linenos">167</span></a>        <span class="k">return</span> <span class="n">wrapper</span>
-</span><span id="retry-168"><a href="#retry-168"><span class="linenos">168</span></a>    <span class="k">return</span> <span class="n">decorator</span>
+</span><span id="retry-137"><a href="#retry-137"><span class="linenos">137</span></a><span class="sd">    raise_exception : bool or logging.Logger</span>
+</span><span id="retry-138"><a href="#retry-138"><span class="linenos">138</span></a><span class="sd">        whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</span>
+</span><span id="retry-139"><a href="#retry-139"><span class="linenos">139</span></a><span class="sd">    record_retry : bool or logging.Logger</span>
+</span><span id="retry-140"><a href="#retry-140"><span class="linenos">140</span></a><span class="sd">        whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</span>
+</span><span id="retry-141"><a href="#retry-141"><span class="linenos">141</span></a>
+</span><span id="retry-142"><a href="#retry-142"><span class="linenos">142</span></a><span class="sd">    Examples</span>
+</span><span id="retry-143"><a href="#retry-143"><span class="linenos">143</span></a><span class="sd">    --------</span>
+</span><span id="retry-144"><a href="#retry-144"><span class="linenos">144</span></a><span class="sd">    ```python</span>
+</span><span id="retry-145"><a href="#retry-145"><span class="linenos">145</span></a><span class="sd">    @retry(retry_times=3)</span>
+</span><span id="retry-146"><a href="#retry-146"><span class="linenos">146</span></a><span class="sd">    def test():</span>
+</span><span id="retry-147"><a href="#retry-147"><span class="linenos">147</span></a><span class="sd">        print(&quot;test&quot;)</span>
+</span><span id="retry-148"><a href="#retry-148"><span class="linenos">148</span></a><span class="sd">        raise Exception(&quot;test&quot;)</span>
+</span><span id="retry-149"><a href="#retry-149"><span class="linenos">149</span></a><span class="sd">    ```</span>
+</span><span id="retry-150"><a href="#retry-150"><span class="linenos">150</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="retry-151"><a href="#retry-151"><span class="linenos">151</span></a>    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span id="retry-152"><a href="#retry-152"><span class="linenos">152</span></a>        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="retry-153"><a href="#retry-153"><span class="linenos">153</span></a>            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">retry_times</span><span class="p">):</span>
+</span><span id="retry-154"><a href="#retry-154"><span class="linenos">154</span></a>                <span class="k">try</span><span class="p">:</span>
+</span><span id="retry-155"><a href="#retry-155"><span class="linenos">155</span></a>                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="retry-156"><a href="#retry-156"><span class="linenos">156</span></a>                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="retry-157"><a href="#retry-157"><span class="linenos">157</span></a>                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record_retry</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
+</span><span id="retry-158"><a href="#retry-158"><span class="linenos">158</span></a>                        <span class="n">record_retry</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="retry-159"><a href="#retry-159"><span class="linenos">159</span></a>                    <span class="k">elif</span> <span class="n">record_retry</span><span class="p">:</span>
+</span><span id="retry-160"><a href="#retry-160"><span class="linenos">160</span></a>                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed, retrying </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="retry-161"><a href="#retry-161"><span class="linenos">161</span></a>                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">retry_times</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span id="retry-162"><a href="#retry-162"><span class="linenos">162</span></a>                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raise_exception</span><span class="p">,</span> <span class="n">Logger</span><span class="p">):</span>
+</span><span id="retry-163"><a href="#retry-163"><span class="linenos">163</span></a>                            <span class="n">raise_exception</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> failed after </span><span class="si">{</span><span class="n">retry_times</span><span class="si">}</span><span class="s2"> retries&quot;</span><span class="p">)</span>
+</span><span id="retry-164"><a href="#retry-164"><span class="linenos">164</span></a>                        <span class="k">elif</span> <span class="n">raise_exception</span><span class="p">:</span>
+</span><span id="retry-165"><a href="#retry-165"><span class="linenos">165</span></a>                            <span class="k">raise</span> <span class="n">e</span>
+</span><span id="retry-166"><a href="#retry-166"><span class="linenos">166</span></a>        <span class="k">return</span> <span class="n">wrapper</span>
+</span><span id="retry-167"><a href="#retry-167"><span class="linenos">167</span></a>    <span class="k">return</span> <span class="n">decorator</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Retry decorator: retry the function for retry_times times if exception occurs</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>retry_times: int
-    the number of times to retry the function</p>
+<ul>
+<li><strong>retry_times</strong> (int):
+the number of times to retry the function</li>
+<li><strong>raise_exception</strong> (bool or logging.Logger):
+whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</li>
+<li><strong>record_retry</strong> (bool or logging.Logger):
+whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</li>
+</ul>
 
-<p>raise_exception: bool | logging.Logger
-    whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.</p>
-
-<p>record_retry: bool | logging.Logger
-    whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.</p>
-
-<p>Example:</p>
+<h6 id="examples">Examples</h6>
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="nd">@retry</span><span class="p">(</span><span class="n">retry_times</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>

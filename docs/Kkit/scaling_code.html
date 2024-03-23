@@ -45,9 +45,6 @@
                         <li>
                                 <a class="function" href="#Section.__init__">Section</a>
                         </li>
-                        <li>
-                                <a class="variable" href="#Section.lines">lines</a>
-                        </li>
                 </ul>
 
             </li>
@@ -56,9 +53,6 @@
                             <ul class="memberlist">
                         <li>
                                 <a class="function" href="#Data.__init__">Data</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Data.sections">sections</a>
                         </li>
                 </ul>
 
@@ -228,57 +222,57 @@ execution time: $$
 </span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a><span class="sd">        Initialize the Line object.</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">        Parameters:</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">        ------------</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">        pattern: str</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a><span class="sd">        Parameters</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a><span class="sd">        ----------</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a><span class="sd">        pattern : str</span>
 </span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="sd">            The pattern of the line. The pattern should be like &quot;number of threads: $$&quot;, where &quot;$$&quot; is the data place.</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">        *labels: str</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">            ```python</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">            ```</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>            <span class="k">return</span> <span class="p">{}</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>                <span class="k">return</span> <span class="p">{}</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>                <span class="k">return</span> <span class="p">{}</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="k">class</span> <span class="nc">Section</span><span class="p">:</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a><span class="sd">        Initialize the Section object.</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="sd">        Parameters:</span>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">        ------------</span>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">        *Lines: Line</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">            The Line objects in this section.</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="sd">        *labels : str</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="sd">            ```python</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">            ```</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>            <span class="k">return</span> <span class="p">{}</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="k">class</span> <span class="nc">Section</span><span class="p">:</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a><span class="sd">        Initialize the Section object.</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a><span class="sd">        Parameters</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a><span class="sd">        ----------</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a><span class="sd">        *Lines : Line</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="sd">            The Line objects in this section.</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>    
 </span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="k">class</span> <span class="nc">Data</span><span class="p">:</span>
 </span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Sections</span><span class="p">):</span>
@@ -287,91 +281,86 @@ execution time: $$
 </span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>
 </span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a><span class="sd">        A Data object can contain multiple Section objects.</span>
 </span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>
-</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="sd">        Parameters:</span>
-</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">        ------------</span>
-</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">        *Sections: Section</span>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a><span class="sd">        Parameters</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a><span class="sd">        ----------</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a><span class="sd">        *Sections : Section</span>
 </span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a><span class="sd">            The Section objects in this data.</span>
 </span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="n">Sections</span>
-</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
-</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
-</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
-</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
-</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>                        <span class="k">else</span><span class="p">:</span>
-</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>    
-</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a><span class="k">def</span> <span class="nf">extract_info_cli</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
-</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="sd">    Initialize the command line interface for the data extractor.</span>
-</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a>
-</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a><span class="sd">    ------------</span>
-</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a><span class="sd">    data: Data</span>
-</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a><span class="sd">        The Data object to extract the data.</span>
-</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a>
-</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="sd">    Returns:</span>
-</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a><span class="sd">    ------------</span>
-</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a><span class="sd">    None</span>
-</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Process some files.&quot;</span><span class="p">)</span>
-</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>
-</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="c1"># Add the arguments</span>
-</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the input file.&quot;</span><span class="p">)</span>
-</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the output file.&quot;</span><span class="p">)</span>
-</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The encoding to use.&quot;</span><span class="p">)</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="L-163"><a href="#L-163"><span class="linenos">163</span></a>                        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-164"><a href="#L-164"><span class="linenos">164</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span id="L-165"><a href="#L-165"><span class="linenos">165</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="L-166"><a href="#L-166"><span class="linenos">166</span></a>    
+</span><span id="L-167"><a href="#L-167"><span class="linenos">167</span></a><span class="k">def</span> <span class="nf">extract_info_cli</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
+</span><span id="L-168"><a href="#L-168"><span class="linenos">168</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-169"><a href="#L-169"><span class="linenos">169</span></a><span class="sd">    Initialize the command line interface for the data extractor.</span>
+</span><span id="L-170"><a href="#L-170"><span class="linenos">170</span></a>
+</span><span id="L-171"><a href="#L-171"><span class="linenos">171</span></a><span class="sd">    Parameters</span>
+</span><span id="L-172"><a href="#L-172"><span class="linenos">172</span></a><span class="sd">    ----------</span>
+</span><span id="L-173"><a href="#L-173"><span class="linenos">173</span></a><span class="sd">    data : Data</span>
+</span><span id="L-174"><a href="#L-174"><span class="linenos">174</span></a><span class="sd">        The Data object to extract the data.</span>
+</span><span id="L-175"><a href="#L-175"><span class="linenos">175</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-176"><a href="#L-176"><span class="linenos">176</span></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Process some files.&quot;</span><span class="p">)</span>
+</span><span id="L-177"><a href="#L-177"><span class="linenos">177</span></a>
+</span><span id="L-178"><a href="#L-178"><span class="linenos">178</span></a>    <span class="c1"># Add the arguments</span>
+</span><span id="L-179"><a href="#L-179"><span class="linenos">179</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the input file.&quot;</span><span class="p">)</span>
+</span><span id="L-180"><a href="#L-180"><span class="linenos">180</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the output file.&quot;</span><span class="p">)</span>
+</span><span id="L-181"><a href="#L-181"><span class="linenos">181</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The encoding to use.&quot;</span><span class="p">)</span>
+</span><span id="L-182"><a href="#L-182"><span class="linenos">182</span></a>
+</span><span id="L-183"><a href="#L-183"><span class="linenos">183</span></a>    <span class="c1"># Parse the arguments</span>
+</span><span id="L-184"><a href="#L-184"><span class="linenos">184</span></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 </span><span id="L-185"><a href="#L-185"><span class="linenos">185</span></a>
-</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="c1"># Parse the arguments</span>
-</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a>
-</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
-</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a>
-</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a><span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a><span class="sd">    Extract the data from the file.</span>
-</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a>
-</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a><span class="sd">    Recommend to use the `extract_info_cli` function, becauseof the flexibility.</span>
-</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a>
-</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a><span class="sd">    Parameters:</span>
-</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a><span class="sd">    ------------</span>
-</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="sd">    data: Data</span>
-</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a><span class="sd">        The Data object to extract the data.</span>
-</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a>
-</span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a><span class="sd">    file_path: str</span>
-</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a><span class="sd">        The path of the file.</span>
-</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a>
-</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">    encoding: str</span>
-</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a><span class="sd">        The encoding of the file. Default is &quot;utf-8&quot;.</span>
-</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a>
-</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a><span class="sd">    Returns:</span>
-</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a><span class="sd">    ------------</span>
-</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a><span class="sd">    pd.DataFrame</span>
-</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a><span class="sd">        The data extracted from the file.</span>
-</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
-</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>
-</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span>
+</span><span id="L-186"><a href="#L-186"><span class="linenos">186</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="L-187"><a href="#L-187"><span class="linenos">187</span></a>
+</span><span id="L-188"><a href="#L-188"><span class="linenos">188</span></a><span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="L-189"><a href="#L-189"><span class="linenos">189</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-190"><a href="#L-190"><span class="linenos">190</span></a><span class="sd">    Extract the data from the file.</span>
+</span><span id="L-191"><a href="#L-191"><span class="linenos">191</span></a>
+</span><span id="L-192"><a href="#L-192"><span class="linenos">192</span></a><span class="sd">    Recommend to use the `extract_info_cli` function, becauseof the flexibility.</span>
+</span><span id="L-193"><a href="#L-193"><span class="linenos">193</span></a>
+</span><span id="L-194"><a href="#L-194"><span class="linenos">194</span></a><span class="sd">    Parameters</span>
+</span><span id="L-195"><a href="#L-195"><span class="linenos">195</span></a><span class="sd">    ----------</span>
+</span><span id="L-196"><a href="#L-196"><span class="linenos">196</span></a><span class="sd">    data : Data</span>
+</span><span id="L-197"><a href="#L-197"><span class="linenos">197</span></a><span class="sd">        The Data object to extract the data.</span>
+</span><span id="L-198"><a href="#L-198"><span class="linenos">198</span></a><span class="sd">    file_path : str</span>
+</span><span id="L-199"><a href="#L-199"><span class="linenos">199</span></a><span class="sd">        The path of the file.</span>
+</span><span id="L-200"><a href="#L-200"><span class="linenos">200</span></a><span class="sd">    encoding: str</span>
+</span><span id="L-201"><a href="#L-201"><span class="linenos">201</span></a><span class="sd">        The encoding of the file. Default is &quot;utf-8&quot;.</span>
+</span><span id="L-202"><a href="#L-202"><span class="linenos">202</span></a>
+</span><span id="L-203"><a href="#L-203"><span class="linenos">203</span></a><span class="sd">    Returns</span>
+</span><span id="L-204"><a href="#L-204"><span class="linenos">204</span></a><span class="sd">    -------</span>
+</span><span id="L-205"><a href="#L-205"><span class="linenos">205</span></a><span class="sd">    pd.DataFrame</span>
+</span><span id="L-206"><a href="#L-206"><span class="linenos">206</span></a><span class="sd">        The data extracted from the file.</span>
+</span><span id="L-207"><a href="#L-207"><span class="linenos">207</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-208"><a href="#L-208"><span class="linenos">208</span></a>    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+</span><span id="L-209"><a href="#L-209"><span class="linenos">209</span></a>
+</span><span id="L-210"><a href="#L-210"><span class="linenos">210</span></a><span class="k">if</span> <span class="vm">__name__</span><span class="o">==</span><span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span id="L-211"><a href="#L-211"><span class="linenos">211</span></a>    <span class="n">d</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span>
+</span><span id="L-212"><a href="#L-212"><span class="linenos">212</span></a>        <span class="n">Section</span><span class="p">(</span>
+</span><span id="L-213"><a href="#L-213"><span class="linenos">213</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;MKL number of threads: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;N_threads&quot;</span><span class="p">),</span>
+</span><span id="L-214"><a href="#L-214"><span class="linenos">214</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;cmkl_permut total time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;cfunc_time&quot;</span><span class="p">),</span>
+</span><span id="L-215"><a href="#L-215"><span class="linenos">215</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;cmkl_permut permutation time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;permut_time&quot;</span><span class="p">)</span>
+</span><span id="L-216"><a href="#L-216"><span class="linenos">216</span></a>        <span class="p">),</span>
 </span><span id="L-217"><a href="#L-217"><span class="linenos">217</span></a>        <span class="n">Section</span><span class="p">(</span>
-</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;MKL number of threads: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;N_threads&quot;</span><span class="p">),</span>
-</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;cmkl_permut total time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;cfunc_time&quot;</span><span class="p">),</span>
-</span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;cmkl_permut permutation time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;permut_time&quot;</span><span class="p">)</span>
-</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>        <span class="p">),</span>
-</span><span id="L-222"><a href="#L-222"><span class="linenos">222</span></a>        <span class="n">Section</span><span class="p">(</span>
-</span><span id="L-223"><a href="#L-223"><span class="linenos">223</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;Function permutation_mkl took $$ seconds to run.&quot;</span><span class="p">,</span> <span class="s2">&quot;python_func_time&quot;</span><span class="p">)</span>
-</span><span id="L-224"><a href="#L-224"><span class="linenos">224</span></a>        <span class="p">)</span>
-</span><span id="L-225"><a href="#L-225"><span class="linenos">225</span></a>    <span class="p">)</span>
-</span><span id="L-226"><a href="#L-226"><span class="linenos">226</span></a>    <span class="n">d</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;./new_txt.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;test.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="L-218"><a href="#L-218"><span class="linenos">218</span></a>            <span class="n">Line</span><span class="p">(</span><span class="s2">&quot;Function permutation_mkl took $$ seconds to run.&quot;</span><span class="p">,</span> <span class="s2">&quot;python_func_time&quot;</span><span class="p">)</span>
+</span><span id="L-219"><a href="#L-219"><span class="linenos">219</span></a>        <span class="p">)</span>
+</span><span id="L-220"><a href="#L-220"><span class="linenos">220</span></a>    <span class="p">)</span>
+</span><span id="L-221"><a href="#L-221"><span class="linenos">221</span></a>    <span class="n">d</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s2">&quot;./new_txt.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;test.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -392,43 +381,42 @@ execution time: $$
 </span><span id="Line-81"><a href="#Line-81"><span class="linenos"> 81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="Line-82"><a href="#Line-82"><span class="linenos"> 82</span></a><span class="sd">        Initialize the Line object.</span>
 </span><span id="Line-83"><a href="#Line-83"><span class="linenos"> 83</span></a>
-</span><span id="Line-84"><a href="#Line-84"><span class="linenos"> 84</span></a><span class="sd">        Parameters:</span>
-</span><span id="Line-85"><a href="#Line-85"><span class="linenos"> 85</span></a><span class="sd">        ------------</span>
-</span><span id="Line-86"><a href="#Line-86"><span class="linenos"> 86</span></a><span class="sd">        pattern: str</span>
+</span><span id="Line-84"><a href="#Line-84"><span class="linenos"> 84</span></a><span class="sd">        Parameters</span>
+</span><span id="Line-85"><a href="#Line-85"><span class="linenos"> 85</span></a><span class="sd">        ----------</span>
+</span><span id="Line-86"><a href="#Line-86"><span class="linenos"> 86</span></a><span class="sd">        pattern : str</span>
 </span><span id="Line-87"><a href="#Line-87"><span class="linenos"> 87</span></a><span class="sd">            The pattern of the line. The pattern should be like &quot;number of threads: $$&quot;, where &quot;$$&quot; is the data place.</span>
-</span><span id="Line-88"><a href="#Line-88"><span class="linenos"> 88</span></a>
-</span><span id="Line-89"><a href="#Line-89"><span class="linenos"> 89</span></a><span class="sd">        *labels: str</span>
-</span><span id="Line-90"><a href="#Line-90"><span class="linenos"> 90</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
-</span><span id="Line-91"><a href="#Line-91"><span class="linenos"> 91</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
-</span><span id="Line-92"><a href="#Line-92"><span class="linenos"> 92</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
-</span><span id="Line-93"><a href="#Line-93"><span class="linenos"> 93</span></a><span class="sd">            ```python</span>
-</span><span id="Line-94"><a href="#Line-94"><span class="linenos"> 94</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
-</span><span id="Line-95"><a href="#Line-95"><span class="linenos"> 95</span></a><span class="sd">            ```</span>
-</span><span id="Line-96"><a href="#Line-96"><span class="linenos"> 96</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Line-97"><a href="#Line-97"><span class="linenos"> 97</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
-</span><span id="Line-98"><a href="#Line-98"><span class="linenos"> 98</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="Line-99"><a href="#Line-99"><span class="linenos"> 99</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
-</span><span id="Line-100"><a href="#Line-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="Line-101"><a href="#Line-101"><span class="linenos">101</span></a>
-</span><span id="Line-102"><a href="#Line-102"><span class="linenos">102</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
-</span><span id="Line-103"><a href="#Line-103"><span class="linenos">103</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="Line-104"><a href="#Line-104"><span class="linenos">104</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
-</span><span id="Line-105"><a href="#Line-105"><span class="linenos">105</span></a>            <span class="k">return</span> <span class="p">{}</span>
-</span><span id="Line-106"><a href="#Line-106"><span class="linenos">106</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-</span><span id="Line-107"><a href="#Line-107"><span class="linenos">107</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="Line-108"><a href="#Line-108"><span class="linenos">108</span></a>                <span class="k">return</span> <span class="p">{}</span>
-</span><span id="Line-109"><a href="#Line-109"><span class="linenos">109</span></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="Line-110"><a href="#Line-110"><span class="linenos">110</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
-</span><span id="Line-111"><a href="#Line-111"><span class="linenos">111</span></a>                <span class="k">return</span> <span class="p">{}</span>
-</span><span id="Line-112"><a href="#Line-112"><span class="linenos">112</span></a>
-</span><span id="Line-113"><a href="#Line-113"><span class="linenos">113</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
-</span><span id="Line-114"><a href="#Line-114"><span class="linenos">114</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
-</span><span id="Line-115"><a href="#Line-115"><span class="linenos">115</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-</span><span id="Line-116"><a href="#Line-116"><span class="linenos">116</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="Line-117"><a href="#Line-117"><span class="linenos">117</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
-</span><span id="Line-118"><a href="#Line-118"><span class="linenos">118</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
-</span><span id="Line-119"><a href="#Line-119"><span class="linenos">119</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
-</span><span id="Line-120"><a href="#Line-120"><span class="linenos">120</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+</span><span id="Line-88"><a href="#Line-88"><span class="linenos"> 88</span></a><span class="sd">        *labels : str</span>
+</span><span id="Line-89"><a href="#Line-89"><span class="linenos"> 89</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
+</span><span id="Line-90"><a href="#Line-90"><span class="linenos"> 90</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
+</span><span id="Line-91"><a href="#Line-91"><span class="linenos"> 91</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
+</span><span id="Line-92"><a href="#Line-92"><span class="linenos"> 92</span></a><span class="sd">            ```python</span>
+</span><span id="Line-93"><a href="#Line-93"><span class="linenos"> 93</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
+</span><span id="Line-94"><a href="#Line-94"><span class="linenos"> 94</span></a><span class="sd">            ```</span>
+</span><span id="Line-95"><a href="#Line-95"><span class="linenos"> 95</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Line-96"><a href="#Line-96"><span class="linenos"> 96</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
+</span><span id="Line-97"><a href="#Line-97"><span class="linenos"> 97</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Line-98"><a href="#Line-98"><span class="linenos"> 98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+</span><span id="Line-99"><a href="#Line-99"><span class="linenos"> 99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Line-100"><a href="#Line-100"><span class="linenos">100</span></a>
+</span><span id="Line-101"><a href="#Line-101"><span class="linenos">101</span></a>    <span class="k">def</span> <span class="nf">analyse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">line_number</span><span class="p">):</span>
+</span><span id="Line-102"><a href="#Line-102"><span class="linenos">102</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Line-103"><a href="#Line-103"><span class="linenos">103</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="nb">tuple</span><span class="p">():</span>
+</span><span id="Line-104"><a href="#Line-104"><span class="linenos">104</span></a>            <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-105"><a href="#Line-105"><span class="linenos">105</span></a>        <span class="k">if</span> <span class="n">match_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span><span id="Line-106"><a href="#Line-106"><span class="linenos">106</span></a>            <span class="k">if</span> <span class="n">if_warning</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Line-107"><a href="#Line-107"><span class="linenos">107</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-108"><a href="#Line-108"><span class="linenos">108</span></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="Line-109"><a href="#Line-109"><span class="linenos">109</span></a>                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;The line(</span><span class="si">%s</span><span class="s2">) can&#39;t match the patter(</span><span class="si">%s</span><span class="s2">), skip line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span><span class="p">,</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line-110"><a href="#Line-110"><span class="linenos">110</span></a>                <span class="k">return</span> <span class="p">{}</span>
+</span><span id="Line-111"><a href="#Line-111"><span class="linenos">111</span></a>
+</span><span id="Line-112"><a href="#Line-112"><span class="linenos">112</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data_pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+</span><span id="Line-113"><a href="#Line-113"><span class="linenos">113</span></a>        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">)):</span>
+</span><span id="Line-114"><a href="#Line-114"><span class="linenos">114</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line-115"><a href="#Line-115"><span class="linenos">115</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Line-116"><a href="#Line-116"><span class="linenos">116</span></a>            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+</span><span id="Line-117"><a href="#Line-117"><span class="linenos">117</span></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">!=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line-118"><a href="#Line-118"><span class="linenos">118</span></a>            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The number of data(</span><span class="si">%d</span><span class="s2">) is differenct from lables(</span><span class="si">%d</span><span class="s2">), line </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">line_number</span><span class="p">))</span>
+</span><span id="Line-119"><a href="#Line-119"><span class="linenos">119</span></a>        <span class="k">return</span> <span class="p">{</span><span class="n">l</span><span class="p">:</span><span class="n">d</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
 </span></pre></div>
 
 
@@ -444,45 +432,45 @@ execution time: $$
 
     </div>
     <a class="headerlink" href="#Line.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Line.__init__-80"><a href="#Line.__init__-80"><span class="linenos"> 80</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">labels</span><span class="p">):</span>
-</span><span id="Line.__init__-81"><a href="#Line.__init__-81"><span class="linenos"> 81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Line.__init__-82"><a href="#Line.__init__-82"><span class="linenos"> 82</span></a><span class="sd">        Initialize the Line object.</span>
-</span><span id="Line.__init__-83"><a href="#Line.__init__-83"><span class="linenos"> 83</span></a>
-</span><span id="Line.__init__-84"><a href="#Line.__init__-84"><span class="linenos"> 84</span></a><span class="sd">        Parameters:</span>
-</span><span id="Line.__init__-85"><a href="#Line.__init__-85"><span class="linenos"> 85</span></a><span class="sd">        ------------</span>
-</span><span id="Line.__init__-86"><a href="#Line.__init__-86"><span class="linenos"> 86</span></a><span class="sd">        pattern: str</span>
-</span><span id="Line.__init__-87"><a href="#Line.__init__-87"><span class="linenos"> 87</span></a><span class="sd">            The pattern of the line. The pattern should be like &quot;number of threads: $$&quot;, where &quot;$$&quot; is the data place.</span>
-</span><span id="Line.__init__-88"><a href="#Line.__init__-88"><span class="linenos"> 88</span></a>
-</span><span id="Line.__init__-89"><a href="#Line.__init__-89"><span class="linenos"> 89</span></a><span class="sd">        *labels: str</span>
-</span><span id="Line.__init__-90"><a href="#Line.__init__-90"><span class="linenos"> 90</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
-</span><span id="Line.__init__-91"><a href="#Line.__init__-91"><span class="linenos"> 91</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
-</span><span id="Line.__init__-92"><a href="#Line.__init__-92"><span class="linenos"> 92</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
-</span><span id="Line.__init__-93"><a href="#Line.__init__-93"><span class="linenos"> 93</span></a><span class="sd">            ```python</span>
-</span><span id="Line.__init__-94"><a href="#Line.__init__-94"><span class="linenos"> 94</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
-</span><span id="Line.__init__-95"><a href="#Line.__init__-95"><span class="linenos"> 95</span></a><span class="sd">            ```</span>
-</span><span id="Line.__init__-96"><a href="#Line.__init__-96"><span class="linenos"> 96</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Line.__init__-97"><a href="#Line.__init__-97"><span class="linenos"> 97</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
-</span><span id="Line.__init__-98"><a href="#Line.__init__-98"><span class="linenos"> 98</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="Line.__init__-99"><a href="#Line.__init__-99"><span class="linenos"> 99</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
-</span><span id="Line.__init__-100"><a href="#Line.__init__-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Line.__init__-80"><a href="#Line.__init__-80"><span class="linenos">80</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">labels</span><span class="p">):</span>
+</span><span id="Line.__init__-81"><a href="#Line.__init__-81"><span class="linenos">81</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Line.__init__-82"><a href="#Line.__init__-82"><span class="linenos">82</span></a><span class="sd">        Initialize the Line object.</span>
+</span><span id="Line.__init__-83"><a href="#Line.__init__-83"><span class="linenos">83</span></a>
+</span><span id="Line.__init__-84"><a href="#Line.__init__-84"><span class="linenos">84</span></a><span class="sd">        Parameters</span>
+</span><span id="Line.__init__-85"><a href="#Line.__init__-85"><span class="linenos">85</span></a><span class="sd">        ----------</span>
+</span><span id="Line.__init__-86"><a href="#Line.__init__-86"><span class="linenos">86</span></a><span class="sd">        pattern : str</span>
+</span><span id="Line.__init__-87"><a href="#Line.__init__-87"><span class="linenos">87</span></a><span class="sd">            The pattern of the line. The pattern should be like &quot;number of threads: $$&quot;, where &quot;$$&quot; is the data place.</span>
+</span><span id="Line.__init__-88"><a href="#Line.__init__-88"><span class="linenos">88</span></a><span class="sd">        *labels : str</span>
+</span><span id="Line.__init__-89"><a href="#Line.__init__-89"><span class="linenos">89</span></a><span class="sd">            The labels of the data, namely the column name of this data in table.</span>
+</span><span id="Line.__init__-90"><a href="#Line.__init__-90"><span class="linenos">90</span></a><span class="sd">            For example, the pattern is &quot;number of threads: $$&quot;, the label can be &quot;number of threads&quot;.</span>
+</span><span id="Line.__init__-91"><a href="#Line.__init__-91"><span class="linenos">91</span></a><span class="sd">            Can be multiple labels. Like &quot;number of threads: $$, execution time: $$&quot;, the labels can be &quot;number of threads&quot; and &quot;execution time&quot;.</span>
+</span><span id="Line.__init__-92"><a href="#Line.__init__-92"><span class="linenos">92</span></a><span class="sd">            ```python</span>
+</span><span id="Line.__init__-93"><a href="#Line.__init__-93"><span class="linenos">93</span></a><span class="sd">            Line(&quot;number of threads: $$, execution time: $$&quot;, &quot;number of threads&quot;, &quot;execution time&quot;)</span>
+</span><span id="Line.__init__-94"><a href="#Line.__init__-94"><span class="linenos">94</span></a><span class="sd">            ```</span>
+</span><span id="Line.__init__-95"><a href="#Line.__init__-95"><span class="linenos">95</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Line.__init__-96"><a href="#Line.__init__-96"><span class="linenos">96</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">full_pattern</span> <span class="o">=</span> <span class="s2">&quot;^&quot;</span><span class="o">+</span><span class="n">pattern</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$$&quot;</span><span class="p">,</span> <span class="n">data_pattern</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;$&quot;</span>
+</span><span id="Line.__init__-97"><a href="#Line.__init__-97"><span class="linenos">97</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Line.__init__-98"><a href="#Line.__init__-98"><span class="linenos">98</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+</span><span id="Line.__init__-99"><a href="#Line.__init__-99"><span class="linenos">99</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Initialize the Line object.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>pattern: str
-    The pattern of the line. The pattern should be like "number of threads: $$", where "$$" is the data place.</p>
-
-<p>*labels: str
-    The labels of the data, namely the column name of this data in table.
-    For example, the pattern is "number of threads: $$", the label can be "number of threads".
-    Can be multiple labels. Like "number of threads: $$, execution time: $$", the labels can be "number of threads" and "execution time".
-    <div class="pdoc-code codehilite">
-    <pre><span></span><code><span class="n">Line</span><span class="p">(</span><span class="s2">&quot;number of threads: $$, execution time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;number of threads&quot;</span><span class="p">,</span> <span class="s2">&quot;execution time&quot;</span><span class="p">)</span>
-    </code></pre>
-    </div></p>
+<ul>
+<li><strong>pattern</strong> (str):
+The pattern of the line. The pattern should be like "number of threads: $$", where "$$" is the data place.</li>
+<li><strong>*labels</strong> (str):
+The labels of the data, namely the column name of this data in table.
+For example, the pattern is "number of threads: $$", the label can be "number of threads".
+Can be multiple labels. Like "number of threads: $$, execution time: $$", the labels can be "number of threads" and "execution time".
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="n">Line</span><span class="p">(</span><span class="s2">&quot;number of threads: $$, execution time: $$&quot;</span><span class="p">,</span> <span class="s2">&quot;number of threads&quot;</span><span class="p">,</span> <span class="s2">&quot;execution time&quot;</span><span class="p">)</span>
+</code></pre>
+</div></li>
+</ul>
 </div>
 
 
@@ -499,19 +487,20 @@ execution time: $$
 
     </div>
     <a class="headerlink" href="#Section"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Section-122"><a href="#Section-122"><span class="linenos">122</span></a><span class="k">class</span> <span class="nc">Section</span><span class="p">:</span>
-</span><span id="Section-123"><a href="#Section-123"><span class="linenos">123</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
-</span><span id="Section-124"><a href="#Section-124"><span class="linenos">124</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Section-125"><a href="#Section-125"><span class="linenos">125</span></a><span class="sd">        Initialize the Section object.</span>
-</span><span id="Section-126"><a href="#Section-126"><span class="linenos">126</span></a>
-</span><span id="Section-127"><a href="#Section-127"><span class="linenos">127</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
-</span><span id="Section-128"><a href="#Section-128"><span class="linenos">128</span></a>
-</span><span id="Section-129"><a href="#Section-129"><span class="linenos">129</span></a><span class="sd">        Parameters:</span>
-</span><span id="Section-130"><a href="#Section-130"><span class="linenos">130</span></a><span class="sd">        ------------</span>
-</span><span id="Section-131"><a href="#Section-131"><span class="linenos">131</span></a><span class="sd">        *Lines: Line</span>
-</span><span id="Section-132"><a href="#Section-132"><span class="linenos">132</span></a><span class="sd">            The Line objects in this section.</span>
-</span><span id="Section-133"><a href="#Section-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Section-134"><a href="#Section-134"><span class="linenos">134</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Section-121"><a href="#Section-121"><span class="linenos">121</span></a><span class="k">class</span> <span class="nc">Section</span><span class="p">:</span>
+</span><span id="Section-122"><a href="#Section-122"><span class="linenos">122</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
+</span><span id="Section-123"><a href="#Section-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Section-124"><a href="#Section-124"><span class="linenos">124</span></a><span class="sd">        Initialize the Section object.</span>
+</span><span id="Section-125"><a href="#Section-125"><span class="linenos">125</span></a>
+</span><span id="Section-126"><a href="#Section-126"><span class="linenos">126</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
+</span><span id="Section-127"><a href="#Section-127"><span class="linenos">127</span></a>
+</span><span id="Section-128"><a href="#Section-128"><span class="linenos">128</span></a><span class="sd">        Parameters</span>
+</span><span id="Section-129"><a href="#Section-129"><span class="linenos">129</span></a><span class="sd">        ----------</span>
+</span><span id="Section-130"><a href="#Section-130"><span class="linenos">130</span></a><span class="sd">        *Lines : Line</span>
+</span><span id="Section-131"><a href="#Section-131"><span class="linenos">131</span></a><span class="sd">            The Line objects in this section.</span>
+</span><span id="Section-132"><a href="#Section-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Section-133"><a href="#Section-133"><span class="linenos">133</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span><span id="Section-134"><a href="#Section-134"><span class="linenos">134</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -527,18 +516,19 @@ execution time: $$
 
     </div>
     <a class="headerlink" href="#Section.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Section.__init__-123"><a href="#Section.__init__-123"><span class="linenos">123</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
-</span><span id="Section.__init__-124"><a href="#Section.__init__-124"><span class="linenos">124</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Section.__init__-125"><a href="#Section.__init__-125"><span class="linenos">125</span></a><span class="sd">        Initialize the Section object.</span>
-</span><span id="Section.__init__-126"><a href="#Section.__init__-126"><span class="linenos">126</span></a>
-</span><span id="Section.__init__-127"><a href="#Section.__init__-127"><span class="linenos">127</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
-</span><span id="Section.__init__-128"><a href="#Section.__init__-128"><span class="linenos">128</span></a>
-</span><span id="Section.__init__-129"><a href="#Section.__init__-129"><span class="linenos">129</span></a><span class="sd">        Parameters:</span>
-</span><span id="Section.__init__-130"><a href="#Section.__init__-130"><span class="linenos">130</span></a><span class="sd">        ------------</span>
-</span><span id="Section.__init__-131"><a href="#Section.__init__-131"><span class="linenos">131</span></a><span class="sd">        *Lines: Line</span>
-</span><span id="Section.__init__-132"><a href="#Section.__init__-132"><span class="linenos">132</span></a><span class="sd">            The Line objects in this section.</span>
-</span><span id="Section.__init__-133"><a href="#Section.__init__-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Section.__init__-134"><a href="#Section.__init__-134"><span class="linenos">134</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Section.__init__-122"><a href="#Section.__init__-122"><span class="linenos">122</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">Lines</span><span class="p">):</span>
+</span><span id="Section.__init__-123"><a href="#Section.__init__-123"><span class="linenos">123</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Section.__init__-124"><a href="#Section.__init__-124"><span class="linenos">124</span></a><span class="sd">        Initialize the Section object.</span>
+</span><span id="Section.__init__-125"><a href="#Section.__init__-125"><span class="linenos">125</span></a>
+</span><span id="Section.__init__-126"><a href="#Section.__init__-126"><span class="linenos">126</span></a><span class="sd">        A Section object can contain multiple Line objects.</span>
+</span><span id="Section.__init__-127"><a href="#Section.__init__-127"><span class="linenos">127</span></a>
+</span><span id="Section.__init__-128"><a href="#Section.__init__-128"><span class="linenos">128</span></a><span class="sd">        Parameters</span>
+</span><span id="Section.__init__-129"><a href="#Section.__init__-129"><span class="linenos">129</span></a><span class="sd">        ----------</span>
+</span><span id="Section.__init__-130"><a href="#Section.__init__-130"><span class="linenos">130</span></a><span class="sd">        *Lines : Line</span>
+</span><span id="Section.__init__-131"><a href="#Section.__init__-131"><span class="linenos">131</span></a><span class="sd">            The Line objects in this section.</span>
+</span><span id="Section.__init__-132"><a href="#Section.__init__-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Section.__init__-133"><a href="#Section.__init__-133"><span class="linenos">133</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">Lines</span>
+</span><span id="Section.__init__-134"><a href="#Section.__init__-134"><span class="linenos">134</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -546,23 +536,14 @@ execution time: $$
 
 <p>A Section object can contain multiple Line objects.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>*Lines: Line
-    The Line objects in this section.</p>
+<ul>
+<li><strong>*Lines</strong> (Line):
+The Line objects in this section.</li>
+</ul>
 </div>
 
-
-                            </div>
-                            <div id="Section.lines" class="classattr">
-                                <div class="attr variable">
-            <span class="name">lines</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Section.lines"></a>
-    
-    
 
                             </div>
                 </section>
@@ -584,29 +565,30 @@ execution time: $$
 </span><span id="Data-140"><a href="#Data-140"><span class="linenos">140</span></a>
 </span><span id="Data-141"><a href="#Data-141"><span class="linenos">141</span></a><span class="sd">        A Data object can contain multiple Section objects.</span>
 </span><span id="Data-142"><a href="#Data-142"><span class="linenos">142</span></a>
-</span><span id="Data-143"><a href="#Data-143"><span class="linenos">143</span></a><span class="sd">        Parameters:</span>
-</span><span id="Data-144"><a href="#Data-144"><span class="linenos">144</span></a><span class="sd">        ------------</span>
-</span><span id="Data-145"><a href="#Data-145"><span class="linenos">145</span></a><span class="sd">        *Sections: Section</span>
+</span><span id="Data-143"><a href="#Data-143"><span class="linenos">143</span></a><span class="sd">        Parameters</span>
+</span><span id="Data-144"><a href="#Data-144"><span class="linenos">144</span></a><span class="sd">        ----------</span>
+</span><span id="Data-145"><a href="#Data-145"><span class="linenos">145</span></a><span class="sd">        *Sections : Section</span>
 </span><span id="Data-146"><a href="#Data-146"><span class="linenos">146</span></a><span class="sd">            The Section objects in this data.</span>
 </span><span id="Data-147"><a href="#Data-147"><span class="linenos">147</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Data-148"><a href="#Data-148"><span class="linenos">148</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="n">Sections</span>
-</span><span id="Data-149"><a href="#Data-149"><span class="linenos">149</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="Data-150"><a href="#Data-150"><span class="linenos">150</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="Data-151"><a href="#Data-151"><span class="linenos">151</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="Data-152"><a href="#Data-152"><span class="linenos">152</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
-</span><span id="Data-153"><a href="#Data-153"><span class="linenos">153</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="Data-154"><a href="#Data-154"><span class="linenos">154</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
-</span><span id="Data-155"><a href="#Data-155"><span class="linenos">155</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="Data-156"><a href="#Data-156"><span class="linenos">156</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-</span><span id="Data-157"><a href="#Data-157"><span class="linenos">157</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-</span><span id="Data-158"><a href="#Data-158"><span class="linenos">158</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
-</span><span id="Data-159"><a href="#Data-159"><span class="linenos">159</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
-</span><span id="Data-160"><a href="#Data-160"><span class="linenos">160</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="Data-161"><a href="#Data-161"><span class="linenos">161</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-</span><span id="Data-162"><a href="#Data-162"><span class="linenos">162</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</span><span id="Data-163"><a href="#Data-163"><span class="linenos">163</span></a>                        <span class="k">else</span><span class="p">:</span>
-</span><span id="Data-164"><a href="#Data-164"><span class="linenos">164</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
-</span><span id="Data-165"><a href="#Data-165"><span class="linenos">165</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span><span id="Data-149"><a href="#Data-149"><span class="linenos">149</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Data-150"><a href="#Data-150"><span class="linenos">150</span></a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="Data-151"><a href="#Data-151"><span class="linenos">151</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="Data-152"><a href="#Data-152"><span class="linenos">152</span></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="Data-153"><a href="#Data-153"><span class="linenos">153</span></a>            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
+</span><span id="Data-154"><a href="#Data-154"><span class="linenos">154</span></a>        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="Data-155"><a href="#Data-155"><span class="linenos">155</span></a>        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+</span><span id="Data-156"><a href="#Data-156"><span class="linenos">156</span></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="Data-157"><a href="#Data-157"><span class="linenos">157</span></a>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+</span><span id="Data-158"><a href="#Data-158"><span class="linenos">158</span></a>                <span class="n">temp</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lines</span><span class="p">)]</span><span class="o">.</span><span class="n">analyse</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</span><span id="Data-159"><a href="#Data-159"><span class="linenos">159</span></a>                <span class="k">if</span> <span class="n">temp</span><span class="o">!=</span><span class="p">{}:</span>
+</span><span id="Data-160"><a href="#Data-160"><span class="linenos">160</span></a>                    <span class="n">index</span><span class="o">+=</span><span class="mi">1</span>
+</span><span id="Data-161"><a href="#Data-161"><span class="linenos">161</span></a>                    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">temp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="Data-162"><a href="#Data-162"><span class="linenos">162</span></a>                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+</span><span id="Data-163"><a href="#Data-163"><span class="linenos">163</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span><span id="Data-164"><a href="#Data-164"><span class="linenos">164</span></a>                        <span class="k">else</span><span class="p">:</span>
+</span><span id="Data-165"><a href="#Data-165"><span class="linenos">165</span></a>                            <span class="n">result</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">]</span>
+</span><span id="Data-166"><a href="#Data-166"><span class="linenos">166</span></a>        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -628,12 +610,13 @@ execution time: $$
 </span><span id="Data.__init__-140"><a href="#Data.__init__-140"><span class="linenos">140</span></a>
 </span><span id="Data.__init__-141"><a href="#Data.__init__-141"><span class="linenos">141</span></a><span class="sd">        A Data object can contain multiple Section objects.</span>
 </span><span id="Data.__init__-142"><a href="#Data.__init__-142"><span class="linenos">142</span></a>
-</span><span id="Data.__init__-143"><a href="#Data.__init__-143"><span class="linenos">143</span></a><span class="sd">        Parameters:</span>
-</span><span id="Data.__init__-144"><a href="#Data.__init__-144"><span class="linenos">144</span></a><span class="sd">        ------------</span>
-</span><span id="Data.__init__-145"><a href="#Data.__init__-145"><span class="linenos">145</span></a><span class="sd">        *Sections: Section</span>
+</span><span id="Data.__init__-143"><a href="#Data.__init__-143"><span class="linenos">143</span></a><span class="sd">        Parameters</span>
+</span><span id="Data.__init__-144"><a href="#Data.__init__-144"><span class="linenos">144</span></a><span class="sd">        ----------</span>
+</span><span id="Data.__init__-145"><a href="#Data.__init__-145"><span class="linenos">145</span></a><span class="sd">        *Sections : Section</span>
 </span><span id="Data.__init__-146"><a href="#Data.__init__-146"><span class="linenos">146</span></a><span class="sd">            The Section objects in this data.</span>
 </span><span id="Data.__init__-147"><a href="#Data.__init__-147"><span class="linenos">147</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Data.__init__-148"><a href="#Data.__init__-148"><span class="linenos">148</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sections</span> <span class="o">=</span> <span class="n">Sections</span>
+</span><span id="Data.__init__-149"><a href="#Data.__init__-149"><span class="linenos">149</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -641,23 +624,14 @@ execution time: $$
 
 <p>A Data object can contain multiple Section objects.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>*Sections: Section
-    The Section objects in this data.</p>
+<ul>
+<li><strong>*Sections</strong> (Section):
+The Section objects in this data.</li>
+</ul>
 </div>
 
-
-                            </div>
-                            <div id="Data.sections" class="classattr">
-                                <div class="attr variable">
-            <span class="name">sections</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Data.sections"></a>
-    
-    
 
                             </div>
                 </section>
@@ -672,43 +646,37 @@ execution time: $$
 
     </div>
     <a class="headerlink" href="#extract_info_cli"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info_cli-167"><a href="#extract_info_cli-167"><span class="linenos">167</span></a><span class="k">def</span> <span class="nf">extract_info_cli</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
-</span><span id="extract_info_cli-168"><a href="#extract_info_cli-168"><span class="linenos">168</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="extract_info_cli-169"><a href="#extract_info_cli-169"><span class="linenos">169</span></a><span class="sd">    Initialize the command line interface for the data extractor.</span>
-</span><span id="extract_info_cli-170"><a href="#extract_info_cli-170"><span class="linenos">170</span></a>
-</span><span id="extract_info_cli-171"><a href="#extract_info_cli-171"><span class="linenos">171</span></a><span class="sd">    Parameters:</span>
-</span><span id="extract_info_cli-172"><a href="#extract_info_cli-172"><span class="linenos">172</span></a><span class="sd">    ------------</span>
-</span><span id="extract_info_cli-173"><a href="#extract_info_cli-173"><span class="linenos">173</span></a><span class="sd">    data: Data</span>
-</span><span id="extract_info_cli-174"><a href="#extract_info_cli-174"><span class="linenos">174</span></a><span class="sd">        The Data object to extract the data.</span>
-</span><span id="extract_info_cli-175"><a href="#extract_info_cli-175"><span class="linenos">175</span></a>
-</span><span id="extract_info_cli-176"><a href="#extract_info_cli-176"><span class="linenos">176</span></a><span class="sd">    Returns:</span>
-</span><span id="extract_info_cli-177"><a href="#extract_info_cli-177"><span class="linenos">177</span></a><span class="sd">    ------------</span>
-</span><span id="extract_info_cli-178"><a href="#extract_info_cli-178"><span class="linenos">178</span></a><span class="sd">    None</span>
-</span><span id="extract_info_cli-179"><a href="#extract_info_cli-179"><span class="linenos">179</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="extract_info_cli-180"><a href="#extract_info_cli-180"><span class="linenos">180</span></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Process some files.&quot;</span><span class="p">)</span>
-</span><span id="extract_info_cli-181"><a href="#extract_info_cli-181"><span class="linenos">181</span></a>
-</span><span id="extract_info_cli-182"><a href="#extract_info_cli-182"><span class="linenos">182</span></a>    <span class="c1"># Add the arguments</span>
-</span><span id="extract_info_cli-183"><a href="#extract_info_cli-183"><span class="linenos">183</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the input file.&quot;</span><span class="p">)</span>
-</span><span id="extract_info_cli-184"><a href="#extract_info_cli-184"><span class="linenos">184</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the output file.&quot;</span><span class="p">)</span>
-</span><span id="extract_info_cli-185"><a href="#extract_info_cli-185"><span class="linenos">185</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The encoding to use.&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info_cli-168"><a href="#extract_info_cli-168"><span class="linenos">168</span></a><span class="k">def</span> <span class="nf">extract_info_cli</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">):</span>
+</span><span id="extract_info_cli-169"><a href="#extract_info_cli-169"><span class="linenos">169</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="extract_info_cli-170"><a href="#extract_info_cli-170"><span class="linenos">170</span></a><span class="sd">    Initialize the command line interface for the data extractor.</span>
+</span><span id="extract_info_cli-171"><a href="#extract_info_cli-171"><span class="linenos">171</span></a>
+</span><span id="extract_info_cli-172"><a href="#extract_info_cli-172"><span class="linenos">172</span></a><span class="sd">    Parameters</span>
+</span><span id="extract_info_cli-173"><a href="#extract_info_cli-173"><span class="linenos">173</span></a><span class="sd">    ----------</span>
+</span><span id="extract_info_cli-174"><a href="#extract_info_cli-174"><span class="linenos">174</span></a><span class="sd">    data : Data</span>
+</span><span id="extract_info_cli-175"><a href="#extract_info_cli-175"><span class="linenos">175</span></a><span class="sd">        The Data object to extract the data.</span>
+</span><span id="extract_info_cli-176"><a href="#extract_info_cli-176"><span class="linenos">176</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="extract_info_cli-177"><a href="#extract_info_cli-177"><span class="linenos">177</span></a>    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Process some files.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-178"><a href="#extract_info_cli-178"><span class="linenos">178</span></a>
+</span><span id="extract_info_cli-179"><a href="#extract_info_cli-179"><span class="linenos">179</span></a>    <span class="c1"># Add the arguments</span>
+</span><span id="extract_info_cli-180"><a href="#extract_info_cli-180"><span class="linenos">180</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;input_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the input file.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-181"><a href="#extract_info_cli-181"><span class="linenos">181</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The name of the output file.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-182"><a href="#extract_info_cli-182"><span class="linenos">182</span></a>    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The encoding to use.&quot;</span><span class="p">)</span>
+</span><span id="extract_info_cli-183"><a href="#extract_info_cli-183"><span class="linenos">183</span></a>
+</span><span id="extract_info_cli-184"><a href="#extract_info_cli-184"><span class="linenos">184</span></a>    <span class="c1"># Parse the arguments</span>
+</span><span id="extract_info_cli-185"><a href="#extract_info_cli-185"><span class="linenos">185</span></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 </span><span id="extract_info_cli-186"><a href="#extract_info_cli-186"><span class="linenos">186</span></a>
-</span><span id="extract_info_cli-187"><a href="#extract_info_cli-187"><span class="linenos">187</span></a>    <span class="c1"># Parse the arguments</span>
-</span><span id="extract_info_cli-188"><a href="#extract_info_cli-188"><span class="linenos">188</span></a>    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-</span><span id="extract_info_cli-189"><a href="#extract_info_cli-189"><span class="linenos">189</span></a>
-</span><span id="extract_info_cli-190"><a href="#extract_info_cli-190"><span class="linenos">190</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="extract_info_cli-187"><a href="#extract_info_cli-187"><span class="linenos">187</span></a>    <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_file</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Initialize the command line interface for the data extractor.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>data: Data
-    The Data object to extract the data.</p>
-
-<h2 id="returns">Returns:</h2>
-
-<p>None</p>
+<ul>
+<li><strong>data</strong> (Data):
+The Data object to extract the data.</li>
+</ul>
 </div>
 
 
@@ -724,29 +692,27 @@ execution time: $$
 
     </div>
     <a class="headerlink" href="#extract_info"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info-192"><a href="#extract_info-192"><span class="linenos">192</span></a><span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-</span><span id="extract_info-193"><a href="#extract_info-193"><span class="linenos">193</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="extract_info-194"><a href="#extract_info-194"><span class="linenos">194</span></a><span class="sd">    Extract the data from the file.</span>
-</span><span id="extract_info-195"><a href="#extract_info-195"><span class="linenos">195</span></a>
-</span><span id="extract_info-196"><a href="#extract_info-196"><span class="linenos">196</span></a><span class="sd">    Recommend to use the `extract_info_cli` function, becauseof the flexibility.</span>
-</span><span id="extract_info-197"><a href="#extract_info-197"><span class="linenos">197</span></a>
-</span><span id="extract_info-198"><a href="#extract_info-198"><span class="linenos">198</span></a><span class="sd">    Parameters:</span>
-</span><span id="extract_info-199"><a href="#extract_info-199"><span class="linenos">199</span></a><span class="sd">    ------------</span>
-</span><span id="extract_info-200"><a href="#extract_info-200"><span class="linenos">200</span></a><span class="sd">    data: Data</span>
-</span><span id="extract_info-201"><a href="#extract_info-201"><span class="linenos">201</span></a><span class="sd">        The Data object to extract the data.</span>
-</span><span id="extract_info-202"><a href="#extract_info-202"><span class="linenos">202</span></a>
-</span><span id="extract_info-203"><a href="#extract_info-203"><span class="linenos">203</span></a><span class="sd">    file_path: str</span>
-</span><span id="extract_info-204"><a href="#extract_info-204"><span class="linenos">204</span></a><span class="sd">        The path of the file.</span>
-</span><span id="extract_info-205"><a href="#extract_info-205"><span class="linenos">205</span></a>
-</span><span id="extract_info-206"><a href="#extract_info-206"><span class="linenos">206</span></a><span class="sd">    encoding: str</span>
-</span><span id="extract_info-207"><a href="#extract_info-207"><span class="linenos">207</span></a><span class="sd">        The encoding of the file. Default is &quot;utf-8&quot;.</span>
-</span><span id="extract_info-208"><a href="#extract_info-208"><span class="linenos">208</span></a>
-</span><span id="extract_info-209"><a href="#extract_info-209"><span class="linenos">209</span></a><span class="sd">    Returns:</span>
-</span><span id="extract_info-210"><a href="#extract_info-210"><span class="linenos">210</span></a><span class="sd">    ------------</span>
-</span><span id="extract_info-211"><a href="#extract_info-211"><span class="linenos">211</span></a><span class="sd">    pd.DataFrame</span>
-</span><span id="extract_info-212"><a href="#extract_info-212"><span class="linenos">212</span></a><span class="sd">        The data extracted from the file.</span>
-</span><span id="extract_info-213"><a href="#extract_info-213"><span class="linenos">213</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="extract_info-214"><a href="#extract_info-214"><span class="linenos">214</span></a>    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="extract_info-189"><a href="#extract_info-189"><span class="linenos">189</span></a><span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+</span><span id="extract_info-190"><a href="#extract_info-190"><span class="linenos">190</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="extract_info-191"><a href="#extract_info-191"><span class="linenos">191</span></a><span class="sd">    Extract the data from the file.</span>
+</span><span id="extract_info-192"><a href="#extract_info-192"><span class="linenos">192</span></a>
+</span><span id="extract_info-193"><a href="#extract_info-193"><span class="linenos">193</span></a><span class="sd">    Recommend to use the `extract_info_cli` function, becauseof the flexibility.</span>
+</span><span id="extract_info-194"><a href="#extract_info-194"><span class="linenos">194</span></a>
+</span><span id="extract_info-195"><a href="#extract_info-195"><span class="linenos">195</span></a><span class="sd">    Parameters</span>
+</span><span id="extract_info-196"><a href="#extract_info-196"><span class="linenos">196</span></a><span class="sd">    ----------</span>
+</span><span id="extract_info-197"><a href="#extract_info-197"><span class="linenos">197</span></a><span class="sd">    data : Data</span>
+</span><span id="extract_info-198"><a href="#extract_info-198"><span class="linenos">198</span></a><span class="sd">        The Data object to extract the data.</span>
+</span><span id="extract_info-199"><a href="#extract_info-199"><span class="linenos">199</span></a><span class="sd">    file_path : str</span>
+</span><span id="extract_info-200"><a href="#extract_info-200"><span class="linenos">200</span></a><span class="sd">        The path of the file.</span>
+</span><span id="extract_info-201"><a href="#extract_info-201"><span class="linenos">201</span></a><span class="sd">    encoding: str</span>
+</span><span id="extract_info-202"><a href="#extract_info-202"><span class="linenos">202</span></a><span class="sd">        The encoding of the file. Default is &quot;utf-8&quot;.</span>
+</span><span id="extract_info-203"><a href="#extract_info-203"><span class="linenos">203</span></a>
+</span><span id="extract_info-204"><a href="#extract_info-204"><span class="linenos">204</span></a><span class="sd">    Returns</span>
+</span><span id="extract_info-205"><a href="#extract_info-205"><span class="linenos">205</span></a><span class="sd">    -------</span>
+</span><span id="extract_info-206"><a href="#extract_info-206"><span class="linenos">206</span></a><span class="sd">    pd.DataFrame</span>
+</span><span id="extract_info-207"><a href="#extract_info-207"><span class="linenos">207</span></a><span class="sd">        The data extracted from the file.</span>
+</span><span id="extract_info-208"><a href="#extract_info-208"><span class="linenos">208</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="extract_info-209"><a href="#extract_info-209"><span class="linenos">209</span></a>    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -754,21 +720,22 @@ execution time: $$
 
 <p>Recommend to use the <code><a href="#extract_info_cli">extract_info_cli</a></code> function, becauseof the flexibility.</p>
 
-<h2 id="parameters">Parameters:</h2>
+<h6 id="parameters">Parameters</h6>
 
-<p>data: Data
-    The Data object to extract the data.</p>
+<ul>
+<li><strong>data</strong> (Data):
+The Data object to extract the data.</li>
+<li><strong>file_path</strong> (str):
+The path of the file.</li>
+<li><strong>encoding</strong> (str):
+The encoding of the file. Default is "utf-8".</li>
+</ul>
 
-<p>file_path: str
-    The path of the file.</p>
+<h6 id="returns">Returns</h6>
 
-<p>encoding: str
-    The encoding of the file. Default is "utf-8".</p>
-
-<h2 id="returns">Returns:</h2>
-
-<p>pd.DataFrame
-    The data extracted from the file.</p>
+<ul>
+<li><strong>pd.DataFrame</strong>: The data extracted from the file.</li>
+</ul>
 </div>
 
 
