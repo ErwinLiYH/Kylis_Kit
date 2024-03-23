@@ -7,13 +7,13 @@ def hex_to_rgb(value):
     """
     Convert a hex color string to an RGB tuple.
 
-    Parameters:
-    ------------
-    value: str
+    Parameters
+    ----------
+    value : str
         hex color string
 
-    Returns:
-    ------------
+    Returns
+    -------
     tuple
         RGB color tuple
     """
@@ -25,13 +25,13 @@ def rgb_to_hex(rgb):
     """
     Convert an RGB tuple to a hex color string.
 
-    Parameters:
-    ------------
-    rgb: tuple
+    Parameters
+    ----------
+    rgb : tuple
         RGB color tuple
 
-    Returns:
-    ------------
+    Returns
+    -------
     str
         hex color string
     """
@@ -47,13 +47,13 @@ def rgb2hsv(color):
     """
     Convert an RGB color to an HSV color.
 
-    Parameters:
-    ------------
-    color: tuple
+    Parameters
+    ----------
+    color : tuple
         RGB color tuple
 
-    Returns:
-    ------------
+    Returns
+    -------
     tuple
         HSV color tuple
     """
@@ -68,13 +68,13 @@ def hsv2rgb(color):
     """
     Convert an HSV color to an RGB color.
 
-    Parameters:
-    ------------
-    color: tuple
+    Parameters
+    ----------
+    color : tuple
         HSV color tuple
 
-    Returns:
-    ------------
+    Returns
+    -------
     tuple
         RGB color tuple
     """
@@ -89,25 +89,21 @@ def str2color(string, Azure_key, num=5, verbose=False, vi=True):
 
     This function uses the Bing Image Search API to search for images related to the input string, and then extracts the dominant color from the images to generate a color.
 
-    Parameters:
-    ------------
-    string: str
+    Parameters
+    ----------
+    string : str
         input string
-
-    Azure_key: str
+    Azure_key : str
         Microsoft Azure API key
-
-    num: int
+    num : int
         number of images to search
-
-    verbose: bool
+    verbose : bool
         print the dominant color of each image
 
-    Returns:
-    ------------
+    Returns
+    -------
     tuple
         RGB color tuple
-
     list
         list of RGB color tuples for each image
     """

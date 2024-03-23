@@ -26,13 +26,13 @@ def gen_key(pin):
     """
     Generate a key that used in encryption and decryption from a string pin.
 
-    Parameters:
-    ------------
-    pin: str
+    Parameters
+    ----------
+    pin : str
         A string pin to generate a key.
 
-    Returns:
-    ------------
+    Returns
+    -------
     bytes
         A key that can be used in encryption and decryption.
     """
@@ -47,19 +47,17 @@ def encrypt_string(string, key, encoding="utf-8"):
     """
     Encrypt a string with a key.
 
-    Parameters:
-    ------------
-    string: str
+    Parameters
+    ----------
+    string : str
         A string to be encrypted.
-
-    key: bytes
+    key : bytes
         A key that used to encrypt the string.
-
-    encoding: str
+    encoding : str
         The encoding of the string. Default is 'utf-8'.
 
-    Returns:
-    ------------
+    Returns
+    -------
     str
         The encrypted string.
     """
@@ -70,19 +68,17 @@ def decrypt_string(string, key, encoding="utf-8"):
     """
     Decrypt a string with a key.
 
-    Parameters:
-    ------------
+    Parameters
+    ----------
     string: str
         A string to be decrypted.
-
     key: bytes
         A key that used to decrypt the string.
-
     encoding: str
         The encoding of the string. Default is 'utf-8'.
 
-    Returns:
-    ------------
+    Returns
+    -------
     str
         The decrypted string.
     """

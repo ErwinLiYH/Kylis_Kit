@@ -18,22 +18,19 @@ def run_command_with_timeout(command: list, timeout=1, retry_times=3, **kwargs):
     """
     Run a command with timeout and retry times
 
-    Parameters:
-    --------------
-    command: list
+    Parameters
+    ----------
+    command : list
         The command to run
-
-    timeout: int
+    timeout : int
         The timeout for the command
-
-    retry_times: int
+    retry_times : int
         The retry times for the command
-
-    **kwargs: 
+    **kwargs
         Other parameters for subprocess.run
 
-    Returns:
-    --------------
+    Returns
+    -------
     subprocess.CompletedProcess or None
         The result of the command
     """
@@ -50,22 +47,19 @@ def run_shell_with_timeout(shell: str, timeout=1, retry_times=3, **kwargs):
     """
     Run a shell command with timeout and retry times
 
-    Parameters:
-    --------------
-    shell: str
+    Parameters
+    ----------
+    shell : str
         The shell command to run
-
-    timeout: int
+    timeout : int
         The timeout for the command
-
-    retry_times: int
+    retry_times : int
         The retry times for the command
-
-    **kwargs:
+    **kwargs
         Other parameters for subprocess.run
 
-    Returns:
-    --------------
+    Returns
+    -------
     subprocess.CompletedProcess or None
         The result of the command
     """

@@ -80,12 +80,11 @@ class Line:
         """
         Initialize the Line object.
 
-        Parameters:
-        ------------
-        pattern: str
+        Parameters
+        ----------
+        pattern : str
             The pattern of the line. The pattern should be like "number of threads: $$", where "$$" is the data place.
-
-        *labels: str
+        *labels : str
             The labels of the data, namely the column name of this data in table.
             For example, the pattern is "number of threads: $$", the label can be "number of threads".
             Can be multiple labels. Like "number of threads: $$, execution time: $$", the labels can be "number of threads" and "execution time".
@@ -125,12 +124,13 @@ class Section:
 
         A Section object can contain multiple Line objects.
 
-        Parameters:
-        ------------
-        *Lines: Line
+        Parameters
+        ----------
+        *Lines : Line
             The Line objects in this section.
         """
         self.lines = Lines
+        """@private"""
     
 class Data:
     def __init__(self, *Sections):
@@ -139,12 +139,13 @@ class Data:
 
         A Data object can contain multiple Section objects.
 
-        Parameters:
-        ------------
-        *Sections: Section
+        Parameters
+        ----------
+        *Sections : Section
             The Section objects in this data.
         """
         self.sections = Sections
+        """@private"""
     def generate(self, file_path, encoding="utf-8"):
         """@private"""
         with open(file_path, "r", encoding=encoding) as f:
@@ -167,14 +168,10 @@ def extract_info_cli(data: Data):
     """
     Initialize the command line interface for the data extractor.
 
-    Parameters:
-    ------------
-    data: Data
+    Parameters
+    ----------
+    data : Data
         The Data object to extract the data.
-
-    Returns:
-    ------------
-    None
     """
     parser = argparse.ArgumentParser(description="Process some files.")
 
@@ -194,19 +191,17 @@ def extract_info(data: Data, file_path: str, encoding="utf-8"):
 
     Recommend to use the `extract_info_cli` function, becauseof the flexibility.
 
-    Parameters:
-    ------------
-    data: Data
+    Parameters
+    ----------
+    data : Data
         The Data object to extract the data.
-
-    file_path: str
+    file_path : str
         The path of the file.
-
     encoding: str
         The encoding of the file. Default is "utf-8".
 
-    Returns:
-    ------------
+    Returns
+    -------
     pd.DataFrame
         The data extracted from the file.
     """

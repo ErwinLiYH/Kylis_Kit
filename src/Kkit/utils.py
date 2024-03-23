@@ -129,18 +129,17 @@ def retry(retry_times=3, raise_exception=False, record_retry=False):
     """
     Retry decorator: retry the function for retry_times times if exception occurs
 
-    Parameters:
-    --------------
-    retry_times: int
+    Parameters
+    ----------
+    retry_times : int
         the number of times to retry the function
-
-    raise_exception: bool | logging.Logger
+    raise_exception : bool or logging.Logger
         whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.
-
-    record_retry: bool | logging.Logger
+    record_retry : bool or logging.Logger
         whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.
 
-    Example:
+    Examples
+    --------
     ```python
     @retry(retry_times=3)
     def test():

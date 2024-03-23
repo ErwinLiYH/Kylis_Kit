@@ -42,13 +42,13 @@ def bmatrix2numpy(latex_str)->numpy.array:
     """
     Transfer a latex bmatrix to a numpy array
 
-    Parameters:
-    --------------
-    latex_str: str
+    Parameters
+    ----------
+    latex_str : str
         The latex string
 
-    Returns:
-    --------------
+    Returns
+    -------
     numpy.array
         The numpy array
     """
@@ -65,13 +65,13 @@ def numpy2bmatrix(array)->str:
     """
     Transfer a numpy array to a latex bmatrix
 
-    Parameters:
-    --------------
-    array: numpy.array
+    Parameters
+    ----------
+    array : numpy.array
         The numpy array
 
-    Returns:
-    --------------
+    Returns
+    -------
     str
         The latex string
     """
