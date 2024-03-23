@@ -125,7 +125,7 @@ def kstrip(string, key):
         s = s[0:-len(key)]
     return s
 
-def retry(retry_times=3, verbose=False, record=False):
+def retry(retry_times=3, raise_exception=False, record_retry=False):
     """
     Retry decorator: retry the function for retry_times times if exception occurs
 
@@ -134,11 +134,11 @@ def retry(retry_times=3, verbose=False, record=False):
     retry_times: int
         the number of times to retry the function
 
-    verbose: bool
-        whether to print the retry information
+    raise_exception: bool | logging.Logger
+        whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.
 
-    record: bool or Logger
-        whether to record the retry information, if True, raise the exception, if Logger, record the exception in log, if False, do nothing.
+    record_retry: bool | logging.Logger
+        whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.
 
     Example:
     ```python
@@ -154,12 +154,14 @@ def retry(retry_times=3, verbose=False, record=False):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
-                    if verbose:
+                    if isinstance(record_retry, Logger):
+                        record_retry.exception(f"function {func.__name__} failed, retrying {i+1}/{retry_times}")
+                    elif record_retry:
                         print(f"function {func.__name__} failed, retrying {i+1}/{retry_times}")
                     if i == retry_times-1:
-                        if isinstance(record, Logger):
-                            record.exception(f"function {func.__name__} failed after {retry_times} retries")
-                        elif record:
+                        if isinstance(raise_exception, Logger):
+                            raise_exception.exception(f"function {func.__name__} failed after {retry_times} retries")
+                        elif raise_exception:
                             raise e
         return wrapper
     return decorator
