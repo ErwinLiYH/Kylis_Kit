@@ -46,7 +46,7 @@ def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_be
             separator = separator_between_line
         else:
             separator = separator_in_line
-        print(f"{Alist[i]:{alignL}}", end=separator)
+        print(f"{Alist[i]:>{alignL}}", end=separator)
     if show_length:
         print("\nlength: %d"%length)
 
