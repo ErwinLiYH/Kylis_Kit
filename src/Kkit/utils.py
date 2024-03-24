@@ -3,20 +3,51 @@ import pickle
 import os
 from logging import Logger
 
-def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", verbose=True):
+def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", show_length=False, align=True):
+    """
+    Print a list in a pretty table format.
+    
+    You can specify the number of columns, the separator between elements in a line, the separator between lines, the prefix of the table, whether to show the length of the list, and whether to align the elements in the list. The str() of each element should be in one line for pretty.
+
+    Parameters
+    ----------
+    Alist : list
+        the list to be printed
+    num_of_columns : int or None, default None
+        the number of columns to be printed in one line. If None, the number of columns will be the length of the list
+    separator_in_line : str, default " , "
+        the separator between elements in a line
+    separator_between_line : str, default "\\n"
+        the separator between lines
+    prefix : str, default ""
+        the prefix of the table
+    show_length : bool, default False
+        whether to show the length of the list
+    align : bool, default True
+        whether to align the elements in the list
+    """
+    align_length = 0
+    if align:
+        for i in Alist:
+            if len(str(i))>align_length:
+                align_length = len(str(i))
+    length_perfix = len(prefix)+align_length
     length = len(Alist)
     if num_of_columns == None:
         num_of_columns = length
     print(prefix, end="")
     for i in range(length):
-        if i%num_of_columns != (num_of_columns-1):
-            if i == (length-1):
-                print(Alist[i], end = separator_between_line)
-            else:
-                print(Alist[i], end = separator_in_line)
+        line_index = i%num_of_columns
+        if i == 0 or line_index != 0:
+            alignL = align_length
         else:
-            print(Alist[i], end = separator_between_line)
-    if verbose:
+            alignL = length_perfix
+        if line_index == (num_of_columns-1) or i == (length-1):
+            separator = separator_between_line
+        else:
+            separator = separator_in_line
+        print(f"{Alist[i]:{alignL}}", end=separator)
+    if show_length:
         print("\nlength: %d"%length)
 
 def conclude_list(Alist):
