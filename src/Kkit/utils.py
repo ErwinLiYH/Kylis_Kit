@@ -25,6 +25,13 @@ def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_be
         whether to show the length of the list
     align : bool, default True
         whether to align the elements in the list
+
+    Examples
+    --------
+    >>> a = [1,12,123,1234,12345,"123456",1234567,12345678,"123456789"]
+    >>> print_list(a, num_of_columns=5, prefix="The example list is:")
+    The example list is:        1 ,        12 ,       123 ,      1234 ,     12345
+                           123456 ,   1234567 ,  12345678 , 123456789
     """
     align_length = 0
     if align:
