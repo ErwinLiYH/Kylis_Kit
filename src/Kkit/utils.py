@@ -80,6 +80,20 @@ def time_string():
     return time.strftime("%Y-%m-%d-%H%M%S", time.localtime())
 
 def load(path_name, encoding="b", lines=False, removeCL=True):
+    """
+    load the object from the file, binary or text.
+
+    Parameters
+    ----------
+    path_name : str
+        The path of the file
+    encoding : str, default "b"
+        The encoding of the file, "b" for binary, text encoding ("utf-8", "gbk", etc.) for text
+    lines : bool, default False
+        Whether to read the file as lines. If True, return a list of lines. If False, return the whole content.
+    removeCL : bool, default True
+        Whether to remove the line break character at the end of each line. Only valid when lines is True.
+    """
     if encoding=="b":
         with open(path_name, "rb") as f:
             return pickle.load(f)
@@ -94,6 +108,18 @@ def load(path_name, encoding="b", lines=False, removeCL=True):
             return content
     
 def store(path_name, Aobject=None, encoding="b"):
+    """
+    store the object to the file, binary or text.
+
+    Parameters
+    ----------
+    path_name : str
+        The path of the file
+    Aobject : Any, default None
+        The object to be stored, if None, do nothing. Should be serializable if encoding is "b".
+    encoding : str, default "b"
+        The encoding of the file, "b" for binary, text encoding ("utf-8", "gbk", etc.) for text
+    """
     if path_name==None:
         return
     path = os.path.dirname(path_name)
