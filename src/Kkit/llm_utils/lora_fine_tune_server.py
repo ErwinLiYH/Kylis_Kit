@@ -10,8 +10,6 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
-    Trainer,
     TrainerCallback
 )
 from datasets import load_dataset
