@@ -31,7 +31,8 @@ setuptools.setup(
         "scaling" : ["pandas"],
         "str2latex" : ["numpy"],
         "llm" : ["fastapi", "uvicorn", "python-multipart", "trl[all]", "flash-attn",
-                "transformers", "datasets", "peft", "torch", "torchvision", "torchaudio"]
+                "transformers", "datasets", "peft", "torch", "torchvision", "torchaudio"],
+        "doc" : ["pdoc"]
     },
     entry_points={
         'console_scripts': [

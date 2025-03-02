@@ -1,0 +1,1 @@
+pdoc -o ./docs src/Kkit
