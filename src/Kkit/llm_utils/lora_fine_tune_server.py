@@ -72,8 +72,8 @@ class TrainConfig(BaseModel):
     learning_rate: float = 3e-4
     max_length: Optional[int] = None
     model_save_path: Optional[str] = None
-    response_template: Optional[str] = "<|im_start|>assistant\n",   # Template for response generation
-    lora_target_modules: List[str] = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    response_template: Optional[str] = "<|im_start|>assistant\n"   # Template for response generation
+    lora_target_modules: List[str] = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
 
 # Core training function
 def train_model(config: TrainConfig, dataset_path: str, base_path: str):
@@ -117,7 +117,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
             lora_config = LoraConfig(
                 r=config.lora_rank,
                 lora_alpha=config.lora_alpha,
-                target_modules=["q_proj", "v_proj"],
+                target_modules=config.lora_target_modules,
                 lora_dropout=config.lora_dropout,
                 bias="none",
                 modules_to_save=config.lora_target_modules,
@@ -136,14 +136,17 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         # Example dataset format:
         # {"messages": [{"role": "user", "content": "What color is the sky?"},
         #       {"role": "assistant", "content": "It is blue."}]}
-        
+
         trainer_args = SFTConfig(
             output_dir=model_path,
+            per_device_train_batch_size=config.batch_size,
             max_seq_length=config.max_length if config.max_length else tokenizer.model_max_length,
-            save_strategy="epoch",
+            learning_rate=config.learning_rate,
+            num_train_epochs=config.epochs,
             logging_dir=os.path.join(base_path, "logs"),
             logging_steps=10,
-            per_gpu_train_batch_size=config.batch_size,
+            save_strategy="epoch",
+            fp16=True,
         )
 
         trainer = SFTTrainer(
@@ -154,6 +157,8 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
             args=trainer_args,
             formatting_func=formatting_prompts_func
         )
+
+        trainer.train()
 
         # Save tokenizer separately
         tokenizer.save_pretrained(model_path)
