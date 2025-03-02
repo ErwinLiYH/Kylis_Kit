@@ -8,10 +8,11 @@
 pip install git+https://github.com/erwinliyh/kylis_kit@main[llm]
 ```
 
-If encounter CUDA problem, run this:
+Install flash attantion (optional):
 
 ```bash
-conda install -c nvidia cuda-python
+conda install -c nvidia cuda-python # (optional)
+pip install flash_attn
 ```
 
 **Usage**

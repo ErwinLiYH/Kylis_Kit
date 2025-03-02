@@ -30,8 +30,8 @@ setuptools.setup(
         "mder" : ["requests", "tqdm"],
         "scaling" : ["pandas"],
         "str2latex" : ["numpy"],
-        "llm" : ["fastapi", "uvicorn", "python-multipart", "trl[all]", "flash-attn",
-                "transformers", "datasets", "peft", "torch", "torchvision", "torchaudio"],
+        "llm" : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn",
+                "transformers", "datasets", "peft", "python-multipart", "trl[all]"],
         "doc" : ["pdoc"]
     },
     entry_points={
