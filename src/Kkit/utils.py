@@ -2,6 +2,7 @@ import time
 import pickle
 import os
 from logging import Logger
+from functools import reduce
 
 def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", show_length=False, align=True):
     """
@@ -228,6 +229,15 @@ def retry(retry_times=3, raise_exception=False, record_retry=False):
                             raise e
         return wrapper
     return decorator
+
+def Pipeline(*funcs):
+    """
+    Combine multiple functions into a pipeline function.
+    Execute the functions in order from left to right.
+    """
+    def pipeline_two(f, g):
+        return lambda x: g(f(x))
+    return reduce(pipeline_two, funcs, lambda x: x)
 
 if __name__=="__main__":
     kstrip("asd-asd","asd")
