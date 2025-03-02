@@ -166,9 +166,6 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
 
     trainer.train()
 
-    # Save tokenizer separately
-    tokenizer.save_pretrained(model_path)
-
     # Final state update
     training_state.update_state(
         status="completed",
