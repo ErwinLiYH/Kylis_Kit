@@ -26,6 +26,14 @@
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
 
+            <h2>Contents</h2>
+            <ul>
+  <li><a href="#llm-utils">LLM utils</a>
+  <ul>
+    <li><a href="#lora-fine-tuning-server">LoRA fine tuning server</a></li>
+  </ul></li>
+</ul>
+
 
             <h2>Submodules</h2>
             <ul>
@@ -47,10 +55,42 @@
                     <h1 class="modulename">
 <a href="./../Kkit.html">Kkit</a><wbr>.llm_utils    </h1>
 
-                
-                
-                
-                
+                        <div class="docstring"><h1 id="llm-utils">LLM utils</h1>
+
+<h2 id="lora-fine-tuning-server">LoRA fine tuning server</h2>
+
+<p><strong>Install</strong></p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/erwinliyh/kylis_kit@main<span class="o">[</span>llm<span class="o">]</span>
+</code></pre>
+</div>
+
+<p>If encounter CUDA problem, run this:</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>cuda-python
+</code></pre>
+</div>
+
+<p><strong>Usage</strong></p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>kkit-lora-server<span class="w"> </span>-h
+</code></pre>
+</div>
+</div>
+
+                        <input id="mod-llm_utils-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+
+                        <label class="view-source-button" for="mod-llm_utils-view-source"><span>View Source</span></label>
+
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a><span class="sd">.. include:: ./README.md</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span></pre></div>
+
+
             </section>
     </main>
 <script>

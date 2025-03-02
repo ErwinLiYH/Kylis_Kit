@@ -17,6 +17,7 @@ Some personal tools for python programming.
     1. Nonedict: A dictionary that returns None when the key is not found.
     2. AbbrDict: A dictionary that can use key abbreviation to get value.
 - `utils`: Some useful functions.
+- `llm`: Some utilities for large language model, including fine-tuning server and some utilities.
 
 More information can be found at the help of each sub-module.
 
