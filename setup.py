@@ -30,5 +30,12 @@ setuptools.setup(
         "mder" : ["requests", "tqdm"],
         "scaling" : ["pandas"],
         "str2latex" : ["numpy"],
+        "llm" : ["fastapi", "uvicorn", "python-multipart", "trl[all]",
+                "transformers", "datasets", "peft", "torch", "torchvision", "torchaudio"]
+    },
+    entry_points={
+        'console_scripts': [
+            'kkit-lora-server=Kkit.llm_utils.lora_fine_tune_server:start_server'
+        ]
     }
 )
