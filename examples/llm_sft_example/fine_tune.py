@@ -19,8 +19,6 @@ data_save_path = os.path.join(BASE_PATH, "self_cognition_processed.jsonl")
 data.to_json(data_save_path, lines=True, force_ascii=False)
 
 train_config = TrainConfig()
-train_config.attn_implementation = 'flash_attention_2'
-train_config.tokenizer_padding_side = 'left'
 train_config.epochs = 10
 
 print('Data processed, start training...')

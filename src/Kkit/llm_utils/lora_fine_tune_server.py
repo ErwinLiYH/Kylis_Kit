@@ -70,8 +70,8 @@ class TrainConfig(BaseModel):
     response_template: Optional[str] = "<|im_start|>assistant\n"   # Template for response generation
     lora_target_modules: List[str]|str = "all-linear"
     lora_modules_to_save: List[str] = ["lm_head", "embed_token"]
-    tokenizer_padding_side: Optional[str] = None
-    attn_implementation: str = "eager"
+    tokenizer_padding_side: Optional[str] = "left"
+    attn_implementation: str = "flash_attention_2"
     model_load_torch_dtype: str = "auto"
     train_arg_bf16: bool = True
     train_arg_fp16: bool = False
