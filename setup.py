@@ -30,7 +30,7 @@ setuptools.setup(
         "mder" : ["requests", "tqdm"],
         "scaling" : ["pandas"],
         "str2latex" : ["numpy"],
-        "llm" : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn",
+        "llm" : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn", "wanb",
                 "transformers", "datasets", "peft", "python-multipart", "trl[all]"],
         "doc" : ["pdoc"]
     },

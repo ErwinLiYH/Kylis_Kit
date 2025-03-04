@@ -2,6 +2,7 @@ import os
 import argparse
 import threading
 import tempfile
+import wandb
 from typing import List
 from fastapi import FastAPI, HTTPException, UploadFile, File, status
 from pydantic import BaseModel
@@ -16,6 +17,8 @@ from datasets import load_dataset
 from peft import LoraConfig, get_peft_model, PeftModel
 from trl import SFTConfig, SFTTrainer, DataCollatorForCompletionOnlyLM
 
+
+wandb.login()
 
 # Global training state tracker
 class TrainingState:
@@ -55,6 +58,8 @@ class ProgressCallback(TrainerCallback):
             total_steps=state.max_steps
         )
 
+TRAIN_ROUND = 0
+
 # Training configuration model
 class TrainConfig(BaseModel):
     model_name: str = "Qwen/Qwen2.5-0.5B"
@@ -75,6 +80,7 @@ class TrainConfig(BaseModel):
     model_load_torch_dtype: str = "auto"
     train_arg_bf16: bool = True
     train_arg_fp16: bool = False
+    train_round: int = TRAIN_ROUND
 
 # Core training function
 def train_model(config: TrainConfig, dataset_path: str, base_path: str):
@@ -149,6 +155,8 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         learning_rate=config.learning_rate,
         num_train_epochs=config.epochs,
         logging_dir=os.path.join(base_path, "logs"),
+        report_to="wandb",
+        run_name=f"{config.model_name}-{config.train_round}",
         logging_steps=10,
         save_strategy="epoch",
         bf16=config.train_arg_bf16,
@@ -164,6 +172,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         formatting_func=formatting_prompts_func
     )
 
+    training_state.update_state(message="Training...")
     trainer.train()
 
     # Final state update
@@ -175,6 +184,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
 def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     try:
         train_model(config, dataset_path, base_path)
+        TRAIN_ROUND += 1
     except Exception as e:
         training_state.update_state(
             status="error",
