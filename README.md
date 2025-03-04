@@ -44,10 +44,9 @@ All modules that need extra requirements:
 
 1. `color` : ["haishoku", "colorsys", "numpy", "requests"]
 2. `encryption` : ["cryptography"]
-3. `mder` : ["requests", "tqdm"]
-4. `scaling` : ["pandas"]
-5. `str2latex` : ["numpy"]
-6. `llm` : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn", "wanb",
+3. `scaling` : ["pandas"]
+4. `str2latex` : ["numpy"]
+5. `llm` : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn", "wanb",
             "transformers", "datasets", "peft", "python-multipart", "trl[all]"]
 
 Other modules are pure python code with just build-in packages.

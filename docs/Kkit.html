@@ -65,6 +65,7 @@ Kkit    </h1>
 <h2 id="modules">Modules</h2>
 
 <ul>
+<li><code>llm_utils</code>: Provide a LLM fine-tuning API and some utilities (in server).</li>
 <li><code>mder</code>: Maltilthreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.</li>
 <li><code>scaling_code</code>: Extract information from recurring patterns in text files, allways used in scaling test.</li>
 <li><code>timeout</code>: Run a command with timeout and retry times.</li>
@@ -81,7 +82,6 @@ Kkit    </h1>
 <li>AbbrDict: A dictionary that can use key abbreviation to get value.</li>
 </ol></li>
 <li><code>utils</code>: Some useful functions.</li>
-<li><code>llm</code>: Some utilities for large language model, including fine-tuning server and some utilities.</li>
 </ul>
 
 <p>More information can be found at the help of each sub-module.</p>
@@ -112,9 +112,10 @@ Kkit    </h1>
 <ol>
 <li><code>color</code> : ["haishoku", "colorsys", "numpy", "requests"]</li>
 <li><code>encryption</code> : ["cryptography"]</li>
-<li><code>mder</code> : ["requests", "tqdm"]</li>
 <li><code>scaling</code> : ["pandas"]</li>
 <li><code>str2latex</code> : ["numpy"]</li>
+<li><code>llm</code> : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn", "wanb",
+"transformers", "datasets", "peft", "python-multipart", "trl[all]"]</li>
 </ol>
 
 <p>Other modules are pure python code with just build-in packages.</p>
@@ -131,19 +132,19 @@ Kkit    </h1>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">## Modules</span>
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">- `mder`: Maltilthreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">- `scaling_code`: Extract information from recurring patterns in text files, allways used in scaling test.</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">- `timeout`: Run a command with timeout and retry times.</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">- `color`:</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    1. Convert color between RGB , HSV and hex.</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    2. Convert string to color by extracting dominant color from images related to the string.</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">- `encryption`: Encrypt and decrypt files.</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">- `str2latex`: Convert string to latex format.</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">- `fundict`: </span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    1. Nonedict: A dictionary that returns None when the key is not found.</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    2. AbbrDict: A dictionary that can use key abbreviation to get value.</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">- `utils`: Some useful functions.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">- `llm`: Some utilities for large language model, including fine-tuning server and some utilities.</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">- `llm_utils`: Provide a LLM fine-tuning API and some utilities (in server).</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">- `mder`: Maltilthreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">- `scaling_code`: Extract information from recurring patterns in text files, allways used in scaling test.</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">- `timeout`: Run a command with timeout and retry times.</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">- `color`:</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="sd">    1. Convert color between RGB , HSV and hex.</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    2. Convert string to color by extracting dominant color from images related to the string.</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">- `encryption`: Encrypt and decrypt files.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">- `str2latex`: Convert string to latex format.</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">- `fundict`: </span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    1. Nonedict: A dictionary that returns None when the key is not found.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    2. AbbrDict: A dictionary that can use key abbreviation to get value.</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">- `utils`: Some useful functions.</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="sd">More information can be found at the help of each sub-module.</span>
 </span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
@@ -169,13 +170,14 @@ Kkit    </h1>
 </span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
 </span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">1. `color` : [&quot;haishoku&quot;, &quot;colorsys&quot;, &quot;numpy&quot;, &quot;requests&quot;]</span>
 </span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">2. `encryption` : [&quot;cryptography&quot;]</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">3. `mder` : [&quot;requests&quot;, &quot;tqdm&quot;]</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">4. `scaling` : [&quot;pandas&quot;]</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">5. `str2latex` : [&quot;numpy&quot;]</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">Other modules are pure python code with just build-in packages.</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">3. `scaling` : [&quot;pandas&quot;]</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">4. `str2latex` : [&quot;numpy&quot;]</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">5. `llm` : [&quot;fastapi&quot;, &quot;torch&quot;, &quot;torchvision&quot;, &quot;torchaudio&quot;, &quot;uvicorn&quot;, &quot;wanb&quot;,</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">            &quot;transformers&quot;, &quot;datasets&quot;, &quot;peft&quot;, &quot;python-multipart&quot;, &quot;trl[all]&quot;]</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">Other modules are pure python code with just build-in packages.</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </span></pre></div>
 
 

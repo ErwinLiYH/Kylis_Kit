@@ -5,6 +5,7 @@ Some personal tools for python programming.
 
 ## Modules
 
+- `llm_utils`: Provide a LLM fine-tuning API and some utilities (in server).
 - `mder`: Maltilthreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.
 - `scaling_code`: Extract information from recurring patterns in text files, allways used in scaling test.
 - `timeout`: Run a command with timeout and retry times.
@@ -17,7 +18,6 @@ Some personal tools for python programming.
     1. Nonedict: A dictionary that returns None when the key is not found.
     2. AbbrDict: A dictionary that can use key abbreviation to get value.
 - `utils`: Some useful functions.
-- `llm`: Some utilities for large language model, including fine-tuning server and some utilities.
 
 More information can be found at the help of each sub-module.
 
@@ -43,9 +43,10 @@ All modules that need extra requirements:
 
 1. `color` : ["haishoku", "colorsys", "numpy", "requests"]
 2. `encryption` : ["cryptography"]
-3. `mder` : ["requests", "tqdm"]
-4. `scaling` : ["pandas"]
-5. `str2latex` : ["numpy"]
+3. `scaling` : ["pandas"]
+4. `str2latex` : ["numpy"]
+5. `llm` : ["fastapi", "torch", "torchvision", "torchaudio", "uvicorn", "wanb",
+            "transformers", "datasets", "peft", "python-multipart", "trl[all]"]
 
 Other modules are pure python code with just build-in packages.
 """
