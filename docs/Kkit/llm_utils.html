@@ -31,6 +31,7 @@
   <li><a href="#llm-utils">LLM utils</a>
   <ul>
     <li><a href="#lora-fine-tuning-server">LoRA fine tuning server</a></li>
+    <li><a href="#dataset-format">Dataset Format</a></li>
   </ul></li>
 </ul>
 
@@ -59,24 +60,237 @@
 
 <h2 id="lora-fine-tuning-server">LoRA fine tuning server</h2>
 
-<p><strong>Install</strong></p>
+<p>This service provides an API endpoint for fine-tuning large language models using Low-Rank Adaptation (LoRA) technique. Built with FastAPI, it supports asynchronous training jobs with progress tracking and integrates with Weights &amp; Biases for experiment logging.</p>
+
+<h3 id="install">Install</h3>
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/erwinliyh/kylis_kit@main<span class="o">[</span>llm<span class="o">]</span>
 </code></pre>
 </div>
 
-<p>If encounter CUDA problem, run this:</p>
+<p>Install flash attantion (optional):</p>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>cuda-python
+<pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>nvidia<span class="w"> </span>cuda-python<span class="w"> </span><span class="c1"># (optional)</span>
+pip<span class="w"> </span>install<span class="w"> </span>flash_attn
 </code></pre>
 </div>
 
-<p><strong>Usage</strong></p>
+<h3 id="start-server">Start server</h3>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code>kkit-lora-server<span class="w"> </span>-h
+<pre><span></span><code>kkit-lora-server<span class="w"> </span>--base_path<span class="w"> </span>/path/to/models<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+</code></pre>
+</div>
+
+<p>Or call <code>train_model</code> in one line without server, see <a href="examples/llm_sft_example/fine_tune.py">example</a>.</p>
+
+<h3 id="api-endpoints">API Endpoints</h3>
+
+<ol>
+<li>Start Training (<code>POST /train</code>)</li>
+</ol>
+
+<p><strong>Request Format:</strong></p>
+
+<pre><code>{
+  "config": {
+    "model_name": "Qwen/Qwen2.5-0.5B",
+    "lora_path": null,
+    "lora_rank": 8,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "epochs": 3,
+    "batch_size": 4,
+    "learning_rate": 3e-4,
+    "max_length": null,
+    "model_save_path": "my_lora_model",
+    "response_template": "&lt;|im_start|&gt;assistant\n",
+    "lora_target_modules": "all-linear",
+    "lora_modules_to_save": ["lm_head", "embed_token"],
+    "tokenizer_padding_side": "left",
+    "attn_implementation": "flash_attention_2"
+  },
+  "file": "&lt;UPLOADED_JSON_FILE&gt;"
+}
+</code></pre>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li><code>config</code>: Training configuration object (see Configuration Options)</li>
+<li><code>file</code>: Training dataset in JSON format (see Dataset Format)</li>
+</ul>
+
+<p><strong>Responses:</strong></p>
+
+<ul>
+<li>202 Accepted: Training started successfully</li>
+<li>409 Conflict: Training already in progress</li>
+<li>500 Internal Server Error: File upload failed</li>
+</ul>
+
+<h3 id="2-get-training-status-get-status">2. Get Training Status (<code>GET /status</code>)</h3>
+
+<p><strong>Response Format:</strong></p>
+
+<pre><code>{
+  "status": "training",
+  "message": "Training...",
+  "current_step": 150,
+  "total_steps": 1000,
+  "current_epoch": 1,
+  "total_epochs": 3,
+  "model_path": "/path/to/models/my_lora_model" // Only in completed status
+}
+</code></pre>
+
+<p>Possible status values: <code>idle</code>, <code>training</code>, <code>completed</code>, <code>error</code></p>
+
+<h3 id="configuration-options">Configuration Options</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Parameter</th>
+  <th>Type</th>
+  <th>Default</th>
+  <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>model_name</td>
+  <td>str</td>
+  <td>"Qwen/Qwen2.5-0.5B"</td>
+  <td>Base model identifier</td>
+</tr>
+<tr>
+  <td>lora_path</td>
+  <td>str?</td>
+  <td>null</td>
+  <td>Path to existing LoRA checkpoint</td>
+</tr>
+<tr>
+  <td>lora_rank</td>
+  <td>int</td>
+  <td>8</td>
+  <td>LoRA rank dimension</td>
+</tr>
+<tr>
+  <td>lora_alpha</td>
+  <td>int</td>
+  <td>32</td>
+  <td>LoRA alpha scaling factor</td>
+</tr>
+<tr>
+  <td>lora_dropout</td>
+  <td>float</td>
+  <td>0.05</td>
+  <td>LoRA dropout rate</td>
+</tr>
+<tr>
+  <td>epochs</td>
+  <td>int</td>
+  <td>3</td>
+  <td>Number of training epochs</td>
+</tr>
+<tr>
+  <td>batch_size</td>
+  <td>int</td>
+  <td>4</td>
+  <td>Per-device batch size</td>
+</tr>
+<tr>
+  <td>learning_rate</td>
+  <td>float</td>
+  <td>3e-4</td>
+  <td>Training learning rate</td>
+</tr>
+<tr>
+  <td>max_length</td>
+  <td>int?</td>
+  <td>null</td>
+  <td>Maximum sequence length</td>
+</tr>
+<tr>
+  <td>model_save_path</td>
+  <td>str?</td>
+  <td>null</td>
+  <td>Custom model output path</td>
+</tr>
+<tr>
+  <td>response_template</td>
+  <td>str</td>
+  <td>"&lt;|im_start|&gt;assistant\n"</td>
+  <td>Response separator template</td>
+</tr>
+<tr>
+  <td>lora_target_modules</td>
+  <td>List/str</td>
+  <td>"all-linear"</td>
+  <td>Modules to apply LoRA to</td>
+</tr>
+<tr>
+  <td>lora_modules_to_save</td>
+  <td>List[str]</td>
+  <td>["lm_head", "embed_token"]</td>
+  <td>Modules to fully train</td>
+</tr>
+<tr>
+  <td>tokenizer_padding_side</td>
+  <td>str?</td>
+  <td>"left"</td>
+  <td>Tokenizer padding direction</td>
+</tr>
+<tr>
+  <td>attn_implementation</td>
+  <td>str</td>
+  <td>"flash_attention_2"</td>
+  <td>Attention implementation</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="dataset-format">Dataset Format</h2>
+
+<p>JSON format with chat-style conversations:</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;What color is the sky?&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;It&#39;s blue on Earth.&quot;</span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Requirements:</p>
+
+<p>Each entry must have alternating user/assistant messages</p>
+
+<p>File must be valid JSON lines with .jsonl extension</p>
+
+<p>Recommended size: 100-10,000 examples</p>
+
+<h3 id="example-usage-of-api">Example Usage of API</h3>
+
+<p><strong>Starting Training</strong></p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;http://localhost:8000/train&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: multipart/form-data&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;config={\&quot;epochs\&quot;: 3, \&quot;batch_size\&quot;: 4};type=application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@training_data.json;type=application/json&quot;</span>
+</code></pre>
+</div>
+
+<p><strong>Monitoring Progress</strong></p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>curl<span class="w"> </span>http://localhost:8000/status
 </code></pre>
 </div>
 </div>
