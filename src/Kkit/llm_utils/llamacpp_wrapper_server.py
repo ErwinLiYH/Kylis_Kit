@@ -7,6 +7,7 @@ from typing import Dict, Any
 import uvicorn
 from contextlib import asynccontextmanager
 import threading
+import argparse
 
 
 server_lock = threading.Lock()
@@ -165,10 +166,12 @@ def get_status():
     
     return status
 
-if __name__ == "__main__":
-    import argparse
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Server listening host")
     parser.add_argument("--port", type=int, default=8001, help="Server listening port")
     args = parser.parse_args()
     uvicorn.run(app, host="0.0.0.0", port=args.port)
+
+if __name__ == "__main__":
+    main()
