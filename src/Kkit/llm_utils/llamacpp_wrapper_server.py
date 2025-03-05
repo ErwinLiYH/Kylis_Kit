@@ -8,7 +8,10 @@ import uvicorn
 from contextlib import asynccontextmanager
 import threading
 import argparse
+from typing import List
 
+
+LLAMA_CPP_or_VLLM = "vllm"
 
 server_lock = threading.Lock()
 llama_server = None
@@ -16,7 +19,7 @@ llama_server = None
 class ServerConfig(BaseModel):
     model_name: str
     configs: Dict[str, Any]
-    server_path: str = "./llama-server"
+    server_path: List[str] = ["./llama-server"]
 
 class SwitchRequest(BaseModel):
     new_model_name: str
@@ -44,16 +47,26 @@ class LlamaServer:
                 args.extend([arg_name, str(value)])
         return args
 
-    def start(self):
+    def start(self, log_file: str = "llama_server.log"):
         if self.process and self.process.poll() is None:
             raise RuntimeError("Server is already running")
 
-        cmd = [self.server_path]
-        cmd.extend(["--model", self.model_name])
+        cmd = self.server_path
+        if LLAMA_CPP_or_VLLM == "llama_cpp":
+            cmd.extend(["--model", self.model_name])
+        elif LLAMA_CPP_or_VLLM == "vllm":
+            cmd.extend([self.model_name])
         cmd.extend(self._convert_configs_to_args())
+        print(cmd)
 
         try:
-            self.process = subprocess.Popen(cmd)
+            with open(log_file, "w") as log_f:
+                self.process = subprocess.Popen(
+                    cmd,
+                    stdout=log_f,
+                    stderr=log_f,
+                    text=True,
+                )
             time.sleep(1)
             if self.process.poll() is not None:
                 raise RuntimeError(f"Server failed to start. Exit code: {self.process.returncode}")
@@ -104,7 +117,7 @@ def start_server(config: ServerConfig):
                 configs=config.configs,
                 server_path=config.server_path
             )
-            llama_server.start()
+            llama_server.start(app.state.log_file)
             return {
                 "status": "success",
                 "message": f"Server started with model: {config.model_name}",
@@ -170,7 +183,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Server listening host")
     parser.add_argument("--port", type=int, default=8001, help="Server listening port")
+    parser.add_argument("--log_file", type=str, default="./server.log", help="Log file path")
     args = parser.parse_args()
+    app.state.log_file = args.log_file
     uvicorn.run(app, host="0.0.0.0", port=args.port)
 
 if __name__ == "__main__":
