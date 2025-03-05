@@ -1,6 +1,6 @@
 from datasets import load_dataset
 from Kkit.llm_utils.data_process import input_output_to_messages
-from Kkit.llm_utils.lora_fine_tune_server import train_model, TrainConfig, training_state
+from Kkit.llm_utils.fine_tune_utils import train_model, TrainConfig, training_state
 import os
 import torch
 
