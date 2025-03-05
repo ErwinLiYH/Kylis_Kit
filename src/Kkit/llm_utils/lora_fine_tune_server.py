@@ -82,6 +82,11 @@ class TrainConfig(BaseModel):
     train_arg_fp16: bool = False
     train_round: int = TRAIN_ROUND
 
+class MergeConfig(BaseModel):
+    model_name: str
+    lora_path: str
+    model_output: str
+
 # Core training function
 def train_model(config: TrainConfig, dataset_path: str, base_path: str):
     # try:
@@ -181,6 +186,16 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         model_path=model_path
     )
 
+def merge_model(model_name:str, lora_path:str, model_output:str):
+    base_model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map="auto",
+        torch_dtype="auto",
+    )
+    lora_model = PeftModel.from_pretrained(base_model, lora_path)
+    merged_model = lora_model.merge_and_unload()
+    merged_model.save_pretrained(model_output, safe_serialization=True)
+
 def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     try:
         train_model(config, dataset_path, base_path)
@@ -269,6 +284,34 @@ if __name__ == "__main__":
             response["error"] = state.get("message")
         
         return response
+    
+    @app.post("/merge", summary="合并LoRA适配器到基础模型")
+    def merge(config: MergeConfig):
+        """
+        同步合并接口，直接返回操作结果
+        """
+        try:
+            # 执行合并操作
+            merge_model(
+                model_name=config.model_name,
+                lora_path=config.lora_path,
+                model_output=config.model_output
+            )
+            
+            return {
+                "status": "success",
+                "message": "模型合并完成",
+                "output_path": config.model_output
+            }
+            
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail={
+                    "status": "error",
+                    "message": f"模型合并失败: {str(e)}"
+                }
+            )
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Server listening host")
