@@ -36,8 +36,8 @@ setuptools.setup(
     },
     entry_points={
         'console_scripts': [
-            'kkit-lora-server=Kkit.llm_utils.lora_fine_tune_server',
-            'kkit-llama-server=Kkit.llm_utils.llamacpp_wrapper_server',
+            'kkit-lora-server=Kkit.llm_utils.lora_fine_tune_server:main',
+            'kkit-llama-server=Kkit.llm_utils.llamacpp_wrapper_server:main',
         ]
     }
 )
