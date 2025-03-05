@@ -271,10 +271,9 @@ if __name__ == "__main__":
         return response
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8000, 
-                       help="Server listening port")
-    parser.add_argument("--base_path", required=True, type=str,
-                       help="Base directory for model outputs")
+    parser.add_argument("--host", type=str, default="0.0.0.0", help="Server listening host")
+    parser.add_argument("--port", type=int, default=8000, help="Server listening port")
+    parser.add_argument("--base_path", required=True, type=str, help="Base directory for model outputs")
     args = parser.parse_args()
 
     # Validate base path
@@ -287,4 +286,4 @@ if __name__ == "__main__":
 
     # Start server
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=args.port)
+    uvicorn.run(app, host=args.host, port=args.port)
