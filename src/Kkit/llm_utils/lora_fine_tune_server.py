@@ -9,7 +9,8 @@ from Kkit.llm_utils.fine_tune_utils import (
     TrainConfig,
     MergeConfig,
     training_state,
-    merge_model
+    merge_model,
+    TRAIN_ROUND
 )
 
 
@@ -19,6 +20,7 @@ app = FastAPI(title="LoRA Training Service")
 def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     try:
         train_model(config, dataset_path, base_path)
+        global TRAIN_ROUND
         TRAIN_ROUND += 1
     except Exception as e:
         training_state.update_state(
