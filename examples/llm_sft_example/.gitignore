@@ -1,3 +1,4 @@
 lora_finetuned/
 self_cognition_processed.jsonl
+self_cognition_processed_1.jsonl
 wandb/
