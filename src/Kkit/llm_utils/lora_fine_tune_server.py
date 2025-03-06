@@ -3,14 +3,14 @@ import argparse
 import threading
 import tempfile
 import wandb
-from fastapi import FastAPI, HTTPException, UploadFile, File, status
+import json
+from fastapi import FastAPI, HTTPException, UploadFile, File, status, Depends, Form
 from Kkit.llm_utils.fine_tune_utils import (
     train_model,
     TrainConfig,
     MergeConfig,
     training_state,
     merge_model,
-    TRAIN_ROUND
 )
 
 
@@ -20,8 +20,6 @@ app = FastAPI(title="LoRA Training Service")
 def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     try:
         train_model(config, dataset_path, base_path)
-        global TRAIN_ROUND
-        TRAIN_ROUND += 1
     except Exception as e:
         training_state.update_state(
             status="error",
@@ -35,6 +33,12 @@ def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
             except Exception as e:
                 print(f"Error cleaning up temp file: {str(e)}")
 
+def parse_config(config: str = Form(...)) -> TrainConfig:
+    try:
+        return TrainConfig(**json.loads(config))
+    except Exception as e:
+        raise HTTPException(422, detail=str(e))
+
 # API endpoints
 @app.post(
     "/train",
@@ -42,7 +46,7 @@ def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     summary="Start a new training job"
 )
 def start_training(
-    config: TrainConfig,
+    config: TrainConfig = Depends(parse_config),
     file: UploadFile = File(..., description="Training data (JSON format)")
 ):
     current_state = training_state.get_state()
@@ -70,6 +74,8 @@ def start_training(
         config=config.model_dump(),
         dataset_path=dataset_path,
     )
+
+    print(config)
 
     thread = threading.Thread(
         target=train_model_server,
@@ -103,11 +109,7 @@ def get_status():
 
 @app.post("/merge", summary="合并LoRA适配器到基础模型")
 def merge(config: MergeConfig):
-    """
-    同步合并接口，直接返回操作结果
-    """
     try:
-        # 执行合并操作
         merge_model(
             model_name=config.model_name,
             lora_path=config.lora_path,
@@ -116,7 +118,7 @@ def merge(config: MergeConfig):
         
         return {
             "status": "success",
-            "message": "模型合并完成",
+            "message": "merging finished",
             "output_path": config.model_output
         }
         
@@ -125,7 +127,7 @@ def merge(config: MergeConfig):
             status_code=500,
             detail={
                 "status": "error",
-                "message": f"模型合并失败: {str(e)}"
+                "message": f"merging failed: {str(e)}"
             }
         )
 
