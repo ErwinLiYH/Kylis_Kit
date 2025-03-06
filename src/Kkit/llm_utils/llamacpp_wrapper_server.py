@@ -43,6 +43,8 @@ class LlamaServer:
             if isinstance(value, bool):
                 if value:
                     args.append(arg_name)
+            elif value == '':
+                args.extend([arg_name])
             else:
                 args.extend([arg_name, str(value)])
         return args

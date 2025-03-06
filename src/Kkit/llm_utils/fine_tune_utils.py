@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Dict, Optional
 import torch
-from typing import List
+from typing import List, Union
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -67,8 +67,8 @@ class TrainConfig(BaseModel):
     max_length: Optional[int] = None
     model_save_path: Optional[str] = None
     response_template: Optional[str] = "<|im_start|>assistant\n"   # Template for response generation
-    lora_target_modules: List[str]|str = "all-linear"
-    lora_modules_to_save: List[str] = ["lm_head", "embed_token"]
+    lora_target_modules: Union[List[str], str] = "all-linear"
+    lora_modules_to_save: Optional[List[str]] = None #["lm_head", "embed_token"]
     tokenizer_padding_side: Optional[str] = "left"
     attn_implementation: str = "flash_attention_2"
     model_load_torch_dtype: str = "auto"
