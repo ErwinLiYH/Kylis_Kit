@@ -9,6 +9,9 @@ from contextlib import asynccontextmanager
 import threading
 import argparse
 from typing import List
+from fastapi.logger import logger
+from logging import StreamHandler, Formatter
+import logging
 
 
 server_lock = threading.Lock()
@@ -95,9 +98,9 @@ class LlamaServer:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Starting server...")
+    logger.info(f"Run in {app.state.llama_cpp_or_vllm} mode...")
     yield
-    print("Stopping server...")
+    logger.info("Stopping server...")
     global llama_server
     if llama_server and llama_server.is_running():
         llama_server.stop()
@@ -189,6 +192,11 @@ def main():
     args.llama_cpp_or_vllm in ["vllm", "llama_cpp"]
     app.state.log_file = args.log_file
     app.state.llama_cpp_or_vllm = args.llama_cpp_or_vllm
+    handler = StreamHandler()
+    formater = Formatter("%(levelname)s:     %(message)s")
+    handler.setFormatter(formater)
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
     uvicorn.run(app, host="0.0.0.0", port=args.port)
 
 if __name__ == "__main__":
