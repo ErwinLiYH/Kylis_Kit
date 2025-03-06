@@ -11,8 +11,6 @@ import argparse
 from typing import List
 
 
-LLAMA_CPP_or_VLLM = "vllm"
-
 server_lock = threading.Lock()
 llama_server = None
 
@@ -54,9 +52,9 @@ class LlamaServer:
             raise RuntimeError("Server is already running")
 
         cmd = self.server_path
-        if LLAMA_CPP_or_VLLM == "llama_cpp":
+        if app.state.llama_cpp_or_vllm == "llama_cpp":
             cmd.extend(["--model", self.model_name])
-        elif LLAMA_CPP_or_VLLM == "vllm":
+        elif app.state.llama_cpp_or_vllm == "vllm":
             cmd.extend([self.model_name])
         cmd.extend(self._convert_configs_to_args())
         print(cmd)
@@ -186,8 +184,11 @@ def main():
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Server listening host")
     parser.add_argument("--port", type=int, default=8001, help="Server listening port")
     parser.add_argument("--log_file", type=str, default="./server.log", help="Log file path")
+    parser.add_argument("--llama_cpp_or_vllm", "-lv", default="vllm", help="using `vllm` or `llama_cpp` as backend")
     args = parser.parse_args()
+    args.llama_cpp_or_vllm in ["vllm", "llama_cpp"]
     app.state.log_file = args.log_file
+    app.state.llama_cpp_or_vllm = args.llama_cpp_or_vllm
     uvicorn.run(app, host="0.0.0.0", port=args.port)
 
 if __name__ == "__main__":
