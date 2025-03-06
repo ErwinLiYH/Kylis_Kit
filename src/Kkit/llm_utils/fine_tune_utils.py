@@ -52,6 +52,14 @@ class ProgressCallback(TrainerCallback):
             total_steps=state.max_steps
         )
 
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if torch.cuda.is_available():
+            logs["gpu_alloc_mem"] = torch.cuda.memory_allocated() / 1024**2
+            logs["gpu_reserved_mem"] = torch.cuda.memory_reserved() / 1024**2
+        else:
+            logs["gpu_alloc_mem"] = 0
+            logs["gpu_reserved_mem"] = 0
+
 TRAIN_ROUND = 0
 
 # Training configuration model
@@ -180,12 +188,47 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         model_path=model_path
     )
 
-def merge_model(model_name:str, lora_path:str, model_output:str):
+def merge_model(
+    model_name: str,
+    lora_path: str,
+    model_output: str,
+    save_tokenizer: bool = True,
+    save_config: bool = True,
+    safe_serialization: bool = True,
+    max_shard_size: str = "4GB",
+    torch_dtype: str = "auto",
+    push_to_hub: bool = False,
+):
     base_model = AutoModelForCausalLM.from_pretrained(
         model_name,
         device_map="auto",
-        torch_dtype="auto",
+        torch_dtype=torch_dtype,
+        trust_remote_code=True
     )
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+
     lora_model = PeftModel.from_pretrained(base_model, lora_path)
+    
     merged_model = lora_model.merge_and_unload()
-    merged_model.save_pretrained(model_output, safe_serialization=True)
+
+    merged_model.save_pretrained(
+        model_output,
+        safe_serialization=safe_serialization,
+        max_shard_size=max_shard_size
+    )
+
+    if save_tokenizer:
+        tokenizer.save_pretrained(
+            model_output,
+            legacy_format=True,
+            safe_serialization=True
+        )
+
+    if save_config:
+        merged_model.config.save_pretrained(model_output)
+
+    if push_to_hub:
+        merged_model.push_to_hub(model_output)
+        tokenizer.push_to_hub(model_output)
+
+    return merged_model, tokenizer
