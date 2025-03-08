@@ -185,6 +185,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
     # Final state update
     training_state.update_state(
         status="completed",
+        message="training finished",
         model_path=model_path
     )
 
