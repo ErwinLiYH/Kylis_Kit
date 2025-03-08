@@ -4,6 +4,7 @@ import threading
 import tempfile
 import wandb
 import json
+import torch
 from fastapi import FastAPI, HTTPException, UploadFile, File, status, Depends, Form
 from Kkit.llm_utils.fine_tune_utils import (
     train_model,
@@ -23,7 +24,7 @@ def train_model_server(config: TrainConfig, dataset_path: str, base_path: str):
     except Exception as e:
         training_state.update_state(
             status="error",
-            message=str(e),
+            error=f"{type(e).__name__}: {str(e)}",
         )
     finally:
         # Cleanup temporary files
@@ -91,19 +92,27 @@ def get_status():
     if not state:
         return {"status": "idle"}
     
+    if torch.cuda.is_available():
+        allocated = torch.cuda.memory_allocated() / 1024**2
+        reserved = torch.cuda.memory_reserved() / 1024**2
+    else:
+        allocated = 0
+        reserved = 0
+
     response = {
         "status": state.get("status"),
         "message": state.get("message"),
         "current_step": state.get("current_step", 0),
         "total_steps": state.get("total_steps", 0),
         "current_epoch": state.get("current_epoch", 0),
-        "total_epochs": state.get("total_epochs", 0)
+        "total_epochs": state.get("total_epochs", 0),
+        "allocated_gpu_memory": allocated,
+        "reserved_gpu_memory": reserved,
+        "error": state.get("error", "None"),
     }
     
     if state.get("status") == "completed":
         response["model_path"] = state.get("model_path")
-    elif state.get("status") == "error":
-        response["error"] = state.get("message")
     
     return response
 
