@@ -27,7 +27,7 @@ class SwitchRequest(BaseModel):
     new_configs: Dict[str, Any]
 
 class LlamaServer:
-    def __init__(self, model_name: str, configs: Dict[str, Any], server_path: str):
+    def __init__(self, model_name: str, configs: Dict[str, Any], server_path: List[str]):
         self.server_path = server_path
         self.model_name = model_name
         self.configs = configs.copy()
@@ -53,8 +53,7 @@ class LlamaServer:
     def start(self, log_file: str = "llama_server.log"):
         if self.process and self.process.poll() is None:
             raise RuntimeError("Server is already running")
-
-        cmd = self.server_path
+        cmd = (self.server_path).copy()
         if app.state.llama_cpp_or_vllm == "llama_cpp":
             cmd.extend(["--model", self.model_name])
         elif app.state.llama_cpp_or_vllm == "vllm":
@@ -91,7 +90,7 @@ class LlamaServer:
         self.stop()
         self.model_name = new_model_name
         self.configs = new_configs.copy()
-        self.start()
+        self.start(app.state.log_file)
 
     def is_running(self) -> bool:
         return self.process is not None and self.process.poll() is None
