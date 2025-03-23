@@ -130,10 +130,13 @@ class RemoteObjectProxy:
         ----------
         remote_obj_creator : function
             A function to create the remote object, this function should return the object to be controlled in child process.
+
         paralle_execution : bool, optional
             Whether to run the function in parallel. Default is True.
+
         *args
             The arguments for `remote_obj_creator`.
+            
         **kwargs
             The keyword arguments for `remote_obj_creator
         """
