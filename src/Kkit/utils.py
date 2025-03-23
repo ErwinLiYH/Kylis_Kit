@@ -14,16 +14,22 @@ def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_be
     ----------
     Alist : list
         the list to be printed
+
     num_of_columns : int or None, default None
         the number of columns to be printed in one line. If None, the number of columns will be the length of the list
+
     separator_in_line : str, default " , "
         the separator between elements in a line
+
     separator_between_line : str, default "\\n"
         the separator between lines
+
     prefix : str, default ""
         the prefix of the table
+
     show_length : bool, default False
         whether to show the length of the list
+
     align : bool, default True
         whether to align the elements in the list
 
@@ -88,10 +94,13 @@ def load(path_name, encoding="b", lines=False, removeCL=True):
     ----------
     path_name : str
         The path of the file
+
     encoding : str, default "b"
         The encoding of the file, "b" for binary, text encoding ("utf-8", "gbk", etc.) for text
+
     lines : bool, default False
         Whether to read the file as lines. If True, return a list of lines. If False, return the whole content.
+
     removeCL : bool, default True
         Whether to remove the line break character at the end of each line. Only valid when lines is True.
     """
@@ -116,8 +125,10 @@ def store(path_name, Aobject=None, encoding="b"):
     ----------
     path_name : str
         The path of the file
+
     Aobject : Any, default None
         The object to be stored, if None, do nothing. Should be serializable if encoding is "b".
+
     encoding : str, default "b"
         The encoding of the file, "b" for binary, text encoding ("utf-8", "gbk", etc.) for text
     """
@@ -198,8 +209,10 @@ def retry(retry_times=3, raise_exception=False, record_retry=False):
     ----------
     retry_times : int
         the number of times to retry the function
+
     raise_exception : bool or logging.Logger
         whether to raise the exception after retry_times retries, or the logger to record the exception. If False, the exception will not be raised, If True, the exception will be raised. If a logger is provided, the exception will be recorded in the logger.
+        
     record_retry : bool or logging.Logger
         whether to record the retry information, or the logger to record the retry information. If False, the retry information will not be recorded, If True, the retry information will be printed. If a logger is provided, the retry information will be recorded in the logger.
 
