@@ -86,7 +86,9 @@ class ParallelResultFetcher:
             number of processes to fetch result.
         """
         self.num_of_processes = num_of_processes
+        """@private"""
         self.results = [EmptyResult()] * num_of_processes
+        """@private"""
 
     def __setitem__(self, index, value):
         if 0 <= index < self.num_of_processes:
@@ -141,16 +143,21 @@ class RemoteObjectProxy:
             The keyword arguments for `remote_obj_creator
         """
         self.paralle_execution = paralle_execution
+        """@private"""
         self.parent_conn, child_conn = multiprocessing.Pipe()
+        """@private"""
 
         self.args = args
+        """@private"""
         self.kwargs = kwargs
+        """@private"""
 
         self.process = multiprocessing.Process(
             target=self._run_remote_object,
             args=(remote_obj_creator, child_conn),
             daemon=True
         )
+        """@private"""
         self.process.start()
         self.parent_conn.recv()  # wait for the remote object to be created
 
