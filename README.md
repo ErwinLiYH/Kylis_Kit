@@ -7,6 +7,7 @@ Some personal tools for python programming.
 ## Modules
 
 - `llm_utils`: Provide a LLM fine-tuning API and some utilities (in server).
+- `child processing`: Provide a simple and intuitive interface to control instance in child process.
 - `mder`: Maltilthreading m3u8 download module. Support download m3u8 file and convert it to mp4. Support resume download.
 - `scaling_code`: Extract information from recurring patterns in text files, allways used in scaling test.
 - `timeout`: Run a command with timeout and retry times.

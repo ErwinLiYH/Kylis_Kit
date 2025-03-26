@@ -22,10 +22,13 @@ def run_command_with_timeout(command: list, timeout=1, retry_times=3, **kwargs):
     ----------
     command : list
         The command to run
+
     timeout : int
         The timeout for the command
+
     retry_times : int
         The retry times for the command
+
     **kwargs
         Other parameters for subprocess.run
 
@@ -51,10 +54,13 @@ def run_shell_with_timeout(shell: str, timeout=1, retry_times=3, **kwargs):
     ----------
     shell : str
         The shell command to run
+
     timeout : int
         The timeout for the command
+
     retry_times : int
         The retry times for the command
+        
     **kwargs
         Other parameters for subprocess.run
 

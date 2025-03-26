@@ -84,6 +84,7 @@ class Line:
         ----------
         pattern : str
             The pattern of the line. The pattern should be like "number of threads: $$", where "$$" is the data place.
+
         *labels : str
             The labels of the data, namely the column name of this data in table.
             For example, the pattern is "number of threads: $$", the label can be "number of threads".
@@ -195,8 +196,10 @@ def extract_info(data: Data, file_path: str, encoding="utf-8"):
     ----------
     data : Data
         The Data object to extract the data.
+
     file_path : str
         The path of the file.
+        
     encoding: str
         The encoding of the file. Default is "utf-8".
 

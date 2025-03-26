@@ -147,14 +147,18 @@ class m3u8_downloader:
         ----------
         m3u8_file_path : str
             The path of the m3u8 file.
+
         url_prefix : str
             The prefix of the url. Default is None.
             Some m3u8 file has not the full url, so you can add the prefix to the url.
             For example, the url is '/video/1.ts', and the prefix is 'http://www.example.com'.
+
         temp_file_path : str
             The path of the temporary folder (store *.ts files). Default is '.'.
+
         mp4_path : str
             The path of the result mp4 file. Default is './test.mp4'.
+
         num_of_threads : int
             The number of threads. Default is 10.
 
@@ -195,6 +199,7 @@ please comfirm the temporary folder included the fragment video you need""")
             1: delete the m3u8 file.
             2: delete the temporary folder.
             3: do nothing.
+            
         time_out : int
             The time out of the download. Default is 60s.
         """

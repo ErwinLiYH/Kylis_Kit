@@ -93,10 +93,13 @@ def str2color(string, Azure_key, num=5, verbose=False, vi=True):
     ----------
     string : str
         input string
+
     Azure_key : str
         Microsoft Azure API key
+
     num : int
         number of images to search
+        
     verbose : bool
         print the dominant color of each image
 
