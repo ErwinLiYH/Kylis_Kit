@@ -3,6 +3,11 @@ import pickle
 import os
 from logging import Logger
 from functools import reduce
+import logging
+import sys
+from typing import Optional
+from logging.handlers import RotatingFileHandler
+
 
 def print_list(Alist, num_of_columns=None, separator_in_line=" , ", separator_between_line="\n", prefix="", show_length=False, align=True):
     """
@@ -238,6 +243,62 @@ def Pipeline(*funcs):
     def pipeline_two(f, g):
         return lambda x: g(f(x))
     return reduce(pipeline_two, funcs, lambda x: x)
+
+def init_logger(
+    logger_name: str,
+    log_file: Optional[str] = None,
+    max_mb: Optional[int] = None
+) -> logging.Logger:
+    """
+    Quickly initialize a logger with file or stdout output.
+    
+    Parameters
+    ----------
+
+        logger_name: Name of the logger
+
+        log_file: Path to log file. If None, outputs to stdout
+
+        max_mb: Maximum log file size in MB. None means no size limit.
+                Only applies when log_file is specified.
+    
+    Returns
+    -------
+        Configured logging.Logger instance
+    """
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.INFO)  # Default level: INFO
+
+    # Clear existing handlers to avoid duplicate logs
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+
+    # Configure formatter
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+    # Configure handler based on parameters
+    if log_file:
+        if max_mb is not None:
+            # Use rotating files with size limit
+            handler = RotatingFileHandler(
+                log_file,
+                maxBytes=max_mb * 1024 * 1024,
+                backupCount=3  # Keep 3 backup copies
+            )
+        else:
+            # Use regular file handler without size limit
+            handler = logging.FileHandler(log_file)
+    else:
+        # Output to stdout if no file specified
+        handler = logging.StreamHandler(sys.stdout)
+
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    return logger
 
 if __name__=="__main__":
     kstrip("asd-asd","asd")
