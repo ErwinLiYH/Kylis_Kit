@@ -191,7 +191,7 @@ def klistdir(path, with_prefix=True):
         return os.listdir(path)
     
 class PathJoin:
-    def __init___(self, base_path):
+    def __init__(self, base_path):
         self.base_path = base_path
     def __call__(self, path):
         return os.path.join(self.base_path ,path)
