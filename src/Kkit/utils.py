@@ -193,7 +193,7 @@ def klistdir(path, with_prefix=True):
 class PathJoin:
     def __init___(self, base_path):
         self.base_path = base_path
-    def path(self, path):
+    def __call__(self, path):
         return os.path.join(self.base_path ,path)
 
 def kstrip(string, key):
