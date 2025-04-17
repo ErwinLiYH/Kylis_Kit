@@ -94,7 +94,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
     # try:
     training_state.update_state(
         status="training",
-        message="Initializing model..."
+        message="Initializing base model..."
     )
 
     # Handle model save path
@@ -121,6 +121,8 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         torch_dtype=config.model_load_torch_dtype,
         attn_implementation=config.attn_implementation
     )
+
+    training_state.update_state(message="Initializing LoRA model...")
 
     if config.lora_path:
         # load LoRA model
@@ -161,6 +163,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
     # {"messages": [{"role": "user", "content": "What color is the sky?"},
     #       {"role": "assistant", "content": "It is blue."}]}
 
+    training_state.update_state(message="Building SFT config ...")
     trainer_args = SFTConfig(
         output_dir=model_path,
         per_device_train_batch_size=config.batch_size,
@@ -176,6 +179,7 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
         fp16=config.train_arg_fp16
     )
 
+    training_state.update_state(message="Building trainer ...")
     trainer = SFTTrainer(
         model=model,
         data_collator=DataCollatorForCompletionOnlyLM(config.response_template, tokenizer=tokenizer),
