@@ -148,7 +148,13 @@ def train_model(config: TrainConfig, dataset_path: str, base_path: str):
 
     def formatting_prompts_func(example):
         output_texts_ids = tokenizer.apply_chat_template(example["messages"])
+        if isinstance(output_texts_ids[0], list):
+            output_texts_ids = output_texts_ids[0]
         output_texts = tokenizer.decode(output_texts_ids)
+        if not isinstance(output_texts, list):
+            output_texts = [output_texts]
+        # because the error: ValueError: The `formatting_func` should return a list of processed strings since it can lead to silent bugs.
+        # trl version: 0.9.6
         return output_texts
     
     # Example dataset format:
