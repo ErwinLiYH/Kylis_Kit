@@ -87,7 +87,7 @@ def save_config(config: Dict, file_path: Path):
             if suffix in ['.yaml', '.yml']:
                 yaml.dump(config, f)
             elif suffix == '.json':
-                json.dump(config, f, indent=4, ensure_ascii=False)
+                json.dump(config, f, indent=2, ensure_ascii=False)
             else:
                 raise HTTPException(status_code=400, detail="Unsupported file type")
     except Exception as e:
