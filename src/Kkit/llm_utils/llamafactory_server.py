@@ -24,6 +24,7 @@ app.state.subprocess_registry = {}
 # Request models
 class CommandRequest(BaseModel):
     command: str
+    process_id: str
 
 class ConfigUpdateRequest(BaseModel):
     config: Dict[str, Any]
@@ -93,23 +94,16 @@ def secure_filename(filename: str) -> str:
     
     return cleaned
 
-async def cleanup_process_registry(interval_sec: int = 10):
-    while True:
-        await asyncio.sleep(interval_sec)
+async def cleanup_process_registry():
+    to_delete = []
 
-        to_delete = []
+    for pid, info in app.state.subprocess_registry.items():
+        if info["status"] == "exited":
+            to_delete.append(pid)
 
-        for pid, info in app.state.subprocess_registry.items():
-            if info["status"] == "exited":
-                to_delete.append(pid)
-
-        for pid in to_delete:
-            del app.state.subprocess_registry[pid]
-            print(f"[CLEANUP] Removed exited process: {pid}")
-
-@app.on_event("startup")
-async def start_cleanup_task():
-    app.state.cleanup_task = asyncio.create_task(cleanup_process_registry())
+    for pid in to_delete:
+        del app.state.subprocess_registry[pid]
+        print(f"[CLEANUP] Removed exited process: {pid}")
 
 @app.on_event("shutdown")
 async def stop_cleanup_task():
@@ -128,6 +122,16 @@ async def get_status():
         "status": "running",
         "llama_factory_path": str(app.state.llama_factory_path),
         "timestamp": datetime.now().isoformat()
+    }
+
+@app.post("/cleanup")
+async def manual_cleanup():
+    """手动清理接口"""
+    cleaned_pids = await cleanup_process_registry()
+    return {
+        "message": "Cleanup completed",
+        "cleaned_processes": cleaned_pids,
+        "count": len(cleaned_pids)
     }
 
 @app.get("/processes")
@@ -231,7 +235,9 @@ async def run_command(request: CommandRequest):
             cwd=app.state.llama_factory_path,
         )
 
-        process_id = str(uuid.uuid4())
+        process_id = request.process_id
+        if process_id in app.state.subprocess_registry:
+            process_id += str(uuid.uuid4())
         app.state.subprocess_registry[process_id] = {
             "pid": process.pid,
             "command": request.command,
@@ -302,7 +308,7 @@ async def run_command(request: CommandRequest):
                 app.state.subprocess_registry[process_id]["returncode"] = process.returncode
 
 
-        return StreamingResponse(stream_output(), media_type="text/plain")
+        return StreamingResponse(stream_output(), media_type="text/plain", headers={"X-Process-ID": process_id})
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
