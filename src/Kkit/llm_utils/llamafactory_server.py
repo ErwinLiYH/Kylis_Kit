@@ -92,15 +92,25 @@ def save_config(config: Dict, file_path: Path):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error saving config: {str(e)}")
 
-def secure_filename(filename: str) -> str:
-    """Process data file name"""
+def secure_filename(filename: str) -> Path:
+    """Clean file path and name from illegal characters while preserving folder structure"""
     filename = filename.strip().replace(' ', '_')
-    filename = Path(filename).name
+    path = Path(filename)
 
-    allowed_chars = set(".-_() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-    cleaned = ''.join(c for c in filename if c in allowed_chars)
-    
-    return cleaned
+    allowed_chars = set(".-_()abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+    if path.parts[0] == '/':
+        raise HTTPException(status_code=400, detail=f"Invalid filename {filename}, must be relative path")
+
+    def clean_component(s):
+        return ''.join(c for c in s if c in allowed_chars)
+
+    cleaned_parts = [clean_component(part) for part in path.parts]  # Clean each parent folder
+    for p in cleaned_parts:
+        if p == '':
+            raise HTTPException(status_code=400, detail=f"Invalid filename, {filename}")
+
+    return Path(*cleaned_parts)
 
 async def cleanup_process_registry():
     to_delete = []
@@ -205,8 +215,8 @@ async def upload_data(file: UploadFile = File(...)):
     if not safe_filename:
         raise HTTPException(400, detail="Invalid filename")
     
-    save_dir = app.state.llama_factory_path / "data"
-    save_path = save_dir / safe_filename
+    save_path = app.state.llama_factory_path / safe_filename
+    save_dir = save_path.parent
 
     if not save_dir.exists():
         try:
