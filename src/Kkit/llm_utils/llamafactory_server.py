@@ -14,8 +14,16 @@ import shutil
 from typing import Dict, Any
 from datetime import datetime
 from ruamel.yaml import YAML
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("App started!")
+    yield
+    print("App shutting down...")
+
+app = FastAPI(lifespan=lifespan)
 yaml = YAML(typ='rt')  # Round-trip YAML parser
 yaml.preserve_quotes = True
 
@@ -105,16 +113,6 @@ async def cleanup_process_registry():
         del app.state.subprocess_registry[pid]
         print(f"[CLEANUP] Removed exited process: {pid}")
 
-@app.on_event("shutdown")
-async def stop_cleanup_task():
-    task = getattr(app.state, "cleanup_task", None)
-    if task:
-        task.cancel()
-        try:
-            await task
-        except:
-            pass
-
 # API endpoints
 @app.get("/status")
 async def get_status():
@@ -126,7 +124,6 @@ async def get_status():
 
 @app.post("/cleanup")
 async def manual_cleanup():
-    """手动清理接口"""
     cleaned_pids = await cleanup_process_registry()
     return {
         "message": "Cleanup completed",
@@ -210,6 +207,12 @@ async def upload_data(file: UploadFile = File(...)):
     
     save_dir = app.state.llama_factory_path / "data"
     save_path = save_dir / safe_filename
+
+    if not save_dir.exists():
+        try:
+            save_dir.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            raise HTTPException(500, detail=f"Failed to create directory: {str(e)}")
     
     try:
         with save_path.open("wb") as buffer:
