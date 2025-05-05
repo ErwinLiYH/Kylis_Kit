@@ -15,6 +15,7 @@ from typing import Dict, Any
 from datetime import datetime
 from ruamel.yaml import YAML
 from contextlib import asynccontextmanager
+from fastapi import Request
 
 
 @asynccontextmanager
@@ -239,7 +240,7 @@ async def upload_data(file: UploadFile = File(...)):
         await file.close()
 
 @app.post("/run_command")
-async def run_command(request: CommandRequest):
+async def run_command(api_request: Request, request: CommandRequest):
     try:
         process = await asyncio.create_subprocess_shell(
             request.command,
@@ -265,7 +266,7 @@ async def run_command(request: CommandRequest):
                 stderr = process.stderr
 
                 while True:
-                    if await request.is_disconnected():
+                    if await api_request.is_disconnected():
                         print(f"Client disconnected. Terminating subprocess {process.pid}")
                         process.terminate()
                         break
