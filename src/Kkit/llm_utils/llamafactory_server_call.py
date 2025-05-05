@@ -107,6 +107,7 @@ class LLamaClient:
         self,
         command: str,
         output_file: Optional[str] = None,
+        print_output: bool = True,
         process_id: Optional[str] = None
     ) -> Dict:
         """
@@ -131,12 +132,13 @@ class LLamaClient:
             file_handle = open(output_file, 'a') if output_file else None
             
             try:
-                for chunk in resp.iter_content(chunk_size=1024):
+                for chunk in resp.iter_content(chunk_size=4):
                     if chunk:  # Filter keep-alive empty chunks
                         decoded = chunk.decode('utf-8', errors='replace')
                         
                         # Real-time output to console
-                        print(decoded, end='', flush=True)
+                        if print_output:
+                            print(decoded, end='', flush=True)
                         
                         # Write to file (if specified)
                         if file_handle:
