@@ -15,6 +15,10 @@ from datetime import datetime
 from ruamel.yaml import YAML
 from contextlib import asynccontextmanager
 from fastapi import Request
+from fastapi.logger import logger
+from logging import StreamHandler, Formatter
+import logging
+import psutil
 
 
 @asynccontextmanager
@@ -48,6 +52,48 @@ class FileUploadResponse(BaseModel):
     file_size: int
 
 # Utility functions
+
+def kill_proc_tree(pid: int, timeout: float = 3.0, *, include_parent: bool = True):
+    """
+    Recursively terminate the process specified by *pid* along with **all** its
+    descendant (child + grand‑child …) processes.
+
+    Parameters
+    ----------
+    pid : int
+        PID of the root process whose entire tree should be terminated.
+    timeout : float, default 3.0
+        Grace period (in seconds) to wait after sending `terminate()`;
+        any process still alive after this period will be force‑killed.
+    include_parent : bool, keyword‑only, default True
+        If True, also terminate the parent process itself; otherwise leave it alive.
+    """
+    try:
+        parent = psutil.Process(pid)
+    except psutil.NoSuchProcess:
+        return                                         # Process already gone
+
+    # Get the full list of descendant processes first
+    children = parent.children(recursive=True)
+
+    # Step 1 ── ask politely: send SIGTERM / terminate()
+    for p in children:
+        p.terminate()
+    if include_parent:
+        parent.terminate()
+
+    gone, alive = psutil.wait_procs(
+        children + ([parent] if include_parent else []),
+        timeout=timeout
+    )
+
+    # Step 2 ── whoever ignored us gets SIGKILL / kill()
+    for p in alive:
+        p.kill()
+
+    # Final wait to make sure everything really exited
+    psutil.wait_procs(alive, timeout=timeout)
+
 def validate_safe_path(base: Path, target: str) -> Path:
     """Prevent path traversal attacks"""
     resolved = (base / target).resolve()
@@ -267,14 +313,15 @@ async def run_command(api_request: Request, request: CommandRequest):
                 while True:
                     if await api_request.is_disconnected():
                         print(f"Client disconnected. Terminating subprocess {process.pid}")
-                        process.terminate()
+                        kill_proc_tree(process.pid)
                         break
                     stdout_task = asyncio.create_task(stdout.readline())
                     stderr_task = asyncio.create_task(stderr.readline())
 
                     done, pending = await asyncio.wait(
                         [stdout_task, stderr_task],
-                        return_when=asyncio.FIRST_COMPLETED
+                        return_when=asyncio.FIRST_COMPLETED,
+                        timeout=0.5
                     )
 
                     for task in done:
@@ -308,9 +355,9 @@ async def run_command(api_request: Request, request: CommandRequest):
                 await process.wait()
                 yield f"\n[Process exited with code: {process.returncode}]\n\n"
 
-            except Exception as e:
+            except BaseException as e:
                 try:
-                    process.terminate()
+                    kill_proc_tree(process.pid)
                     await process.wait()
                 except:
                     pass
@@ -339,6 +386,12 @@ def main():
     factory_path = Path(args.llama_factory_path).resolve()
     if not factory_path.exists():
         raise RuntimeError(f"LLaMA-Factory path does not exist: {factory_path}")
+    
+    handler = StreamHandler()
+    formater = Formatter("%(levelname)s:     %(message)s")
+    handler.setFormatter(formater)
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
     
     app.state.llama_factory_path = factory_path
     uvicorn.run(app, host="0.0.0.0", port=args.port)
