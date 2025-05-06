@@ -287,6 +287,7 @@ async def upload_data(file: UploadFile = File(...)):
 @app.post("/run_command")
 async def run_command(api_request: Request, request: CommandRequest):
     try:
+        logger.info(f"Running command: {request.command}")
         process = await asyncio.create_subprocess_shell(
             request.command,
             stdout=asyncio.subprocess.PIPE,
@@ -312,7 +313,7 @@ async def run_command(api_request: Request, request: CommandRequest):
 
                 while True:
                     if await api_request.is_disconnected():
-                        print(f"Client disconnected. Terminating subprocess {process.pid}")
+                        logger.info(f"Client disconnected. Terminating subprocess {process.pid}")
                         kill_proc_tree(process.pid)
                         break
                     stdout_task = asyncio.create_task(stdout.readline())
@@ -353,10 +354,13 @@ async def run_command(api_request: Request, request: CommandRequest):
                         break
 
                 await process.wait()
+                logger.info(f"Subprocess {process.pid} successfully exited with code {process.returncode}")
                 yield f"\n[Process exited with code: {process.returncode}]\n\n"
 
             except BaseException as e:
+                logger.error(f"Error in subprocess {process.pid}: {str(e)}")
                 try:
+                    logger.info(f"Terminating subprocess {process.pid}")
                     kill_proc_tree(process.pid)
                     await process.wait()
                 except:
