@@ -161,7 +161,7 @@ class LLamaFactoryClient:
 
 # Usage examples
 if __name__ == "__main__":
-    client = LLamaClient("http://localhost:9000")
+    client = LLamaFactoryClient("http://localhost:9000")
     
     # Example 1: Get server status
     print("Server Status:", client.get_server_status())
